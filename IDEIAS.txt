@@ -1,0 +1,55 @@
+SSUPORTE TÉCNICO DO DCET I
+
+cadastro{    
+    adm sistema -> cadastra areas qadm dea area
+    adm de area -> '' castras tecnico q problema
+    tecnico -> recebe chamado
+    usuário comum
+}
+abertura {
+    qualquer pessoa abre
+    qual area
+    campos obrigatórios
+    email com chamado
+}
+
+tecnicos{
+    visualizacao do chamado
+    listagem dos CHAMADOS
+    atendimentos dos chamados 
+    seleciona o chamado 
+    e inicia o atendimento
+    mudança do status
+    transferencia do chamado
+    conclusão do chamado
+}
+usuario{
+    listar chamado
+    abrir chamado
+    fechar chamados
+}
+
+statusdo chamado{
+    cancelado
+    aberto
+    PENDENTE
+    em atendiemnto
+    CONCLUIDO
+
+    
+}
+atendiemnto do chamado{
+    apenas pelo tecnico ou adminstrador
+    apenas logado
+}
+ # chamado - horário -problema - situacao - responsável
+#APÓS LOGIN TODOS OS CHAMADOS DEVERÃO SER MOSTRADOS
+#LISTA/TABELA DE CHAMADOS NAO CONCLUIDOS NA ORDEM CRONOLOGICA
+#FILA DE PRIORIDADE
+#PRIORIDADE DO PROBLEMA SERÁ DADA PELO TÉCNICO OU adm
+#RELATÓRIO FINALD OS CHAMADOS
+#FILTROS
+#CONTROLE DO CHAMADO 
+/* DIAGRAMA DE ESTADOS */
+? SE ESTIVER NO ESTADO PENDENTE, VAI PARA O ESTADO DE ATENDIMENTO OU PARA CONCLUIDO? ?
+
