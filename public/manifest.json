@@ -1,0 +1,8 @@
+{
+  "short_name": "HD7",
+  "name": "Help Desk UNEB",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
