@@ -1,4 +1,4 @@
-
+/* MENU */
 header#bar {
   width: 100%;
   height: 45px;
@@ -8,6 +8,25 @@ header#bar {
   padding-left: 10px;
 }
 
+div#area-tecnicos {
+  float: right;
+}
+.menu ul {
+  float: right;
+  list-style: none;
+
+}
+.menu ul li {
+  float:left;
+  margin: 10px;
+}
+.fa-info-circle {
+  margin-right: 10px;
+}
+.fa-user {
+  margin-right: 10px;
+}
+/* BOTÕES PRINCIPAIS*/
 div#container {
   margin:auto;
   text-align: center;
@@ -99,21 +118,25 @@ div.erro {
   transition: 0.5s;
 }
 
-div#area-tecnicos {
+/*RODAPÉ*/
+.rodape{
+  margin-top: 20%;
+  width: 100%;
+  padding: 20px 5px;
+  background-color: #3c3c3f;
+  color: white;
+  float: left;
+  
+}
+.rodape h3{
+  float: left;
+  margin: 70px;
+}
+ .rodape img{
   float: right;
-}
-.menu ul {
-  float: right;
-  list-style: none;
-
-}
-.menu ul li {
-  float:left;
-  margin: 10px;
-}
-.fa-info-circle {
-  margin-right: 10px;
-}
-.fa-user {
-  margin-right: 10px;
-}
+  width: 100px;
+  height: 150px;
+  /*margin-top: -10px;*/
+  margin-left: 100%;
+  margin-top: -170px;
+ }
