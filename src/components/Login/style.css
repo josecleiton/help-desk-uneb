@@ -1,0 +1,73 @@
+div#login {
+  width: 300px;
+  border: 1px solid #122b4b;
+  border-radius: 5px;
+  position: absolute;
+  margin-top: 20px;
+  right: 50px;
+  padding: 1em;
+  background: #2964ad;
+  display: none;
+  /* IMPLEMENTAR DISPLAY:
+      QUANDO O USUÁRIO CLICAR EM LOGIN
+  */
+}
+
+input[name*="login"] {
+  width: 100%;
+  height: 40px;
+  font-size: 90%;
+  padding-left: 0.5em;
+  margin-top: 10px;
+  border: 1px solid #122b4b;
+}
+
+input[name="login-pw"] {
+  margin-bottom: 20px;
+}
+
+.esqueceu {
+  font-size: 16px;
+  color: #fff;
+  position: relative;
+  top: 8px;
+}
+/*
+input[name="login-lg"] {
+  margin-top: 10px;
+}
+*/
+
+button.login-button {
+  width: 100px;
+  height: 40px;
+  float: left;
+  margin-right: 10px;
+  background: #f01b1b;
+  border: 1px solid #690d0d;
+  opacity: 0.92;
+  transition: 0.2s;
+}
+
+button.login-button:hover {
+  background: #f01b1b;
+  opacity: 1;
+}
+
+nav {
+  margin: auto;
+  justify-items: center;
+}
+
+.fa-user-tie {
+  float: right;
+  opacity: 0.8;
+  margin-right: 10px;
+  transition: 0.2s;
+  color: #fff;
+  cursor: initial;
+}
+
+.fa-user-tie:hover {
+  opacity: 1;
+}
