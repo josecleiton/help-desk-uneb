@@ -1,64 +1,62 @@
 import React, { Component } from "react";
 import Login from "../../components/Login";
-//import ReactDOM from "react-dom";
+import ReactDOM from "react-dom";
 import "./style.css";
 import logo from "../../logo.png";
+import { error } from "util";
 
 export default class Main extends Component {
+  constructor() {
+    super();
+    this.state = {
+      error: ""
+    };
+  }
   render() {
     return (
       <div id="main-page">
         <header id="bar">
           {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. */}
-          <div id="tecnicos">
-            <i class="fas fa-info-circle" />
-            {/*
-              DIV PARA MOSTRAR STATUS:
-                TECNICOS ONLINE OU HORARIO DE FUNCIONAMENTO
-            */}
-            Técnicos online: {}
-          </div>
-          <div id="area-tecnico">
-            <i class="fas fa-user" />
-            Área dos Técnicos
-            <Login />
-          </div>
+          <nav className="menu">
+            <ul>
+              <li><i class="fas fa-info-circle" />Status do Sistema: ON</li>
+
+              <li><i class="fas fa-user" />Login <Login></Login></li>
+            </ul>
+          </nav>
         </header>
         <div id="container">
-          <div id="logo">
-            <img src={logo} alt="" className="App-logo" />
+          <img src={logo} alt="" className="App-logo" />
+          <div className="button">
+            <button className="criar">Criar Chamado</button>
+            <button className="acompanhar">Acompanhar Chamado</button>
           </div>
-
-          <form className="checar-chamado">
+          {/*
+          <form className="checar-chamado" onSubmit={this.formChecker}>
             <input
               placeholder="Insira seu email ou o número do chamado..."
               name="input"
               id=""
+              required
             />
           </form>
-          <div className="error">
-            Digite um email valido ou um número de chamado!
-          </div>
+          <div className="erro">{this.state.error}</div>
+          */}
         </div>
       </div>
     );
   }
   formChecker = () => {
-    let inputVal = document
-      .querySelector("input[name=input]")
-      .value.toLowerCase();
-    let errorEl = document.getElementsByClassName("error")[0];
-    if (inputVal.indexOf("@") === -1) {
-      let numberRegex = /[0-9]/;
-      if (!numberRegex.test(inputVal) || inputVal.length > 6) {
-        errorEl.style.display = "flex";
-        errorEl.style.justifyContent = "center";
-        errorEl.style.justifyItems = "center";
-        errorEl.style.margin = "auto";
+    let inputEl = String(document.querySelector('input[name=input]').value);
+    if (inputEl.indexOf('@') === -1) {
+      let numberReg = /[0-9]/
+      if (inputEl.length > 7 || !numberReg.test(inputEl)) {
+        document.getElementsByClassName('erro')[0].style.display = 'block';
+        let erroMsg = "Digite um email ou um número de chamada válido!"
+        this.setState({ error: erroMsg })
+        return false;
       }
-    } else {
-      errorEl.style.display = "none";
     }
-    // TESTAR NO SERVER SE É UM EMAIL VALIDO
-  };
+    return true;
+  }
 }
