@@ -20,7 +20,6 @@ export default class Main extends Component {
           <nav className="menu">
             <ul>
               <li><i class="fas fa-info-circle" />Status do Sistema: ON</li>
-
               <li><i class="fas fa-user" />Login <Login></Login></li>
             </ul>
           </nav>
@@ -42,8 +41,17 @@ export default class Main extends Component {
           </form>
           <div className="erro">{this.state.error}</div>
           */}
+
         </div>
-      </div>
+        <footer className="rodape">
+          <h3>Diretrizes  de Uso</h3>
+          <h3>Quem somos</h3>
+          <h3>Sugestões</h3>
+          <h3></h3>
+          <img src={logo} alt="" />
+        </footer>
+      </div >
+
     );
   }
   formChecker = () => {
