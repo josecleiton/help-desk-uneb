@@ -8,7 +8,7 @@ export default class Login extends Component {
         <form action="">
           <strong>Área de Login</strong>
           <a href="#login" title="Área de acesso para técnicos.">
-            <i class="fas fa-user-tie" />
+            <i className="fas fa-user-tie" />
           </a>
           <br />
           <input

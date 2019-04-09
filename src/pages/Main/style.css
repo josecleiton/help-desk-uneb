@@ -1,34 +1,9 @@
-/* MENU */
-header#bar {
-  width: 100%;
-  height: 45px;
-  background: rgba(0, 0, 0, 0.8);
-  font-size: 18px;
-  color: #fff;
-  padding-left: 10px;
-}
-
 div#area-tecnicos {
   float: right;
 }
-.menu ul {
-  float: right;
-  list-style: none;
-
-}
-.menu ul li {
-  float:left;
-  margin: 10px;
-}
-.fa-info-circle {
-  margin-right: 10px;
-}
-.fa-user {
-  margin-right: 10px;
-}
 /* BOTÕES PRINCIPAIS*/
 div#container {
-  margin:auto;
+  margin: auto;
   text-align: center;
 }
 
@@ -67,11 +42,10 @@ form button {
   margin-bottom: 10px;
 }
 
-
 button {
-  width:30%;
-  height:20%;
-  font-size:30px;
+  width: 30%;
+  height: 20%;
+  font-size: 30px;
   transition: 0.2s;
   opacity: 0.8;
   cursor: pointer;
@@ -94,7 +68,7 @@ button.acompanhar {
   border-top-right-radius: 25px;
   color: #fff;
   border: 0;
-  background: #f01b1b
+  background: #f01b1b;
 }
 
 button.acompanhar:hover {
@@ -119,24 +93,29 @@ div.erro {
 }
 
 /*RODAPÉ*/
-.rodape{
+.rodape {
   margin-top: 20%;
   width: 100%;
   padding: 20px 5px;
   background-color: #3c3c3f;
   color: white;
   float: left;
-  
 }
-.rodape h3{
+.rodape h3 {
   float: left;
   margin: 70px;
 }
- .rodape img{
+.rodape img {
   float: right;
   width: 100px;
   height: 150px;
   /*margin-top: -10px;*/
   margin-left: 100%;
   margin-top: -170px;
- }
+}
+
+a {
+  font-size: 16px;
+  color: #fff;
+  text-decoration: none;
+}

@@ -7,7 +7,6 @@ div#login {
   right: 50px;
   padding: 1em;
   background: #2964ad;
-  display: none;
   /* IMPLEMENTAR DISPLAY:
       QUANDO O USUÁRIO CLICAR EM LOGIN
   */
@@ -27,8 +26,6 @@ input[name="login-pw"] {
 }
 
 .esqueceu {
-  font-size: 16px;
-  color: #fff;
   position: relative;
   top: 8px;
 }
