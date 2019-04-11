@@ -1,14 +1,25 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
+
 import Header from "../../components/Header";
+import BotoesMain from "../../components/BotoesMain";
+import BuscarChamado from "../../components/Buscar";
+
 import "./style.css";
 import logo from "../../logo.png";
 
 export default class Main extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      error: ""
+      error: "",
+      buscar: ""
     };
+  }
+  componentDidMount() {
+    this.botoesEl = document.getElementById("area-busca");
+    // console.log(this.botoesEl);
+    ReactDOM.render(<BotoesMain onKeyDown={this.listenEsc} />, this.botoesEl);
   }
   render() {
     return (
@@ -16,21 +27,7 @@ export default class Main extends Component {
         <Header />
         <div id="container">
           <img src={logo} alt="" className="App-logo" />
-          <div className="button">
-            <button className="criar">Criar Chamado</button>
-            <button className="acompanhar">Acompanhar Chamado</button>
-          </div>
-          {/*
-          <form className="checar-chamado" onSubmit={this.formChecker}>
-            <input
-              placeholder="Insira seu email ou o número do chamado..."
-              name="input"
-              id=""
-              required
-            />
-          </form>
-          <div className="erro">{this.state.error}</div>
-          */}
+          <div id="area-busca" />
         </div>
         <footer className="rodape">
           <h3>Diretrizes de Uso</h3>
@@ -41,17 +38,44 @@ export default class Main extends Component {
       </div>
     );
   }
-  formChecker = () => {
-    let inputEl = String(document.querySelector("input[name=input]").value);
-    if (inputEl.indexOf("@") === -1) {
-      let numberReg = /[0-9]/;
-      if (inputEl.length > 7 || !numberReg.test(inputEl)) {
-        document.getElementsByClassName("erro")[0].style.display = "block";
-        let erroMsg = "Digite um email ou um número de chamada válido!";
-        this.setState({ error: erroMsg });
-        return false;
-      }
+  componentDidUpdate(prevProps, prevStates) {
+    switch (this.state.buscar) {
+      case "Esc":
+        ReactDOM.unmountComponentAtNode(this.botoesEl);
+        ReactDOM.render(
+          <BotoesMain onKeyDown={this.listenEsc} />,
+          this.botoesEl
+        );
+        break;
+      case "Buscar":
+        ReactDOM.unmountComponentAtNode(this.botoesEl);
+        ReactDOM.render(
+          <BuscarChamado onKeyDown={this.listenEsc} />,
+          this.botoesEl
+        );
+
+        break;
+      default:
+        break;
     }
-    return true;
+    /*
+    if (this.state.esc) {
+      var botoesEl = document.getElementById("botoes");
+      ReactDOM.unmountComponentAtNode(botoesEl);
+      botoesEl.style.opacity = 0;
+      botoesEl.style.transition = "all 10s";
+      setTimeout(() => {
+        botoesEl.innerHTML = this.botoes;
+        console.log(this.botoes);
+      }, 100);
+      setTimeout(() => {
+        botoesEl.style.opacity = 1;
+        console.log(botoesEl.style);
+        this.setState({ esc: false });
+      }, 200);
+    }*/
+  }
+  listenEsc = esc => {
+    this.setState({ buscar: esc });
   };
 }

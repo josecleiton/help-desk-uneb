@@ -1,0 +1,35 @@
+#botoes {
+  transition: all 0.8s;
+}
+button {
+  width: 30%;
+  height: 20%;
+  font-size: 30px;
+  transition: 0.2s;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+button.criar {
+  border-bottom-left-radius: 25px;
+  border-top-left-radius: 25px;
+  background: #2964ad;
+  border: 0;
+  color: #fff;
+}
+
+button.criar:hover {
+  opacity: 1;
+}
+
+button.acompanhar {
+  border-bottom-right-radius: 25px;
+  border-top-right-radius: 25px;
+  color: #fff;
+  border: 0;
+  background: #f01b1b;
+}
+
+button.acompanhar:hover {
+  opacity: 1;
+}

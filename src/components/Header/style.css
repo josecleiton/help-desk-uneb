@@ -29,9 +29,9 @@ header#bar {
   justify-content: center;
   padding-left: 5px;
   padding-top: 1px;
+  border-radius: 5px;
 }
 
 .menu-login:hover {
   background: #ef191a;
-  border-radius: 5px;
 }

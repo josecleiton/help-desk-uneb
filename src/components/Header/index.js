@@ -18,7 +18,7 @@ export default class Header extends Component {
               Status do Sistema: ON
             </li>
             <li className="menu-login">
-              <a href="#n" onClick={this.loginRender}>
+              <a href="#bar" onClick={this.loginRender}>
                 <i className="fas fa-user" />
                 Login
               </a>
@@ -30,11 +30,19 @@ export default class Header extends Component {
     );
   }
   loginRender = () => {
+    let menuLoginLi = document.getElementsByClassName("menu-login")[0];
     let menuLoginDiv = document.getElementById("menu-login");
     if (this.loginClicks % 2 === 0) {
+      this.setState({ login: true });
       ReactDOM.render(<Login />, menuLoginDiv);
+      menuLoginLi.style.backgroundColor = "#ef191a";
     } else {
-      ReactDOM.unmountComponentAtNode(menuLoginDiv);
+      document.getElementById("login").style.height = 0;
+      document.getElementById("login-content").style.opacity = 0;
+      setTimeout(() => {
+        ReactDOM.unmountComponentAtNode(menuLoginDiv);
+        menuLoginLi.style.backgroundColor = "";
+      }, 300);
     }
     this.loginClicks++;
   };

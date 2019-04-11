@@ -7,9 +7,6 @@ div#login {
   right: 50px;
   padding: 1em;
   background: #2964ad;
-  /* IMPLEMENTAR DISPLAY:
-      QUANDO O USUÁRIO CLICAR EM LOGIN
-  */
 }
 
 input[name*="login"] {
@@ -42,6 +39,9 @@ button.login-button {
   margin-right: 10px;
   background: #f01b1b;
   border: 1px solid #690d0d;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 20px;
   opacity: 0.92;
   transition: 0.2s;
 }
