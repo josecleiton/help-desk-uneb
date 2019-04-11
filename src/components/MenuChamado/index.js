@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import "./style.css";
 
-export default class BotoesMain extends Component {
+export default class MenuChamado extends Component {
   constructor(props) {
     super(props);
     this.state = {

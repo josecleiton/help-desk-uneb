@@ -16,7 +16,7 @@ export default class BuscarChamado extends Component {
   }
   render() {
     return (
-      <div>
+      <div id="buscar-chamado">
         <form onKeyDown={this.listenEsc} onSubmit={this.formChecker}>
           <input
             placeholder="Insira seu email ou o número do chamado..."
@@ -32,14 +32,22 @@ export default class BuscarChamado extends Component {
     );
   }
   formChecker = formObject => {
-    formObject.preventDefault();
     let inputEl = String(document.querySelector("input[name=input]").value);
     if (inputEl.indexOf("@") === -1) {
       let numberReg = /[0-9]/;
       if (inputEl.length > 7 || !numberReg.test(inputEl)) {
+        formObject.preventDefault();
         let errorEl = document.getElementsByClassName("erro")[0];
-        errorEl.style.display = "block";
+        errorEl.style.opacity = 0.85;
         errorEl.innerHTML = "Digite um email ou um número de chamada válido!";
+        errorEl.addEventListener("mouseover", e => {
+          e.target.style.transition = "all 0.5s";
+          e.target.style.opacity = 1;
+        });
+        errorEl.addEventListener("mouseout", e => {
+          e.target.style.transition = "all 4s";
+          e.target.style.opacity = 0.85;
+        });
       }
     }
   };

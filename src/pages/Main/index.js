@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 
 import Header from "../../components/Header";
-import BotoesMain from "../../components/BotoesMain";
-import BuscarChamado from "../../components/Buscar";
+import MenuChamado from "../../components/MenuChamado";
+import BuscarChamado from "../../components/BuscarChamado";
 
 import "./style.css";
 import logo from "../../logo.png";
@@ -19,7 +19,7 @@ export default class Main extends Component {
   componentDidMount() {
     this.botoesEl = document.getElementById("area-busca");
     // console.log(this.botoesEl);
-    ReactDOM.render(<BotoesMain onKeyDown={this.listenEsc} />, this.botoesEl);
+    ReactDOM.render(<MenuChamado onKeyDown={this.listenEsc} />, this.botoesEl);
   }
   render() {
     return (
@@ -43,7 +43,7 @@ export default class Main extends Component {
       case "Esc":
         ReactDOM.unmountComponentAtNode(this.botoesEl);
         ReactDOM.render(
-          <BotoesMain onKeyDown={this.listenEsc} />,
+          <MenuChamado onKeyDown={this.listenEsc} />,
           this.botoesEl
         );
         break;
