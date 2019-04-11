@@ -39,7 +39,7 @@ export default class BuscarChamado extends Component {
         formObject.preventDefault();
         let errorEl = document.getElementsByClassName("erro")[0];
         errorEl.style.opacity = 0.85;
-        errorEl.innerHTML = "Digite um email ou um número de chamada válido!";
+        errorEl.innerHTML = "Digite um email ou um número de chamado válido!";
         errorEl.addEventListener("mouseover", e => {
           e.target.style.transition = "all 0.5s";
           e.target.style.opacity = 1;
