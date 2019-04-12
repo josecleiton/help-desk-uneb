@@ -67,7 +67,7 @@ export default class Main extends Component {
     return (
       <div id="main-page">
         <Header />
-        <div id="container">
+        <div className="wrapper">
           <img src={logo} alt="" className="App-logo" />
           <div id="area-busca" />
         </div>

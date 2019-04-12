@@ -27,18 +27,19 @@ export default class Login extends Component {
   }
 
   render() {
+    const { animate } = this.state;
     return (
       <div
         id="login"
         style={{
           transition: 'all 1s',
-          height: this.state.animate ? 225 : 0,
+          height: animate ? 225 : 0,
         }}
       >
         <div
           id="login-content"
           style={{
-            opacity: this.state.animate ? 1 : 0,
+            opacity: animate ? 1 : 0,
             transition: 'all 2s',
           }}
         >
@@ -48,8 +49,8 @@ export default class Login extends Component {
               <i className="fas fa-user-tie" />
             </a>
             <br />
-            <input type="text" name="login-lg" id="" placeholder="Usuário" required />
-            <input type="password" name="login-pw" id="" required />
+            <input type="text" name="login-lg" placeholder="Usuário" required />
+            <input type="password" name="login-pw" required />
             <nav>
               <button type="submit" className="login-button">
                 Entrar

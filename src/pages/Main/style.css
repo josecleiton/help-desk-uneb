@@ -2,17 +2,14 @@ div#area-tecnicos {
   float: right;
 }
 /* BOTÕES PRINCIPAIS*/
-div#container {
-  margin: auto;
-  text-align: center;
-}
-
 img.App-logo {
   width: 200px;
   height: 300px;
-  margin: 40px 30% 40px 33%;
-  transition: 0.2s;
 }
+
+/* div.logo {
+  margin: 40px auto;
+} */
 
 /*img.App-logo:hover {
   opacity: 0.8;
@@ -44,4 +41,8 @@ a {
   font-size: 16px;
   color: #fff;
   text-decoration: none;
+}
+
+div#area-busca {
+  margin: 40px 0;
 }
