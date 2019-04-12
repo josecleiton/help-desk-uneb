@@ -1,0 +1,47 @@
+table.admin {
+  margin: 30px auto;
+  /* border-collapse: collapse; */
+}
+
+table.admin caption {
+  font-size: 30px;
+  font-weight: normal;
+  margin: 10px 0;
+}
+
+table.admin td {
+  text-align: center;
+  padding: 10;
+}
+
+table.admin thead {
+  padding: 10;
+  background: #2964ad;
+  color: #fff;
+  text-align: center;
+  font-weight: 500;
+}
+
+table.admin thead td:first-child {
+  border-top-left-radius: 5px;
+}
+
+table.admin thead td:last-child {
+  border-top-right-radius: 5px;
+}
+
+table.admin tbody tr:nth-child(2n-1) {
+  background: rgb(230, 228, 228);
+}
+
+table.admin tbody tr:nth-child(2n) {
+  background: rgb(209, 208, 208);
+}
+
+table.admin tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 5px;
+}
+
+table.admin tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 5px;
+}

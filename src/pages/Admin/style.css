@@ -1,0 +1,24 @@
+#admin-right {
+  float: right;
+  margin: 10px auto;
+  width: 80%;
+  text-align: center;
+  transition: all 1s;
+}
+
+span.admin-page-title {
+  float: left;
+  margin-left: 30px;
+  font-weight: lighter;
+}
+
+span.admin-page-title h2 {
+  font-size: 30px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: lighter;
+}
+
+span.admin-page-title h3 {
+  color: rgba(0, 0, 0, 0.3);
+  font-weight: lighter;
+}

@@ -28,7 +28,7 @@ export default class Header extends Component {
 
   render() {
     return (
-      <header id="bar">
+      <header className="bar">
         <nav className="menu">
           <ul>
             <li>

@@ -30,8 +30,8 @@ export default class ConsultarChamado extends Component {
       <Fragment>
         <Header />
         <div id="consultar-chamado" style={{ opacity: animate ? 1 : 0 }}>
-          <h1>
-            <span>Chamado:</span>
+          <h1 className="consultar-chamado-title">
+            <span>Chamado</span>
             <span style={{ marginLeft: 10 }}>{`#${id}`}</span>
           </h1>
           <div className="wrapper" id="consultar-chamado-content">

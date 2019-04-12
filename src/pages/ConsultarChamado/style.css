@@ -1,16 +1,16 @@
 div#consultar-chamado {
   margin-right: auto;
   margin-left: auto;
-  transition: 2s;
+  transition: 1s;
   text-align: center;
 }
 
-div h1 {
-  margin-top: 10px;
+.consultar-chamado-title {
+  margin-top: 40px;
   font-size: 50px;
 }
 
-p {
+div.wrapper p {
   margin: 20px 20px 10px 10px;
   font-size: 20px;
 }

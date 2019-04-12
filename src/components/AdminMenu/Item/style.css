@@ -1,0 +1,66 @@
+.menu-item {
+  color: #fff;
+  padding: 10px;
+  list-style: none;
+  transition: 0.4s;
+}
+.menu-item:hover {
+  background: #2964ad;
+}
+
+.ear-right {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 10px 8px 0;
+  border-color: transparent #fafafa transparent transparent;
+  float: right;
+  position: relative;
+  top: 4px;
+  right: -10px;
+}
+
+.line {
+  margin: 5px 0;
+  height: 2px;
+  opacity: 0.4;
+  border: 0;
+  background: black;
+  background: -moz-linear-gradient(
+    left,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.98) 2%,
+    rgba(255, 255, 255, 0) 90%
+  );
+  background: -webkit-linear-gradient(
+    left,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.98) 2%,
+    rgba(255, 255, 255, 0) 90%
+  );
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.98) 2%,
+    rgba(255, 255, 255, 0) 90%
+  );
+}
+.admin-menu-icon {
+  margin-right: 10px;
+}
+
+.submenu {
+  transition: 0.4s;
+}
+
+.submenu li {
+  font-size: 12px;
+  margin: 5px 0;
+  transition: 0.2s;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.submenu li:hover {
+  background: rgba(0, 0, 0, 0.5);
+}

@@ -29,13 +29,13 @@ export default class Main extends Component {
         ReactDOM.unmountComponentAtNode(this.botoesEl);
         setTimeout(() => {
           ReactDOM.render(<MenuChamado onKeyDown={this.listenEsc} />, this.botoesEl);
-        }, 100);
+        }, 10);
         break;
       case 'Buscar':
         ReactDOM.unmountComponentAtNode(this.botoesEl);
         setTimeout(() => {
           ReactDOM.render(<BuscarChamado onKeyDown={this.listenEsc} />, this.botoesEl);
-        }, 100);
+        }, 10);
 
         break;
       default:

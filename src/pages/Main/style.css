@@ -18,9 +18,9 @@ img.App-logo {
 /*RODAPÉ*/
 .rodape {
   margin-top: 20%;
-  width: 100%;
+  transition: 0.2s;
   padding: 20px 5px;
-  background-color: #3c3c3f;
+  background-color: rgba(0, 0, 0, 0.8);
   color: white;
   float: left;
 }

@@ -1,0 +1,16 @@
+#admin-menu {
+  float: left;
+  margin: 0 auto;
+  width: 20%;
+  background: rgba(0, 0, 0, 0.7);
+  height: 100%;
+}
+
+div.admin-logo {
+  height: 10%;
+  text-align: center;
+  padding-top: 5%;
+  font-size: 30px;
+  color: #fff;
+  /* border-bottom: 1px solid #122b4b; */
+}
