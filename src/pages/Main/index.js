@@ -1,58 +1,41 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
-import Header from "../../components/Header";
-import MenuChamado from "../../components/MenuChamado";
-import BuscarChamado from "../../components/BuscarChamado";
+import Header from '../../components/Header';
+import MenuChamado from '../../components/MenuChamado';
+import BuscarChamado from '../../components/BuscarChamado';
 
-import "./style.css";
-import logo from "../../logo.png";
+import './style.css';
+import logo from '../../logo.png';
 
 export default class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: "",
-      buscar: ""
+      buscar: '',
     };
   }
+
   componentDidMount() {
-    this.botoesEl = document.getElementById("area-busca");
+    this.botoesEl = document.getElementById('area-busca');
     // console.log(this.botoesEl);
     ReactDOM.render(<MenuChamado onKeyDown={this.listenEsc} />, this.botoesEl);
   }
-  render() {
-    return (
-      <div id="main-page">
-        <Header />
-        <div id="container">
-          <img src={logo} alt="" className="App-logo" />
-          <div id="area-busca" />
-        </div>
-        <footer className="rodape">
-          <h3>Diretrizes de Uso</h3>
-          <h3>Quem somos</h3>
-          <h3>Sugestões</h3>
-          <img src={logo} alt="" />
-        </footer>
-      </div>
-    );
-  }
-  componentDidUpdate(prevProps, prevStates) {
-    switch (this.state.buscar) {
-      case "Esc":
+
+  componentDidUpdate() {
+    const { buscar } = this.state;
+    switch (buscar) {
+      case 'Esc':
         ReactDOM.unmountComponentAtNode(this.botoesEl);
-        ReactDOM.render(
-          <MenuChamado onKeyDown={this.listenEsc} />,
-          this.botoesEl
-        );
+        setTimeout(() => {
+          ReactDOM.render(<MenuChamado onKeyDown={this.listenEsc} />, this.botoesEl);
+        }, 100);
         break;
-      case "Buscar":
+      case 'Buscar':
         ReactDOM.unmountComponentAtNode(this.botoesEl);
-        ReactDOM.render(
-          <BuscarChamado onKeyDown={this.listenEsc} />,
-          this.botoesEl
-        );
+        setTimeout(() => {
+          ReactDOM.render(<BuscarChamado onKeyDown={this.listenEsc} />, this.botoesEl);
+        }, 100);
 
         break;
       default:
@@ -73,9 +56,28 @@ export default class Main extends Component {
         console.log(botoesEl.style);
         this.setState({ esc: false });
       }, 200);
-    }*/
+    } */
   }
-  listenEsc = esc => {
+
+  listenEsc = (esc) => {
     this.setState({ buscar: esc });
   };
+
+  render() {
+    return (
+      <div id="main-page">
+        <Header />
+        <div id="container">
+          <img src={logo} alt="" className="App-logo" />
+          <div id="area-busca" />
+        </div>
+        <footer className="rodape">
+          <h3>Diretrizes de Uso</h3>
+          <h3>Quem somos</h3>
+          <h3>Sugestões</h3>
+          <img src={logo} alt="" />
+        </footer>
+      </div>
+    );
+  }
 }
