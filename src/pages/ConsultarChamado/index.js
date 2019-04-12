@@ -34,7 +34,7 @@ export default class ConsultarChamado extends Component {
             <span>Chamado:</span>
             <span style={{ marginLeft: 10 }}>{`#${id}`}</span>
           </h1>
-          <div className="wrapper">
+          <div className="wrapper" id="consultar-chamado-content">
             <p>
               <strong>Solicitante:</strong>
               {' '}
