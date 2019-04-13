@@ -1,40 +1,51 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import "./style.css";
+import './style.css';
 
 export default class MenuChamado extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      esc: false,
-      animate: false
+      animate: false,
     };
-    this.botoes = ""; // OS BOTÕES ACOMPANHAR/CRIAR CHAMADO FICARÃO TEMPORARIAMENTE AQUI
+    this.botoes = ''; // OS BOTÕES ACOMPANHAR/CRIAR CHAMADO FICARÃO TEMPORARIAMENTE AQUI
   }
+
   componentDidMount() {
     setTimeout(() => {
       this.setState({ animate: true });
     }, 50);
   }
+
+  buscaChamado = () => {
+    const { escListener } = this.props;
+    escListener('Buscar');
+    // let botoesEl = document.getElementById("botoes");
+    // ReactDOM.unmountComponentAtNode(botoesEl);
+    // ReactDOM.render(<BuscarChamado onKeyDown={this.listenEsc} />, botoesEl);
+  };
+
   render() {
+    const { animate } = this.state;
     return (
       <div
         id="botoes"
         style={{
-          opacity: this.state.animate ? 1 : 0
+          opacity: animate ? 1 : 0,
         }}
       >
-        <button className="criar">Criar Chamado</button>
-        <button className="acompanhar" onClick={this.buscaChamado}>
+        <button type="button" className="criar">
+          Criar Chamado
+        </button>
+        <button type="button" className="acompanhar" onClick={this.buscaChamado}>
           Acompanhar Chamado
         </button>
       </div>
     );
   }
-  buscaChamado = () => {
-    this.props.onKeyDown("Buscar");
-    // let botoesEl = document.getElementById("botoes");
-    // ReactDOM.unmountComponentAtNode(botoesEl);
-    // ReactDOM.render(<BuscarChamado onKeyDown={this.listenEsc} />, botoesEl);
-  };
 }
+
+MenuChamado.propTypes = {
+  escListener: PropTypes.func.isRequired,
+};
