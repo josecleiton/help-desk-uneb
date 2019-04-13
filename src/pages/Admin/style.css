@@ -4,11 +4,12 @@
   width: 80%;
   text-align: center;
   transition: all 1s;
+  padding-left: 1em;
 }
 
 span.admin-page-title {
   float: left;
-  margin-left: 30px;
+  margin-left: 1em;
   font-weight: lighter;
 }
 

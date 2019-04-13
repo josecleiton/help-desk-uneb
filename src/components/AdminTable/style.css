@@ -1,25 +1,30 @@
+div.admin-table-wrap {
+  margin: 0 auto;
+  overflow-x: auto;
+}
+
 table.admin {
-  margin: 30px auto;
+  margin: 1% auto;
   /* border-collapse: collapse; */
 }
 
 table.admin caption {
   font-size: 30px;
   font-weight: normal;
-  margin: 10px 0;
+  margin: 0.5% 0;
 }
 
 table.admin td {
   text-align: center;
-  padding: 10;
+  padding: 10px;
 }
 
 table.admin thead {
-  padding: 10;
+  padding: 10px;
   background: #2964ad;
   color: #fff;
   text-align: center;
-  font-weight: 500;
+  font-weight: bold;
 }
 
 table.admin thead td:first-child {

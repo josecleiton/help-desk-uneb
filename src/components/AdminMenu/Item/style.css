@@ -1,7 +1,6 @@
 .menu-item {
   color: #fff;
   padding: 10px;
-  list-style: none;
   transition: 0.4s;
 }
 .menu-item:hover {
@@ -17,7 +16,7 @@
   float: right;
   position: relative;
   top: 4px;
-  right: -10px;
+  right: -11px;
 }
 
 .line {

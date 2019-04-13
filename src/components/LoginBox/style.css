@@ -14,17 +14,17 @@ input[name*="login"] {
   height: 40px;
   font-size: 90%;
   padding-left: 0.5em;
-  margin-top: 10px;
+  margin-top: 2%;
   border: 1px solid #122b4b;
 }
 
 input[name="login-pw"] {
-  margin-bottom: 20px;
+  margin-bottom: 7.5%;
 }
 
 .esqueceu {
   position: relative;
-  top: 8px;
+  top: 7.5px;
 }
 /*
 input[name="login-lg"] {

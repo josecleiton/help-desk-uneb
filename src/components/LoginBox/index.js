@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import './style.css';
 
-export default class Login extends Component {
+export default class LoginBox extends Component {
   constructor() {
     super();
     this.state = {
@@ -44,12 +44,15 @@ export default class Login extends Component {
           }}
         >
           <form action="">
-            <strong>Área de Login</strong>
-            <a href="#login" title="Área de acesso para técnicos.">
-              <i className="fas fa-user-tie" />
-            </a>
-            <br />
-            <input type="text" name="login-lg" placeholder="Usuário" required />
+            <p>
+              <strong>Área de Login</strong>
+              <a href="#login" title="Área de acesso para técnicos.">
+                <i className="fas fa-user-tie" />
+              </a>
+            </p>
+            <p>
+              <input type="text" name="login-lg" placeholder="Usuário" required />
+            </p>
             <input type="password" name="login-pw" required />
             <nav>
               <button type="submit" className="login-button">

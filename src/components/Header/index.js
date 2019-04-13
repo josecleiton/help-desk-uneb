@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Login from '../Login';
+import LoginBox from '../LoginBox';
 import './style.css';
 
 export default class Header extends Component {
@@ -13,7 +13,7 @@ export default class Header extends Component {
     const menuLoginLi = document.getElementsByClassName('menu-login')[0];
     const menuLoginDiv = document.getElementById('menu-login');
     if (this.loginClicks % 2 === 0) {
-      ReactDOM.render(<Login />, menuLoginDiv);
+      ReactDOM.render(<LoginBox />, menuLoginDiv);
       menuLoginLi.style.backgroundColor = '#ef191a';
     } else {
       document.getElementById('login').style.height = 0;
