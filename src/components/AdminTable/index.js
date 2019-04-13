@@ -1,12 +1,13 @@
+/* eslint-disable react/prefer-stateless-function */
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
 export default class AdminTable extends Component {
   render() {
-    const { title } = this.props;
+    const { title, top } = this.props;
     return (
-      <div className="admin-table-wrap">
+      <div style={{ marginTop: top }} className="admin-table-wrap">
         <table className="admin">
           <Fragment>{title ? <caption>Chamados em aberto</caption> : ''}</Fragment>
           <thead>
@@ -42,8 +43,10 @@ export default class AdminTable extends Component {
 
 AdminTable.defaultProps = {
   title: false,
+  top: '0',
 };
 
 AdminTable.propTypes = {
   title: PropTypes.bool,
+  top: PropTypes.string,
 };

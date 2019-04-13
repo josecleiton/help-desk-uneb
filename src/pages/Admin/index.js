@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import AdminMenu from '../../components/AdminMenu';
-import AdminTable from '../../components/AdminTable';
+import AdminHomePage from './Home';
 import './style.css';
 
 export default class Admin extends Component {
@@ -31,19 +31,13 @@ export default class Admin extends Component {
     return (
       <Fragment>
         <header className="bar">
-          <nav>Mudar isso aqui. Lorem ipsum dolor sit amet consectetur adipisicing elit.</nav>
+          <nav>Mudar isso aqui.</nav>
         </header>
         <div id="admin-left">
           <AdminMenu path={this.currentPath} />
         </div>
         <div id="admin-right" style={{ opacity: animate ? 1 : 0 }}>
-          <span className="admin-page-title">
-            <h2>Painel de Administração</h2>
-            <h3>comentário</h3>
-          </span>
-          <div style={{ marginTop: '10%' }}>
-            <AdminTable title />
-          </div>
+          <AdminHomePage />
         </div>
       </Fragment>
     );

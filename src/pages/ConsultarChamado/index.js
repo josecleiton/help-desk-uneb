@@ -8,7 +8,6 @@ export default class ConsultarChamado extends Component {
   constructor() {
     super();
     this.state = { id: '', animate: false };
-    console.log(this.state);
   }
 
   componentDidMount() {

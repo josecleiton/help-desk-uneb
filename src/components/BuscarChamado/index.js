@@ -18,10 +18,10 @@ export default class BuscarChamado extends Component {
 
   formChecker = (formObject) => {
     const inputEl = String(document.querySelector('input[name=input]').value);
+    formObject.preventDefault();
     if (inputEl.indexOf('@') === -1) {
       const numberReg = /[0-9]/;
       if (inputEl.length > 7 || !numberReg.test(inputEl)) {
-        formObject.preventDefault();
         const errorEl = document.getElementsByClassName('erro')[0];
         errorEl.style.opacity = 0.85;
         errorEl.innerHTML = 'Digite um email ou um número de chamado válido!';
@@ -33,8 +33,12 @@ export default class BuscarChamado extends Component {
           e.target.style.transition = 'all 4s';
           e.target.style.opacity = 0.85;
         });
+        return false;
       }
     }
+    const { redirect } = this.props;
+    redirect(`/consultar-chamado/${inputEl}`);
+    return true;
   };
 
   listenEsc = (e) => {
@@ -71,4 +75,5 @@ export default class BuscarChamado extends Component {
 
 BuscarChamado.propTypes = {
   escListener: PropTypes.func.isRequired,
+  redirect: PropTypes.func.isRequired,
 };

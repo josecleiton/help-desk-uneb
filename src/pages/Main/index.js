@@ -24,6 +24,10 @@ export default class Main extends Component {
 
   componentDidUpdate() {
     const { buscar } = this.state;
+    const {
+      // eslint-disable-next-line react/prop-types
+      history: { push },
+    } = this.props;
     switch (buscar) {
       case 'Esc':
         ReactDOM.unmountComponentAtNode(this.botoesEl);
@@ -34,7 +38,10 @@ export default class Main extends Component {
       case 'Buscar':
         ReactDOM.unmountComponentAtNode(this.botoesEl);
         setTimeout(() => {
-          ReactDOM.render(<BuscarChamado escListener={this.escListener} />, this.botoesEl);
+          ReactDOM.render(
+            <BuscarChamado escListener={this.escListener} redirect={push} />,
+            this.botoesEl,
+          );
         }, 10);
 
         break;

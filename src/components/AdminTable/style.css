@@ -1,11 +1,7 @@
 div.admin-table-wrap {
+  width: 100%;
   margin: 0 auto;
   overflow-x: auto;
-}
-
-table.admin {
-  margin: 1% auto;
-  /* border-collapse: collapse; */
 }
 
 table.admin caption {
