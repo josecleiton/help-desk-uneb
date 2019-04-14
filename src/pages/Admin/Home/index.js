@@ -17,12 +17,10 @@ export default class AdminHome extends Component {
     return (
       <Fragment>
         <AdminMenu path={this.currentPath} />
-        {/* <div id="admin-right" style={{ opacity: animate ? 1 : 0 }}> */}
         <AdminRightDiv>
-          <AdminPageTitle title="Painel Administrativo" comment="comentário" />
+          <AdminPageTitle comment="comentário">Painel Administrativo</AdminPageTitle>
           <AdminTable title margin="1.5% auto" />
         </AdminRightDiv>
-        {/* </div> */}
       </Fragment>
     );
   }

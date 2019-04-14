@@ -17,7 +17,7 @@ export default class AdminMeusChamados extends Component {
       <Fragment>
         <AdminMenu path={this.currentPath} />
         <AdminRightDiv>
-          <AdminTitle title="Meus Chamados" comment="comentário" />
+          <AdminTitle comment="comentário">Meus Chamados</AdminTitle>
         </AdminRightDiv>
       </Fragment>
     );

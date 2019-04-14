@@ -1,18 +1,20 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 
 import AdminRoutes from '../../routes/admin';
 
+import Header from '../../components/Header';
+import AdminHeader from '../../components/Admin/Header';
+
 // import AdminMenu from '../../components/Admin/Menu';
 
-export default class Admin extends Component {
-  render() {
-    return (
-      <Fragment>
-        <header className="bar">
-          <nav>Mudar isso aqui.</nav>
-        </header>
-        <AdminRoutes />
-      </Fragment>
-    );
-  }
-}
+const Admin = () => (
+  <Fragment>
+    <Header>
+      <AdminHeader />
+    </Header>
+
+    <AdminRoutes />
+  </Fragment>
+);
+
+export default Admin;

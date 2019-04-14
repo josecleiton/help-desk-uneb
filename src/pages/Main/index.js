@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import Header from '../../components/Header';
+import MainHeader from '../../components/Main/Header';
 import MenuChamado from '../../components/Main/MenuChamado';
 import BuscarChamado from '../../components/Main/BuscarChamado';
 
@@ -56,7 +57,9 @@ export default class Main extends Component {
   render() {
     return (
       <div id="main-page">
-        <Header />
+        <Header>
+          <MainHeader />
+        </Header>
         <div className="wrapper">
           <img src={logo} alt="" className="App-logo" />
           <div id="area-busca" />

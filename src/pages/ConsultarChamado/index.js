@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import Header from '../../components/Header';
+import MainHeader from '../../components/Main/Header';
 
 import './style.css';
 
@@ -27,7 +28,9 @@ export default class ConsultarChamado extends Component {
     const { id, animate } = this.state;
     return (
       <Fragment>
-        <Header />
+        <Header>
+          <MainHeader />
+        </Header>
         <div id="consultar-chamado" style={{ opacity: animate ? 1 : 0 }}>
           <h1 className="consultar-chamado-title">
             <span>Chamado</span>
