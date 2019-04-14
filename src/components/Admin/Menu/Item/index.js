@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './style.css';
 
@@ -23,7 +23,6 @@ export default class AdminMenuItem extends Component {
       this.catEarEl.setAttribute('class', 'ear-right');
 
       menuItemEl.style.background = '#d81717';
-      menuItemEl.style.fontWeight = '700';
       menuItemEl.appendChild(this.catEarEl);
     }
   }
@@ -42,9 +41,17 @@ export default class AdminMenuItem extends Component {
       const value = element[key];
 
       return (
-        <Link key={`link-${key}`} to={`${url}/${key}`}>
-          <li key={key}>{value}</li>
-        </Link>
+        <li className="admin-submenu" key={key}>
+          <NavLink
+            exact
+            key={`link-${key}`}
+            to={`${url}/${key}`}
+            className="admin-submenu-item"
+            activeStyle={{ fontWeight: 'bolder' }}
+          >
+            {value}
+          </NavLink>
+        </li>
       );
     });
   };
@@ -56,14 +63,14 @@ export default class AdminMenuItem extends Component {
     return (
       <div>
         <li ref={this.node} className="menu-item">
-          <Link to={url}>
+          <NavLink exact to={url} activeStyle={{ fontWeight: 'bolder' }}>
             <nav>
               <span className="admin-menu-icon">
                 <i className={icon} />
               </span>
               <span>{children}</span>
             </nav>
-          </Link>
+          </NavLink>
           {hasSubMenu ? <ul className="admin-submenu">{this.SubMenu}</ul> : ''}
         </li>
         <hr className="line" />

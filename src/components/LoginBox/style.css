@@ -1,12 +1,16 @@
 div#login {
-  width: 300px;
   border: 1px solid #122b4b;
-  border-radius: 5px;
-  position: absolute;
-  margin-top: 20px;
-  right: 50px;
   padding: 1em;
   background: #2964ad;
+  transition: all 1s;
+}
+
+div#login strong {
+  color: #fff;
+}
+
+div#login-content {
+  transition: all 2s;
 }
 
 input[name*="login"] {
@@ -25,6 +29,10 @@ input[name="login-pw"] {
 .esqueceu {
   position: relative;
   top: 7.5px;
+  transition: all 0.5s;
+}
+.esqueceu:hover {
+  opacity: 0.75;
 }
 /*
 input[name="login-lg"] {
@@ -33,7 +41,8 @@ input[name="login-lg"] {
 */
 
 button.login-button {
-  width: 100px;
+  /* width: 100px; */
+  width: 40%;
   height: 40px;
   float: left;
   margin-right: 10px;

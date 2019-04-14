@@ -52,15 +52,19 @@
 }
 
 .admin-submenu {
-  transition: 0.4s;
+  transition: 0.2s;
+  border-radius: 5px;
 }
 
-.admin-submenu li {
+.admin-submenu:first-child {
+  margin-top: 5;
+}
+
+.admin-submenu-item {
   font-size: 12px;
-  margin: 5px 0;
   transition: 0.2s;
-  padding: 5px;
-  border-radius: 5px;
+  padding: 3%;
+  display: block;
 }
 
 .admin-submenu li:hover {

@@ -14,7 +14,7 @@ body,
 body {
   color: #333;
   font-family: "Open Sans", sans-serif;
-  background: #fafafa;
+  background: #fafafa !important;
   text-rendering: optimizeLegibility !important;
   -webkit-font-smoothing: antialiased !important;
 }

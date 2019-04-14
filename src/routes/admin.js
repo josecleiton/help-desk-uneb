@@ -8,7 +8,7 @@ import NotFound from '../pages/NotFound';
 const AdminRoutes = () => (
   <Switch>
     <Route exact path="/admin" component={AdminHomePage} />
-    <Route path="/admin/chamados" component={AdminMeusChamados} />
+    <Route path="/admin/meus-chamados" component={AdminMeusChamados} />
     <Route component={NotFound} />
   </Switch>
 );

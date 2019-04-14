@@ -13,7 +13,7 @@ export default class MainHeader extends Component {
     const menuLoginLi = document.getElementsByClassName('menu-login')[0];
     const menuLoginDiv = document.getElementById('menu-login');
     if (this.loginClicks % 2 === 0) {
-      ReactDOM.render(<LoginBox />, menuLoginDiv);
+      ReactDOM.render(<LoginBox maxHeight={225} className="main-login" />, menuLoginDiv);
       menuLoginLi.style.backgroundColor = '#ef191a';
     } else {
       document.getElementById('login').style.height = 0;

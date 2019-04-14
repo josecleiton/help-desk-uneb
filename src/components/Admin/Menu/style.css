@@ -2,9 +2,16 @@ div.admin-menu {
   float: left;
   margin: 0 auto;
   width: 20%;
+  max-width: 300px;
   background: rgba(0, 0, 0, 0.7);
   transition: all 0.7s;
   height: 100%;
+}
+
+@media (max-width: 470px) {
+  div.admin-menu {
+    width: 30%;
+  }
 }
 
 div.admin-menu ul {

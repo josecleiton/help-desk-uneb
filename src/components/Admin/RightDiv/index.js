@@ -20,7 +20,7 @@ export default class AdminRightDiv extends Component {
     // eslint-disable-next-line react/prop-types
     const { children } = this.props;
     return (
-      <div id="admin-right" style={{ opacity: animate ? 1 : 0 }}>
+      <div className="admin-right" style={{ opacity: animate ? 1 : 0 }}>
         {children}
       </div>
     );

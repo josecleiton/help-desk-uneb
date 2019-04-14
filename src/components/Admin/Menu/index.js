@@ -33,7 +33,7 @@ export default class AdminMenu extends Component {
             Início
           </AdminMenuItem>
           <AdminMenuItem
-            url="/admin/chamados"
+            url="/admin/meus-chamados"
             icon="fas fa-envelope"
             submenu={this.Estados}
             currentpath={path}

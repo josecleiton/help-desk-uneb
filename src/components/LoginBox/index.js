@@ -1,5 +1,6 @@
 // AQUI FICARÁ O CAMPO DE LOGIN
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './style.css';
 
 export default class LoginBox extends Component {
@@ -28,11 +29,12 @@ export default class LoginBox extends Component {
 
   render() {
     const { animate } = this.state;
+    const { className, handleClick } = this.props;
     return (
       <div
         id="login"
+        className={className}
         style={{
-          transition: 'all 1s',
           height: animate ? 225 : 0,
         }}
       >
@@ -40,7 +42,6 @@ export default class LoginBox extends Component {
           id="login-content"
           style={{
             opacity: animate ? 1 : 0,
-            transition: 'all 2s',
           }}
         >
           <form action="">
@@ -55,10 +56,10 @@ export default class LoginBox extends Component {
             </p>
             <input type="password" name="login-pw" required />
             <nav>
-              <button type="submit" className="login-button">
+              <button type="submit" onClick={handleClick} className="login-button">
                 Entrar
               </button>
-              <a href="#login" className="esqueceu">
+              <a href="/esqueci-senha" className="esqueceu">
                 Esqueceu a senha?
               </a>
             </nav>
@@ -68,3 +69,8 @@ export default class LoginBox extends Component {
     );
   }
 }
+
+LoginBox.propTypes = {
+  className: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};

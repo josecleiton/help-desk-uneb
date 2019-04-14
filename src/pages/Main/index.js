@@ -61,7 +61,7 @@ export default class Main extends Component {
           <MainHeader />
         </Header>
         <div className="wrapper">
-          <img src={logo} alt="" className="App-logo" />
+          <img src={logo} alt="Logo" className="App-logo" />
           <div id="area-busca" />
         </div>
         <footer className="rodape">

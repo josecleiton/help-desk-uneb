@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Main from '../pages/Main';
+import Login from '../pages/Login';
 import Admin from '../pages/Admin';
 import ConsultarChamado from '../pages/ConsultarChamado';
 
@@ -12,6 +13,7 @@ const MainRoutes = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Main} />
+      <Route path="/login" component={Login} />
       <Route path="/consultar-chamado/:id" component={ConsultarChamado} />
       <Route path="/admin" component={Admin} />
       <Route component={NotFound} />
