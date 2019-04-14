@@ -2,16 +2,27 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AdminMenuItem from './Item';
 import './style.css';
-import Estados from '../misc/estados';
+import Estados from '../../misc/estados';
 
 export default class AdminMenu extends Component {
-  componentWillMount() {
-    Estados.shift();
+  constructor() {
+    super();
+    this.criaArrayDeEstados();
   }
 
-  componentDidMount() {
-    Estados.unshift('Todos');
-  }
+  criaArrayDeEstados = () => {
+    this.Estados = [{ todos: 'Todos' }];
+    Estados.forEach((element) => {
+      const value = element;
+      let key = element;
+      const blankSpace = element.indexOf(' ');
+
+      if (blankSpace !== -1) {
+        key = element.substr(blankSpace + 1, element.length - blankSpace - 1);
+      }
+      this.Estados.push({ [key.toLowerCase()]: value });
+    });
+  };
 
   render() {
     const { path } = this.props;
@@ -22,21 +33,21 @@ export default class AdminMenu extends Component {
             Início
           </AdminMenuItem>
           <AdminMenuItem
-            url="/admin/my"
+            url="/admin/chamados"
             icon="fas fa-envelope"
-            submenu={Estados}
+            submenu={this.Estados}
             currentpath={path}
           >
             Meus Chamados
           </AdminMenuItem>
-          <AdminMenuItem
+          {/* <AdminMenuItem
             url="/admin/test"
             icon="fas fa-question"
             submenu={['Test 1', 'Test 2']}
             currentpath={path}
           >
             Test
-          </AdminMenuItem>
+          </AdminMenuItem> */}
         </ul>
       </div>
     );

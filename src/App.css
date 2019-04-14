@@ -5,10 +5,18 @@
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
 body {
   color: #333;
   font-family: "Open Sans", sans-serif;
   background: #fafafa;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
 }
 
 code {

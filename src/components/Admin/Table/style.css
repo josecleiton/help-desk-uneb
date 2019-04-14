@@ -1,9 +1,7 @@
-div.admin-table-wrap {
+.admin-table-wrapper {
   width: 100%;
-  margin: 0 auto;
   overflow-x: auto;
 }
-
 table.admin caption {
   font-size: 30px;
   font-weight: normal;

@@ -16,7 +16,7 @@ export default class AdminMenuItem extends Component {
     const { submenu, currentpath, url } = this.props;
     const menuItemEl = this.node.current;
     if (submenu.length) {
-      this.setState({ hasSubMenu: true });
+      this.setState({ hasSubMenu: true }, this.fillSubMenu());
     }
     if (currentpath() === url) {
       this.catEarEl = document.createElement('span');
@@ -28,10 +28,6 @@ export default class AdminMenuItem extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.node.current.removeChild(this.catEarEl);
-  }
-
   handleClick = (event) => {
     const { hasSubMenu } = this.state;
     if (hasSubMenu) {
@@ -39,23 +35,39 @@ export default class AdminMenuItem extends Component {
     }
   };
 
+  fillSubMenu = () => {
+    const { submenu, url } = this.props;
+    this.SubMenu = submenu.map((element) => {
+      const key = Object.keys(element)[0];
+      const value = element[key];
+
+      return (
+        <Link key={`link-${key}`} to={`${url}/${key}`}>
+          <li key={key}>{value}</li>
+        </Link>
+      );
+    });
+  };
+
   render() {
-    const {
-      icon, children, url, submenu,
-    } = this.props;
+    const { icon, children, url } = this.props;
     const { hasSubMenu } = this.state;
-    const submenuLi = submenu.map(item => <li key={item}>{item}</li>);
+    // const submenuLi = submenu.map(item => <li key={item}>{item}</li>);
     return (
-      <Link to={url}>
+      <div>
         <li ref={this.node} className="menu-item">
-          <span className="admin-menu-icon">
-            <i className={icon} />
-          </span>
-          {children}
-          {hasSubMenu ? <ul className="submenu">{submenuLi}</ul> : ''}
+          <Link to={url}>
+            <nav>
+              <span className="admin-menu-icon">
+                <i className={icon} />
+              </span>
+              <span>{children}</span>
+            </nav>
+          </Link>
+          {hasSubMenu ? <ul className="admin-submenu">{this.SubMenu}</ul> : ''}
         </li>
         <hr className="line" />
-      </Link>
+      </div>
     );
   }
 }
@@ -64,7 +76,7 @@ AdminMenuItem.defaultProps = { icon: 'fas fa-home', submenu: [] };
 AdminMenuItem.propTypes = {
   children: PropTypes.string.isRequired,
   icon: PropTypes.string,
-  submenu: PropTypes.arrayOf(PropTypes.string),
+  submenu: PropTypes.arrayOf(PropTypes.object),
   url: PropTypes.string.isRequired,
   currentpath: PropTypes.func.isRequired,
 };

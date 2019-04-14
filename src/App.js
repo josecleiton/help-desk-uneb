@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Routes from './routes';
+import MainRoutes from './routes/main';
 // import Main from "./pages/Main";
 const App = () => (
   <div className="App">
-    <Routes />
+    <MainRoutes />
   </div>
 );
 

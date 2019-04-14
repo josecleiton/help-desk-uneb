@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './style.css';
 
 const AdminPageTitle = (props) => {
   const { title, comment } = props;
   return (
-    <span className="admin-page-title">
+    <div className="admin-page-title">
       <h2>{title}</h2>
       <h3>{comment}</h3>
-    </span>
+    </div>
   );
 };
 

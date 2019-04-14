@@ -1,3 +1,6 @@
+.menu-cell {
+  transition: all 1s;
+}
 .menu-item {
   color: #fff;
   padding: 10px;
@@ -15,8 +18,8 @@
   border-color: transparent #fafafa transparent transparent;
   float: right;
   position: relative;
-  top: 4px;
   right: -11px;
+  top: -15px;
 }
 
 .line {
@@ -48,11 +51,11 @@
   margin-right: 10px;
 }
 
-.submenu {
+.admin-submenu {
   transition: 0.4s;
 }
 
-.submenu li {
+.admin-submenu li {
   font-size: 12px;
   margin: 5px 0;
   transition: 0.2s;
@@ -60,6 +63,6 @@
   border-radius: 5px;
 }
 
-.submenu li:hover {
+.admin-submenu li:hover {
   background: rgba(0, 0, 0, 0.5);
 }

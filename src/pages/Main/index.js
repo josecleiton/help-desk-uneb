@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 import Header from '../../components/Header';
-import MenuChamado from '../../components/MenuChamado';
-import BuscarChamado from '../../components/BuscarChamado';
+import MenuChamado from '../../components/Main/MenuChamado';
+import BuscarChamado from '../../components/Main/BuscarChamado';
 
 import './style.css';
-import logo from '../../logo.png';
+import logo from '../../assets/logo.png';
 
 export default class Main extends Component {
   constructor(props) {
@@ -18,14 +19,12 @@ export default class Main extends Component {
 
   componentDidMount() {
     this.botoesEl = document.getElementById('area-busca');
-    // console.log(this.botoesEl);
     ReactDOM.render(<MenuChamado escListener={this.escListener} />, this.botoesEl);
   }
 
   componentDidUpdate() {
     const { buscar } = this.state;
     const {
-      // eslint-disable-next-line react/prop-types
       history: { push },
     } = this.props;
     switch (buscar) {
@@ -72,3 +71,7 @@ export default class Main extends Component {
     );
   }
 }
+
+Main.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+};

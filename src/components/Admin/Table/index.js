@@ -5,10 +5,10 @@ import './style.css';
 
 export default class AdminTable extends Component {
   render() {
-    const { title, top } = this.props;
+    const { title, margin } = this.props;
     return (
-      <div style={{ marginTop: top }} className="admin-table-wrap">
-        <table className="admin">
+      <div className="admin-table-wrapper">
+        <table className="admin" style={{ margin }}>
           <Fragment>{title ? <caption>Chamados em aberto</caption> : ''}</Fragment>
           <thead>
             <tr>
@@ -43,10 +43,10 @@ export default class AdminTable extends Component {
 
 AdminTable.defaultProps = {
   title: false,
-  top: '0',
+  margin: '0 auto',
 };
 
 AdminTable.propTypes = {
   title: PropTypes.bool,
-  top: PropTypes.string,
+  margin: PropTypes.string,
 };
