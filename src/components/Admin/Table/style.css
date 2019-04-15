@@ -30,11 +30,18 @@ table.admin thead td:last-child {
 }
 
 table.admin tbody tr:nth-child(2n-1) {
-  background: rgb(230, 228, 228);
+  background: #ddd;
 }
 
 table.admin tbody tr:nth-child(2n) {
-  background: rgb(209, 208, 208);
+  background: #eee;
+}
+table.admin tbody tr {
+  transition: all 0.2s;
+}
+
+table.admin tbody tr:hover {
+  background: #ccc;
 }
 
 table.admin tbody tr:last-child td:first-child {

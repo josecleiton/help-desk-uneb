@@ -40,6 +40,14 @@ export default class AdminMenu extends Component {
           >
             Meus Chamados
           </AdminMenuItem>
+          <AdminMenuItem
+            url="/admin/gerenciar"
+            submenu={[{ areas: 'Áreas' }, { chamados: 'Chamados' }, { tecnicos: 'Técnicos' }]}
+            icon="fas fa-tools"
+            currentpath={path}
+          >
+            Gerenciar
+          </AdminMenuItem>
           {/* <AdminMenuItem
             url="/admin/test"
             icon="fas fa-question"

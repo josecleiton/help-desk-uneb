@@ -6,8 +6,9 @@ div#consultar-chamado {
 }
 
 .consultar-chamado-title {
-  margin-top: 40px;
+  margin-top: 1em;
   font-size: 50px;
+  font-weight: 700;
 }
 
 div.wrapper p {

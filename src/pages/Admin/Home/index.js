@@ -19,7 +19,7 @@ export default class AdminHome extends Component {
         <AdminMenu path={this.currentPath} />
         <AdminRightDiv>
           <AdminPageTitle comment="comentário">Painel Administrativo</AdminPageTitle>
-          <AdminTable title margin="1.5% auto" />
+          <AdminTable link title margin="1.5% auto" />
         </AdminRightDiv>
       </Fragment>
     );

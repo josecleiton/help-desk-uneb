@@ -32,10 +32,10 @@ export default class ConsultarChamado extends Component {
           <MainHeader />
         </Header>
         <div id="consultar-chamado" style={{ opacity: animate ? 1 : 0 }}>
-          <h1 className="consultar-chamado-title">
-            <span>Chamado</span>
-            <span style={{ marginLeft: 10 }}>{`#${id}`}</span>
-          </h1>
+          <p className="consultar-chamado-title">
+            Chamado
+            {`#${id}`}
+          </p>
           <div className="wrapper" id="consultar-chamado-content">
             <p>
               <strong>Solicitante:</strong>
