@@ -34,13 +34,17 @@ export default class MenuChamado extends Component {
     // ReactDOM.render(<BuscarChamado onKeyDown={this.listenEsc} />, botoesEl);
   };
 
-
   render() {
     const { animate } = this.state;
     return (
-      <div id="botoes" style={{ opacity: animate ? 1 : 0, }}>
-        <button type="button" className="criar" onClick={this.criaChamado}> Criar Chamado</button>
-        <button type="button" className="acompanhar" onClick={this.buscaChamado}>Acompanhar Chamado</button>
+      <div className="main-buttons" style={{ opacity: animate ? 1 : 0 }}>
+        <button type="button" className="criar" onClick={this.criaChamado}>
+          {' '}
+          Criar Chamado
+        </button>
+        <button type="button" className="acompanhar" onClick={this.buscaChamado}>
+          Acompanhar Chamado
+        </button>
       </div>
     );
   }

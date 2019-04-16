@@ -1,14 +1,15 @@
-.setor-chamado{
+.setor-chamado {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: all 1s;
 }
-.setor-chamado h2{
+.setor-chamado h2 {
   margin: 20px;
 }
-.setor-chamado div{
+.setor-chamado div {
   width: 40%;
   display: flex;
   flex-wrap: nowrap;
@@ -16,7 +17,7 @@
   justify-content: center;
   align-items: center;
 }
-.setor-chamado div select{
+.setor-chamado div select {
   width: 70%;
   height: 70px;
   padding: 10px;
@@ -28,9 +29,9 @@
   border-radius: 15px 0px 0px 15px;
 }
 
-.setor-chamado div button{
+.setor-chamado div button {
   background-color: rgb(20, 20, 141);
-  color:white;
+  color: white;
   width: 30%;
   height: 70px;
   font-size: 20px;
@@ -40,12 +41,14 @@
   margin-left: -10px;
 }
 
-.setor-chamado div button:hover{
+.setor-chamado div button:hover {
   opacity: 1;
 }
 
-@media(max-width:700px){
-  .setor-chamado div {width: 350px}
+@media (max-width: 700px) {
+  .setor-chamado div {
+    width: 350px;
+  }
 }
 /* FORMULÁRIO VAGABUNDO
 .container{
@@ -146,5 +149,3 @@
 
 
 */
-
-

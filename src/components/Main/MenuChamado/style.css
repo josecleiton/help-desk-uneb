@@ -1,17 +1,29 @@
-#botoes {
+.main-buttons {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   transition: all 0.8s;
 }
-#botoes button {
+.main-buttons button {
   width: 30%;
   height: 20%;
-  font-size: 30px;
   transition: 0.2s;
   opacity: 0.8;
   cursor: pointer;
+  font-size: 2em;
+}
+
+@media (min-width: 2400px) {
+  .main-buttons button {
+    width: 20%;
+  }
+}
+
+@media (min-height: 1300px) {
+  .main-buttons button {
+    height: 10%;
+  }
 }
 
 button.criar {
@@ -20,7 +32,6 @@ button.criar {
   background: #2964ad;
   border: 0;
   color: #fff;
-  font-size: 1.8em;
 }
 
 button.criar:hover {
@@ -33,12 +44,13 @@ button.acompanhar {
   color: #fff;
   border: 0;
   background: #f01b1b;
-  font-size: 1.8em;
 }
 
 button.acompanhar:hover {
   opacity: 1;
 }
- @media(max-width:600px){
-  #botoes button{ font-size: 20px; }
- }
+@media (max-width: 600px) {
+  #botoes button {
+    font-size: 20px;
+  }
+}
