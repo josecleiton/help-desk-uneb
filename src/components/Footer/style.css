@@ -1,0 +1,34 @@
+.footer-page{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-end;
+  background-color: #333333;
+  color: aliceblue;
+  margin-top: 20%;
+}
+
+.footer-page ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
+.footer-page ul li{
+  margin-left: 60px;
+}
+.footer-page img{
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+/*FOOTER VAGABUNDO footer */
+@media(min-height:1000px){
+  .footer-page{position: absolute; margin: auto; bottom: 0;}
+}
+@media(max-width: 500px){
+  .footer-page{flex-direction: column-reverse;}
+  .footer-page ul {flex-direction: column; align-items: center}
+  .footer-page ul li {margin: 15px;}
+}

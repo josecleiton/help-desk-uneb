@@ -1,7 +1,11 @@
 #botoes {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   transition: all 0.8s;
 }
-button {
+#botoes button {
   width: 30%;
   height: 20%;
   font-size: 30px;
@@ -35,3 +39,6 @@ button.acompanhar {
 button.acompanhar:hover {
   opacity: 1;
 }
+ @media(max-width:600px){
+  #botoes button{ font-size: 20px; }
+ }

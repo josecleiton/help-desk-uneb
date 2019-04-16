@@ -1,0 +1,150 @@
+.setor-chamado{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.setor-chamado h2{
+  margin: 20px;
+}
+.setor-chamado div{
+  width: 40%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.setor-chamado div select{
+  width: 70%;
+  height: 70px;
+  padding: 10px;
+  align-items: center;
+  text-align: center;
+  font-size: 20px;
+  border: 1px solid #333333;
+  border-right: 0;
+  border-radius: 15px 0px 0px 15px;
+}
+
+.setor-chamado div button{
+  background-color: rgb(20, 20, 141);
+  color:white;
+  width: 30%;
+  height: 70px;
+  font-size: 20px;
+  border: 1px solid #333333;
+  border-left: 0;
+  border-radius: 0px 15px 15px 0px;
+  margin-left: -10px;
+}
+
+.setor-chamado div button:hover{
+  opacity: 1;
+}
+
+@media(max-width:700px){
+  .setor-chamado div {width: 350px}
+}
+/* FORMULÁRIO VAGABUNDO
+.container{
+  width: 100%;
+  height: auto;
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;   
+}
+
+.abrir-chamado{
+  display: flex;
+  width: 80%;
+  flex-wrap: wrap;
+  flex-direction: column;
+  color: white;
+  background-color: rgb(14, 14, 131);
+
+}
+.item-title {
+  width: 100%;
+  margin-bottom: 10px; 
+  background-color: black;
+}
+.item-title h2{
+ text-align: center;
+}
+.item{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;  
+  margin: auto;
+}
+ .item input,select{
+  width: 80%;
+  margin: 10px;
+  height: 40px;
+ }
+ .item textarea{
+  width: 80%;
+  margin: 10px;
+ }
+
+  
+ .item label{
+  margin:0 10px;
+  width: 10%;
+  font-size: 18px;
+ }
+
+ .item-select{
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+ }
+ 
+
+ .item-select label{
+  margin: 0 10px;
+ }
+ 
+ .item-submit{
+  width: 100%;
+  margin: 10px 0;
+  text-align: center;
+ }
+ .item-submit input[type=submit]{
+  width: 40%;
+  height: 50px;
+  text-align: center;
+  background-color: red;
+  color: white;
+  border: none;
+  opacity: 0.7;
+ }
+ .item-submit input[type=submit]:hover{
+  opacity: 1;
+ }
+
+ RESPONSIVIDADE DA TELA - SUBIR A LABEL E DIMINUIR O INPUT
+ @media(max-width: 1200px){
+  .item{flex-direction: column; align-items: flex-start;}
+  .item:first-child{ margin-top: 10px;}
+}
+@media(max-width: 800px){
+  .item-select{ flex-direction: column; align-items: flex-start;}
+  .item-select input[type=file]{margin-bottom: 10px; }
+}
+
+
+*/
+
+
