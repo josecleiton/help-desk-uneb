@@ -1,0 +1,18 @@
+div.not-found {
+  transition: all 1s;
+  text-align: center;
+}
+
+div.not-found i {
+  margin-top: 7%;
+  margin-bottom: 2%;
+}
+
+div.not-found h1 {
+  margin-bottom: 2%;
+}
+
+div.not-found p {
+  margin: 0 auto;
+  width: 70%;
+}

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './style.css';
 
-export default class Form extends Component {
+export default class AbrirChamadoForm extends Component {
   render() {
     return (
       <div className="formulario">
-        <form >
+        <form>
           <div className="item-title">
             <h2>ABERTURA DE CHAMADO</h2>
           </div>
@@ -23,7 +23,7 @@ export default class Form extends Component {
           </div>
           <div className="item">
             <label>DEFEITO</label>
-            <select >
+            <select>
               <option value="001">OUTRO</option>
             </select>
             <label>IMAGEM DO DEFEITO</label>
@@ -31,15 +31,13 @@ export default class Form extends Component {
           </div>
           <div className="item">
             <label>DESCRIÇÃO</label>
-            <textarea name="" cols="30" rows="10"></textarea>
+            <textarea name="" cols="30" rows="10" />
           </div>
-          <div class="item-submit">
+          <div className="item-submit">
             <input type="submit" value="ENVIAR CHAMADO" />
           </div>
         </form>
       </div>
-
     );
   }
-
 }

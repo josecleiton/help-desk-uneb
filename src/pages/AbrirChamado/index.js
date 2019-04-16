@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Form from '../../components/Form';
+import AbrirChamadoForm from '../../components/AbrirChamado/Form';
 import Header from '../../components/Header';
 import MainHeader from '../../components/Main/Header';
 import Footer from '../../components/Footer';
@@ -11,7 +11,7 @@ export default class AbrirChamado extends Component {
         <Header>
           <MainHeader />
         </Header>
-        <Form />
+        <AbrirChamadoForm />
         <Footer />
       </div>
     );
