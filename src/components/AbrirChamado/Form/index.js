@@ -1,43 +1,39 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Input from '../../Input';
 import './style.css';
 
-export default class AbrirChamadoForm extends Component {
-  render() {
-    return (
-      <div className="formulario">
-        <form>
-          <div className="item-title">
-            <h2>ABERTURA DE CHAMADO</h2>
-          </div>
-          <div className="item">
-            <label>SOLICITANTE</label>
-            <input type="text" placeholder="nome completo" />
-          </div>
-          <div className="item">
-            <label>TELEFONE</label>
-            <input type="tel" placeholder="Telefone Válido" min="8" max="9" />
-          </div>
-          <div className="item">
-            <label>EMAIL</label>
-            <input type="email" placeholder="Email Válido" />
-          </div>
-          <div className="item">
-            <label>DEFEITO</label>
-            <select>
-              <option value="001">OUTRO</option>
-            </select>
-            <label>IMAGEM DO DEFEITO</label>
-            <input type="file" />
-          </div>
-          <div className="item">
-            <label>DESCRIÇÃO</label>
-            <textarea name="" cols="30" rows="10" />
-          </div>
-          <div className="item-submit">
-            <input type="submit" value="ENVIAR CHAMADO" />
-          </div>
-        </form>
+const AbrirChamadoForm = () => (
+  <div className="main-form-chamado">
+    <form>
+      <h2>(setor selecionado)</h2>
+      <div>
+        <h3>Nome</h3>
+        <Input type="text" placeholder="Nome Completo" />
+        <h3>Email</h3>
+        <Input type="email" placeholder="Email válido" />
       </div>
-    );
-  }
-}
+      <div>
+        <h3>Telefone</h3>
+        <Input type="tel" placeholder="telefone válido" />
+        <h3>Defeito</h3>
+        <select>
+          <option value="001">outro</option>
+        </select>
+        <h3>Imagem do defeito</h3>
+        <Input type="file" placeholder="imagem" />
+      </div>
+      <div>
+        <h3>descrição </h3>
+        <textarea cols="30" rows="10" />
+      </div>
+      <div id="main-form-submit">
+        <button type="submit" name="retornar">
+          MUDAR SETOR
+        </button>
+        <button type="submit">ABRIR CHAMADO</button>
+      </div>
+    </form>
+  </div>
+);
+
+export default AbrirChamadoForm;
