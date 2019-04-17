@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import Header from '../../components/Header';
 import MainHeader from '../../components/Main/Header';
+import LargeBox from '../../components/LargeBox';
 
 import './style.css';
 
@@ -13,7 +15,6 @@ export default class ConsultarChamado extends Component {
 
   componentDidMount() {
     const {
-      // eslint-disable-next-line react/prop-types
       match: {
         params: { id },
       },
@@ -34,9 +35,11 @@ export default class ConsultarChamado extends Component {
         <div id="consultar-chamado" style={{ opacity: animate ? 1 : 0 }}>
           <p className="consultar-chamado-title">
             Chamado
+            {' '}
+            {'  '}
             {`#${id}`}
           </p>
-          <div className="wrapper" id="consultar-chamado-content">
+          <LargeBox width="95%">
             <p>
               <strong>Solicitante:</strong>
               {' '}
@@ -62,9 +65,13 @@ TI
               <h2>Histórico de Movimentações</h2>
             </div>
             <p>Aqui haverá uma tabela com status/area/técnico/data do ocorrido</p>
-          </div>
+          </LargeBox>
         </div>
       </Fragment>
     );
   }
 }
+
+ConsultarChamado.propTypes = {
+  match: PropTypes.objectOf(PropTypes.any).isRequired,
+};

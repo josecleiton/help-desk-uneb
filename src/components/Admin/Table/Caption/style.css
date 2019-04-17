@@ -1,0 +1,21 @@
+.table-caption {
+  list-style: none;
+  overflow: hidden;
+  margin-top: 15px;
+  padding: 0;
+  float: right;
+}
+
+.table-caption div {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  margin-right: 10px;
+}
+
+.table-caption li {
+  float: left;
+  margin-right: 10px;
+  font-size: 14px;
+}

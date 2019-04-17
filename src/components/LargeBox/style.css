@@ -1,0 +1,14 @@
+div#large-box {
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 6px;
+  background: white;
+  text-align: left;
+  padding-bottom: 30px;
+  transition: all 0.8s;
+}
+
+.hidden-content-box {
+  font-size: 14px;
+  font-weight: lighter;
+  margin: 5px;
+}

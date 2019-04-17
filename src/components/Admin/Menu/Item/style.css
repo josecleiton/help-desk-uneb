@@ -6,7 +6,8 @@
   padding: 10px;
   transition: 0.4s;
 }
-.menu-item:hover {
+.menu-item:hover,
+.menu-item:focus {
   background: #2964ad;
 }
 
@@ -67,6 +68,7 @@
   display: block;
 }
 
-.admin-submenu li:hover {
+.admin-submenu li:hover,
+.admin-submenu-item:focus {
   background: rgba(0, 0, 0, 0.5);
 }

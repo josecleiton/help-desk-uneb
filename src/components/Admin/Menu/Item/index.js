@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 export default class AdminMenuItem extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       hasSubMenu: false,
     };
@@ -36,7 +36,7 @@ export default class AdminMenuItem extends Component {
 
   fillSubMenu = () => {
     const { submenu, url } = this.props;
-    this.SubMenu = submenu.map((element) => {
+    this.subMenu = submenu.map((element) => {
       const key = Object.keys(element)[0];
       const value = element[key];
 
@@ -71,7 +71,7 @@ export default class AdminMenuItem extends Component {
               <span>{children}</span>
             </nav>
           </NavLink>
-          {hasSubMenu ? <ul className="admin-submenu">{this.SubMenu}</ul> : ''}
+          {hasSubMenu ? <ul className="admin-submenu">{this.subMenu}</ul> : ''}
         </li>
         <hr className="line" />
       </div>

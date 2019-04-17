@@ -6,6 +6,7 @@ div.admin-menu {
   background: rgba(0, 0, 0, 0.7);
   transition: all 0.7s;
   height: 100%;
+  border-right: 1px solid white;
 }
 
 @media (max-width: 470px) {

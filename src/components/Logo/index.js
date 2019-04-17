@@ -12,8 +12,8 @@ const Logo = (props) => {
 };
 
 Logo.propTypes = {
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+  width: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
   margin: PropTypes.string.isRequired,
 };
 

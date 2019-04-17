@@ -16,15 +16,6 @@ div.wrapper p {
   font-size: 20px;
 }
 
-div#consultar-chamado-content {
-  width: 95%;
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  border-radius: 6px;
-  background: white;
-  text-align: left;
-  padding-bottom: 30px;
-}
-
 div#hist-mov {
   background: rgba(0, 0, 0, 0.8);
   color: #fff;

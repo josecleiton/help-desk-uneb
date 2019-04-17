@@ -14,12 +14,50 @@ export default class AdminHome extends Component {
   };
 
   render() {
+    const {
+      history: { push },
+    } = this.props;
     return (
       <Fragment>
         <AdminMenu path={this.currentPath} />
         <AdminRightDiv>
           <AdminPageTitle comment="comentário">Painel Administrativo</AdminPageTitle>
-          <AdminTable link title margin="1.5% auto" />
+          <AdminTable
+            title="Chamados em aberto"
+            margin="1.5% auto"
+            redirect={push}
+            goToUrl="/admin/atendimento"
+            rowsPrimaryKey={0}
+            head={[
+              '#',
+              'Área',
+              'Situação',
+              'Problema',
+              'Qtd de dias',
+              'Data de Abertura',
+              'Solicitante',
+            ]}
+            rows={[
+              [
+                '190001',
+                'TI',
+                'Em aberto',
+                'Java bugou',
+                'X',
+                'dd/mm/YYYY',
+                'brancobro@yahoo.com.br',
+              ],
+              [
+                '190002',
+                'TI',
+                'Em atendimento',
+                'Impressora sem papel',
+                'X',
+                'dd/mm/YYYY',
+                'rafamoreira@777.com',
+              ],
+            ]}
+          />
         </AdminRightDiv>
       </Fragment>
     );
@@ -28,4 +66,5 @@ export default class AdminHome extends Component {
 
 AdminHome.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };

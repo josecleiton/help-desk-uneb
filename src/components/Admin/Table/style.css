@@ -1,16 +1,33 @@
 .admin-table-wrapper {
   width: 100%;
-  overflow-x: auto;
+  overflow: auto;
 }
+
 table.admin caption {
   font-size: 30px;
   font-weight: normal;
   margin: 0.5% 0;
 }
 
-table.admin td {
+table.admin td,
+th {
   text-align: center;
   padding: 10px;
+}
+
+table.admin th {
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+table.admin thead th:hover,
+table.admin thead th:focus {
+  opacity: 0.8;
+}
+
+table.admin th span {
+  margin-right: 10px;
 }
 
 table.admin thead {
@@ -21,11 +38,11 @@ table.admin thead {
   font-weight: bold;
 }
 
-table.admin thead td:first-child {
+table.admin thead th:first-child {
   border-top-left-radius: 5px;
 }
 
-table.admin thead td:last-child {
+table.admin thead th:last-child {
   border-top-right-radius: 5px;
 }
 
@@ -37,10 +54,11 @@ table.admin tbody tr:nth-child(2n) {
   background: #eee;
 }
 table.admin tbody tr {
-  transition: all 0.2s;
+  transition: all 0.4s;
 }
 
-table.admin tbody tr:hover {
+table.admin tbody tr:hover,
+table.admin tbody tr:focus {
   background: #ccc;
 }
 

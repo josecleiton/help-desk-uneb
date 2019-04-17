@@ -1,0 +1,11 @@
+div.admin-atendimento {
+  margin: 100px auto;
+}
+
+.admin-atendimento-sort-arrow {
+  float: right;
+  position: relative;
+  right: 10px;
+  bottom: 8px;
+  cursor: pointer;
+}

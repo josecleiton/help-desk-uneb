@@ -27,7 +27,9 @@ export default class Main extends Component {
 
   componentDidUpdate() {
     const { buscar } = this.state;
-    const { history: { push }, } = this.props;
+    const {
+      history: { push },
+    } = this.props;
     switch (buscar) {
       case 'Esc':
         ReactDOM.unmountComponentAtNode(this.botoesEl);

@@ -5,7 +5,7 @@ import './style.css';
 
 const Login = () => (
   <div className="login-page">
-    <Logo width={100} height={70} margin="0 auto" />
+    <Logo width="100" height="70" margin="0 auto" />
     <LoginBox className="login-box" />
   </div>
 );

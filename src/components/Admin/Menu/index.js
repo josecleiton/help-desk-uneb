@@ -28,7 +28,7 @@ export default class AdminMenu extends Component {
     const { path } = this.props;
     return (
       <div className="admin-menu">
-        <ul>
+        <ul role="menu">
           <AdminMenuItem url="/admin" currentpath={path}>
             Início
           </AdminMenuItem>
