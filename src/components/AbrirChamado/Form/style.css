@@ -1,89 +1,90 @@
-.formulario{
+.main-form-chamado {
+  display: flex;
   width: 100%;
   height: auto;
-  color: black;
-  display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
-  margin-top: 5%;  
-}
+  justify-content: center;
 
-.formulario form{
+  color: aliceblue;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+.main-form-chamado h2 {
+  font-size: 25px;
+  margin: 20px 0;
+}
+.main-form-chamado form {
   display: flex;
-  width: 80%;
-  flex-wrap: wrap;
   flex-direction: column;
-  color: white;
-  background-color: rgb(14, 14, 131);
-
+  align-items: center;
+  justify-content: center;
+  background: #333333;
 }
-.item-title {
-  width: 100%;
-  margin-bottom: 10px; 
-  background-color: black;
-}
-.item-title h2{
- text-align: center;
-}
-.item{
+.main-form-chamado form div {
   display: flex;
-  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
   flex-direction: row;
   align-items: center;
-  width: 100%;  
-  margin: auto;
+  justify-content: center;
 }
- .item input,select{
-  width: 80%;
-  margin: 10px;
-  height: 40px;
- }
 
- .item select{
-  width: 30%;
-  margin: 10px;
-  height: 40px;
- }
-
- .item input[type=file]{
-   width: 20%;
- }
- .item textarea{
-  width: 80%;
-  margin: 10px;
- }
-
-  
- .item label{
-  margin:0 10px;
-  width: 10%;
-  font-size: 18px;
- }
- 
- .item-submit{
-  width: 100%;
-  margin: 10px 0;
-  text-align: center;
- }
- .item-submit input[type=submit]{
-  width: 40%;
+.main-form-chamado form div select {
+  width: 20%;
   height: 50px;
-  text-align: center;
-  background-color: red;
-  color: white;
-  border: none;
-  opacity: 0.7;
- }
- .item-submit input[type=submit]:hover{
-  opacity: 1;
- }
-
- /*RESPONSIVIDADE DA TELA - SUBIR A LABEL E DIMINUIR O INPUT */
- @media(max-width: 1200px){
-  .item{flex-direction: column; align-items: flex-start;}
-  .item select{ width: 80%;}
-  .item:first-child{ margin-top: 10px;}
+  margin: 20px;
+  border-radius: 6px;
 }
 
+.main-form-chamado form div textarea {
+  flex: 1;
+  width: 70%;
+  height: 150px;
+  margin: 20px;
+  border-radius: 6px;
+}
+.main-form-chamado form div input[type="file"] {
+  margin-left: -10px;
+}
 
+.main-form-chamado form div label,
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 10px 10px 15px;
+}
+.main-form-chamado form button {
+  width: 20%;
+  height: 60px;
+  color: white;
+  font-weight: bold;
+  padding: 15px;
+  border-radius: 6px;
+  border: 0;
+  font-size: 18px;
+  margin-bottom: 20px;
+  background-color: red;
+  opacity: 0.5;
+  cursor: pointer;
+  margin: 15px;
+}
+.main-form-chamado form button:hover {
+  opacity: 1;
+}
+
+#main-form-submit {
+  display: flex;
+  justify-content: space-between;
+}
+#main-form-submit button[name="retornar"] {
+  background-color: blue;
+}
+
+@media (max-width: 700px) {
+  .main-form-chamado form div {
+    flex-direction: column;
+    width: 100%;
+    font-size: 10px;
+  }
+}

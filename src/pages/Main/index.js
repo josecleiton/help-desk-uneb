@@ -75,8 +75,10 @@ export default class Main extends Component {
         </Header>
         <div className="wrapper">
           <img src={logo} alt="Logo" className="App-logo" />
+
           <div id="area-busca" />
         </div>
+
         <Footer />
       </div>
     );
