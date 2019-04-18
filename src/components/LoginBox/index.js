@@ -69,7 +69,6 @@ export default class LoginBox extends Component {
             <p>
               <Input placeholder="Usuário" style={this.inputStyle} required />
             </p>
-            {/* <input type="text" name="login-lg" placeholder="Usuário" required /> */}
             <p>
               <Input type="password" style={this.inputStyle} required />
             </p>

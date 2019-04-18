@@ -8,6 +8,9 @@ div#login {
 div#login strong {
   color: #fff;
   font-size: 1.2em;
+  position: relative;
+  bottom: 2.5px;
+  left: 2.5px;
 }
 
 div#login-content {
