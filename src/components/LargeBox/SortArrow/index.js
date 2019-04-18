@@ -10,7 +10,7 @@ export default class SortArrow extends Component {
     this.state = {
       toRender: <i className="fas fa-sort-down fa-2x" role="link" />,
     };
-    this.clicked = true;
+    this.clicked = false;
   }
 
   handleClick = () => {

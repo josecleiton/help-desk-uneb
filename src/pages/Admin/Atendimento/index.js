@@ -32,6 +32,12 @@ dd/mm/YYYY
       {' '}
 TI
     </p>
+
+    <p>
+      <strong>Anexo:</strong>
+      {' '}
+Ver imagem
+    </p>
   </Fragment>
 );
 
@@ -44,7 +50,7 @@ const HiddenContent = () => (
 export default class Atendimento extends Component {
   constructor(props) {
     super(props);
-    this.state = { clicked: true, content: <RenderContent /> };
+    this.state = { clicked: false, content: <HiddenContent /> };
   }
 
   currentPath = () => {
@@ -75,11 +81,40 @@ export default class Atendimento extends Component {
         <AdminMenu path={this.currentPath} />
         <AdminRightDiv>
           <AdminPageTitle comment={`#${id}`}>Atendimento</AdminPageTitle>
-          <LargeBox width="95%" height={clicked ? '300px' : '0'} margin="100px auto">
+          <LargeBox
+            style={{
+              width: '95%',
+              margin: '110px auto 50px auto',
+              height: clicked ? '400px' : '50px',
+            }}
+          >
             <div className="admin-atendimento-sort-arrow">
               <SortArrow slide={this.slide} />
             </div>
             {content}
+          </LargeBox>
+          <LargeBox style={{ width: '95%', margin: '0 auto', paddingLeft: '10px' }}>
+            <h1 className="admin-chamado">Atendimento</h1>
+            <form action="" className="admin-chamado">
+              <div>
+                <textarea
+                  className="admin-chamado"
+                  placeholder={`Informações adicionais sobre o chamado #${id}`}
+                />
+              </div>
+              <div>
+                Prioridade
+                <select name="prioridade" className="admin-chamado">
+                  <option value="baixa">Baixa</option>
+                  <option value="media">Média</option>
+                  <option value="alta">Alta</option>
+                  <option value="urgente">Urgente</option>
+                </select>
+                <button type="submit" className="admin-chamado">
+                  Atender
+                </button>
+              </div>
+            </form>
           </LargeBox>
         </AdminRightDiv>
       </Fragment>

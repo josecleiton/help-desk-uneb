@@ -4,27 +4,24 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 const LargeBox = (props) => {
-  const {
-    children, width, height, margin,
-  } = props;
+  const { children, style } = props;
   return (
-    <div className="wrapper" id="large-box" style={{ width, height, margin }}>
+    <div className="wrapper" id="large-box" style={style}>
       {children}
     </div>
   );
 };
 
 LargeBox.defaultProps = {
-  width: '100%',
-  height: 'auto',
-  margin: 'auto',
+  style: {},
 };
 
 LargeBox.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.any).isRequired,
-  width: PropTypes.string,
-  height: PropTypes.string,
-  margin: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.any),
+    PropTypes.objectOf(PropTypes.any),
+  ]).isRequired,
+  style: PropTypes.objectOf(PropTypes.string),
 };
 
 export default LargeBox;

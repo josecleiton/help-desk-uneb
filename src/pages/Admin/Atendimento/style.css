@@ -9,3 +9,52 @@ div.admin-atendimento {
   bottom: 8px;
   cursor: pointer;
 }
+
+.hidden-content-box {
+  float: left;
+}
+
+.admin-chamado {
+  border-radius: 5px;
+  padding: 5px;
+}
+
+h1.admin-chamado {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 2em;
+  font-weight: lighter;
+}
+
+form.admin-chamado div {
+  margin: 10px;
+  padding: 0;
+}
+
+textarea.admin-chamado {
+  padding: 10;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 20px;
+  resize: vertical;
+}
+
+select.admin-chamado {
+  color: #fff;
+  background: #2964ad;
+  border: 1px solid #132e4e;
+}
+
+button.admin-chamado {
+  color: #fff;
+  background: #ef191a;
+  border: 1px solid #b41919;
+  opacity: 0.9;
+  transition: all 0.4s;
+  float: right;
+}
+
+button.admin-chamado:hover,
+button.admin-chamado:focus {
+  opacity: 1;
+}
