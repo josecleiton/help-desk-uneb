@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import Header from '../../Header';
 import LoginBox from '../../LoginBox';
 import './style.css';
 
 export default class MainHeader extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.loginClicks = 0;
   }
 
   loginRender = () => {
+    const { redirect } = this.props;
     const menuLoginLi = document.getElementsByClassName('menu-login')[0];
     const menuLoginDiv = document.getElementById('menu-login');
     if (this.loginClicks % 2 === 0) {
-      ReactDOM.render(<LoginBox maxHeight={225} className="main-login" />, menuLoginDiv);
+      ReactDOM.render(
+        <LoginBox maxHeight={225} className="main-login" redirect={redirect} />,
+        menuLoginDiv,
+      );
       menuLoginLi.style.backgroundColor = '#ef191a';
     } else {
       document.getElementById('login').style.height = 0;
@@ -28,26 +34,32 @@ export default class MainHeader extends Component {
 
   render() {
     return (
-      <nav className="menu">
-        <ul>
-          <li>
-            <i className="fas fa-info-circle" />
-            Status do Sistema: ON
-          </li>
-          <li className="menu-login">
-            <span
-              role="presentation"
-              style={{ cursor: 'pointer' }}
-              onClick={this.loginRender}
-              onKeyDown={() => {}}
-            >
-              <i className="fas fa-user" />
-              Login
-            </span>
-            <div id="menu-login" />
-          </li>
-        </ul>
-      </nav>
+      <Header>
+        <nav className="menu">
+          <ul>
+            <li>
+              <i className="fas fa-info-circle" />
+              Status do Sistema: ON
+            </li>
+            <li className="menu-login">
+              <span
+                role="presentation"
+                style={{ cursor: 'pointer' }}
+                onClick={this.loginRender}
+                onKeyDown={() => {}}
+              >
+                <i className="fas fa-user" />
+                Login
+              </span>
+              <div id="menu-login" />
+            </li>
+          </ul>
+        </nav>
+      </Header>
     );
   }
 }
+
+MainHeader.propTypes = {
+  redirect: PropTypes.func.isRequired,
+};

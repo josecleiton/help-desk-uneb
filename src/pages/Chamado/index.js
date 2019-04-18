@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import Header from '../../components/Header';
 import MainHeader from '../../components/Main/Header';
 import LargeBox from '../../components/LargeBox';
 
@@ -29,9 +28,7 @@ export default class VisualizarChamado extends Component {
     const { id, animate } = this.state;
     return (
       <Fragment>
-        <Header>
-          <MainHeader />
-        </Header>
+        <MainHeader />
         <div id="consultar-chamado" style={{ opacity: animate ? 1 : 0 }}>
           <p className="consultar-chamado-title">
             Chamado

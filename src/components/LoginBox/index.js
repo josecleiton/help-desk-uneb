@@ -1,13 +1,22 @@
 // AQUI FICARÁ O CAMPO DE LOGIN
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+import Input from '../Input';
+
 import './style.css';
 
 export default class LoginBox extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       animate: false,
+    };
+    this.inputStyle = {
+      width: '100%',
+      height: '40px',
+      padding: '10px',
+      marginTop: '10px',
     };
   }
 
@@ -27,9 +36,15 @@ export default class LoginBox extends Component {
     }
   }
 
+  handleSubmit = (formEl) => {
+    const { redirect } = this.props;
+    formEl.preventDefault();
+    redirect('/admin');
+  };
+
   render() {
     const { animate } = this.state;
-    const { className, handleClick } = this.props;
+    const { className } = this.props;
     return (
       <div
         id="login"
@@ -44,7 +59,7 @@ export default class LoginBox extends Component {
             opacity: animate ? 1 : 0,
           }}
         >
-          <form action="">
+          <form onSubmit={this.handleSubmit}>
             <p>
               <strong>Área de Login</strong>
               <a href="#login" title="Área de acesso para técnicos.">
@@ -52,11 +67,14 @@ export default class LoginBox extends Component {
               </a>
             </p>
             <p>
-              <input type="text" name="login-lg" placeholder="Usuário" required />
+              <Input placeholder="Usuário" style={this.inputStyle} required />
             </p>
-            <input type="password" name="login-pw" required />
+            {/* <input type="text" name="login-lg" placeholder="Usuário" required /> */}
+            <p>
+              <Input type="password" style={this.inputStyle} required />
+            </p>
             <nav>
-              <button type="submit" onClick={handleClick} className="login-button">
+              <button type="submit" className="login-button">
                 Entrar
               </button>
               <a href="/esqueci-senha" className="esqueceu">
@@ -72,5 +90,5 @@ export default class LoginBox extends Component {
 
 LoginBox.propTypes = {
   className: PropTypes.string.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  redirect: PropTypes.func.isRequired,
 };

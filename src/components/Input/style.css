@@ -1,9 +1,5 @@
 .input-form-main {
-  flex: 1;
-  padding: 20px;
-  margin: 20px;
-  border: 2px;
   font-size: 18px;
   border-radius: 6px;
-  border: 1px solid #333333;
+  border: 1px solid rgba(0, 0, 0, 0.8);
 }

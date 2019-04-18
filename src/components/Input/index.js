@@ -4,30 +4,30 @@ import './style.css';
 
 const Input = (props) => {
   const {
-    type, placeholder, width, height,
+    type, placeholder, style, required,
   } = props;
   return (
     <input
       className="input-form-main"
       type={type}
       placeholder={placeholder}
-      style={{ width, height }}
+      style={style}
+      required={required}
     />
   );
 };
 
 Input.defaultProps = {
   type: 'text',
-  placeholder: 'DEFAULT',
-  width: '50%',
-  height: '60px',
+  placeholder: '',
+  required: false,
 };
 
 Input.propTypes = {
   type: PropTypes.string,
   placeholder: PropTypes.string,
-  width: PropTypes.string,
-  height: PropTypes.string,
+  style: PropTypes.objectOf(PropTypes.string).isRequired,
+  required: PropTypes.bool,
 };
 
 export default Input;

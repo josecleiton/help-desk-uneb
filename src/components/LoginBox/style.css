@@ -7,41 +7,27 @@ div#login {
 
 div#login strong {
   color: #fff;
+  font-size: 1.2em;
 }
 
 div#login-content {
   transition: all 2s;
 }
 
-input[name*="login"] {
-  width: 100%;
-  height: 40px;
-  font-size: 90%;
-  padding-left: 0.5em;
-  margin-top: 2%;
-  border: 1px solid #122b4b;
+div#login nav {
+  margin-top: 25px;
 }
-
-input[name="login-pw"] {
-  margin-bottom: 7.5%;
-}
-
 .esqueceu {
   position: relative;
   top: 7.5px;
   transition: all 0.5s;
+  font-size: 95%;
 }
 .esqueceu:hover {
   opacity: 0.75;
 }
-/*
-input[name="login-lg"] {
-  margin-top: 10px;
-}
-*/
 
 button.login-button {
-  /* width: 100px; */
   width: 40%;
   height: 40px;
   float: left;
@@ -53,6 +39,7 @@ button.login-button {
   font-size: 20px;
   opacity: 0.92;
   transition: 0.2s;
+  cursor: pointer;
 }
 
 button.login-button:hover {

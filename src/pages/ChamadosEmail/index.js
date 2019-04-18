@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import Header from '../../components/Header';
 import MainHeader from '../../components/Main/Header';
 import Table from '../../components/Table';
 import Footer from '../../components/Footer';
@@ -17,9 +16,7 @@ const ChamadosEmail = (props) => {
   } = props;
   return (
     <Fragment>
-      <Header>
-        <MainHeader />
-      </Header>
+      <MainHeader />
       <div className="chamados-email">
         <h1>Chamados por Email</h1>
       </div>
