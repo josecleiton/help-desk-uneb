@@ -1,0 +1,50 @@
+.admin-chamado {
+  border-radius: 5px;
+  padding: 5px;
+}
+
+h1.admin-chamado {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 2em;
+  font-weight: lighter;
+}
+
+form.admin-chamado div {
+  margin: 10px;
+  padding: 0;
+}
+
+textarea.admin-chamado {
+  padding: 10;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 20px;
+  resize: vertical;
+}
+
+select.admin-chamado {
+  color: #fff;
+  background: #2964ad;
+  border: 1px solid #132e4e;
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 0;
+  transition: all 0.5s;
+}
+
+button.admin-chamado {
+  color: #fff;
+  background: #ef191a;
+  border: 1px solid #b41919;
+  transition: all 0.4s;
+  float: right;
+  width: 100px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+button.admin-chamado:hover,
+button.admin-chamado:focus {
+  background: #df1919;
+}

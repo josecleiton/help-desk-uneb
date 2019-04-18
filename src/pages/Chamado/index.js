@@ -7,7 +7,7 @@ import LargeBox from '../../components/LargeBox';
 
 import './style.css';
 
-export default class ConsultarChamado extends Component {
+export default class VisualizarChamado extends Component {
   constructor() {
     super();
     this.state = { id: '', animate: false };
@@ -39,7 +39,7 @@ export default class ConsultarChamado extends Component {
             {'  '}
             {`#${id}`}
           </p>
-          <LargeBox width="95%">
+          <LargeBox style={{ width: '95%' }}>
             <p>
               <strong>Solicitante:</strong>
               {' '}
@@ -72,6 +72,6 @@ TI
   }
 }
 
-ConsultarChamado.propTypes = {
+VisualizarChamado.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
 };

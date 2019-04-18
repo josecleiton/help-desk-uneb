@@ -1,18 +1,18 @@
 import React from 'react';
-import AdminTable from '../../components/Admin/Table';
+import Table from '../../components/Table';
 
 const TablePage = () => (
-  <AdminTable
+  <Table
     head={['#', 'Área', 'Situação', 'Problema', 'Qtd de dias', 'Data de Abertura', 'Solicitante']}
     rows={[
-      ['190001', 'TI', 'Em aberto', 'Java bugou', 'X', 'dd/mm/YYYY', 'brancobro@yahoo.com.br'],
+      ['190001', 'TI', 'Em aberto', 'Java bugou', 'X', '19/10/2018', 'brancobro@yahoo.com.br'],
       [
         '190002',
         'TI',
         'Em atendimento',
         'Impressora sem papel',
         'X',
-        'dd/mm/YYYY',
+        '14/04/2019',
         'rafamoreira@777.com',
       ],
     ]}

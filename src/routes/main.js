@@ -6,8 +6,9 @@ import Main from '../pages/Main';
 import Login from '../pages/Login';
 import Admin from '../pages/Admin';
 import TablePage from '../pages/Table';
-import ConsultarChamado from '../pages/ConsultarChamado';
+import VisualizarChamado from '../pages/Chamado';
 import AbrirChamado from '../pages/AbrirChamado';
+import ChamadosEmail from '../pages/ChamadosEmail';
 
 import NotFound from '../pages/NotFound';
 
@@ -16,7 +17,8 @@ const MainRoutes = () => (
     <Switch>
       <Route exact path="/" component={Main} />
       <Route path="/login" component={Login} />
-      <Route path="/consultar-chamado/:id" component={ConsultarChamado} />
+      <Route path="/chamado/:id" component={VisualizarChamado} />
+      <Route path="/chamados-email/:email" component={ChamadosEmail} />
       <Route path="/admin" component={Admin} />
       <Route path="/table" component={TablePage} />
       <Route path="/abrir-chamado" component={AbrirChamado} />

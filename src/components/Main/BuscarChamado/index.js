@@ -19,6 +19,7 @@ export default class BuscarChamado extends Component {
   formChecker = (formObject) => {
     const inputEl = String(document.querySelector('input[name=input]').value);
     formObject.preventDefault();
+    const { redirect } = this.props;
     if (inputEl.indexOf('@') === -1) {
       const numberReg = /[0-9]/;
       if (inputEl.length > 7 || !numberReg.test(inputEl)) {
@@ -35,9 +36,10 @@ export default class BuscarChamado extends Component {
         });
         return false;
       }
+      redirect(`/chamado/${inputEl}`);
+    } else {
+      redirect(`/chamados-email/${inputEl}`);
     }
-    const { redirect } = this.props;
-    redirect(`/consultar-chamado/${inputEl}`);
     return true;
   };
 

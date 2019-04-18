@@ -6,6 +6,7 @@ import AdminRightDiv from '../../../components/Admin/RightDiv';
 import AdminPageTitle from '../../../components/Admin/Title';
 import LargeBox from '../../../components/LargeBox';
 import SortArrow from '../../../components/LargeBox/SortArrow';
+import AtendimentoForm from '../../../components/Admin/AtendimentoForm';
 
 import './style.css';
 
@@ -42,9 +43,9 @@ Ver imagem
 );
 
 const HiddenContent = () => (
-  <h1 className="hidden-content-box">
+  <h3 className="hidden-content-box">
     Descrição do chamado oculta, clique na seta para mais informações.
-  </h1>
+  </h3>
 );
 
 export default class Atendimento extends Component {
@@ -80,7 +81,7 @@ export default class Atendimento extends Component {
       <Fragment>
         <AdminMenu path={this.currentPath} />
         <AdminRightDiv>
-          <AdminPageTitle comment={`#${id}`}>Atendimento</AdminPageTitle>
+          <AdminPageTitle comment={`#${id}`}>Atendimento de Chamado</AdminPageTitle>
           <LargeBox
             style={{
               width: '95%',
@@ -93,29 +94,7 @@ export default class Atendimento extends Component {
             </div>
             {content}
           </LargeBox>
-          <LargeBox style={{ width: '95%', margin: '0 auto', paddingLeft: '10px' }}>
-            <h1 className="admin-chamado">Atendimento</h1>
-            <form action="" className="admin-chamado">
-              <div>
-                <textarea
-                  className="admin-chamado"
-                  placeholder={`Informações adicionais sobre o chamado #${id}`}
-                />
-              </div>
-              <div>
-                Prioridade
-                <select name="prioridade" className="admin-chamado">
-                  <option value="baixa">Baixa</option>
-                  <option value="media">Média</option>
-                  <option value="alta">Alta</option>
-                  <option value="urgente">Urgente</option>
-                </select>
-                <button type="submit" className="admin-chamado">
-                  Atender
-                </button>
-              </div>
-            </form>
-          </LargeBox>
+          <AtendimentoForm chamadoId={id} />
         </AdminRightDiv>
       </Fragment>
     );

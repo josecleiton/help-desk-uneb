@@ -1,0 +1,8 @@
+div.chamados-email {
+  margin: 1em auto;
+}
+div.chamados-email h1 {
+  font-weight: normal;
+  text-align: center;
+  font-size: 3em;
+}

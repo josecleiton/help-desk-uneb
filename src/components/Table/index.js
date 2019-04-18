@@ -7,7 +7,7 @@ import TableCaption from './Caption';
 
 import './style.css';
 
-export default class AdminTable extends Component {
+export default class Table extends Component {
   constructor(props) {
     super(props);
     const { rows, head } = props;
@@ -19,32 +19,18 @@ export default class AdminTable extends Component {
     this.defaultRows = [...rows];
   }
 
-  handleSort = (column) => {
-    const { rows, head } = this.props;
-    const columnState = this.activeHeader[column] + 1;
-    this.activeHeader.fill(0);
-    if (columnState % 3) {
-      this.activeHeader[column] = columnState;
-      rows.sort((a, b) => {
-        if (columnState % 2) {
-          if (a[column] > b[column]) return -1;
-          if (a[column] < b[column]) return 1;
-        } else {
-          if (a[column] > b[column]) return 1;
-          if (a[column] < b[column]) return -1;
-        }
-        return 0;
-      });
-      this.setState({
-        tableHead: this.makeTableHead(head, column, columnState),
-        tableRows: this.makeTableRows(rows),
-      });
-    } else {
-      this.setState({
-        tableHead: this.makeTableHead(head, -1, 0),
-        tableRows: this.makeTableRows(this.defaultRows),
-      });
+  makeDateFields = (a, b) => {
+    const toTimeStamp = Array(2);
+    const result = Array(2);
+    toTimeStamp[0] = String(a);
+    toTimeStamp[1] = String(b);
+    for (let i = 0; i < 2; i += 1) {
+      const day = toTimeStamp[i].substr(0, 2);
+      const month = toTimeStamp[i].substr(3, 2);
+      toTimeStamp[i] = toTimeStamp[i].replace(RegExp(`${day}|${month}`, 'g'), match => (match === day ? month : day));
+      result[i] = Date.parse(toTimeStamp[i]);
     }
+    return result;
   };
 
   makeTableHead = (stringHead, toHighlight, clickCounter) => stringHead.map((column, index) => (
@@ -73,6 +59,45 @@ export default class AdminTable extends Component {
     return htmlCells;
   };
 
+  handleSort = (column) => {
+    const { rows, head, dateFields } = this.props;
+    const columnState = this.activeHeader[column] + 1;
+    const columnIsDate = dateFields.indexOf(column) !== -1;
+    this.activeHeader.fill(0);
+    if (columnState % 3) {
+      this.activeHeader[column] = columnState;
+      rows.sort((a, b) => {
+        if (columnState % 2) {
+          if (!columnIsDate) {
+            if (a[column] > b[column]) return -1;
+            if (a[column] < b[column]) return 1;
+          } else {
+            const timeStamps = this.makeDateFields(a[column], b[column]);
+            if (timeStamps[0] > timeStamps[1]) return -1;
+            if (timeStamps[0] < timeStamps[1]) return 1;
+          }
+        } else if (!columnIsDate) {
+          if (a[column] > b[column]) return 1;
+          if (a[column] < b[column]) return -1;
+        } else {
+          const timeStamps = this.makeDateFields(a[column], b[column]);
+          if (timeStamps[0] > timeStamps[1]) return 1;
+          if (timeStamps[0] < timeStamps[1]) return -1;
+        }
+        return 0;
+      });
+      this.setState({
+        tableHead: this.makeTableHead(head, column, columnState),
+        tableRows: this.makeTableRows(rows),
+      });
+    } else {
+      this.setState({
+        tableHead: this.makeTableHead(head, -1, 0),
+        tableRows: this.makeTableRows(this.defaultRows),
+      });
+    }
+  };
+
   render() {
     const { title, margin } = this.props;
     const { tableRows, tableHead } = this.state;
@@ -93,15 +118,16 @@ export default class AdminTable extends Component {
   }
 }
 
-AdminTable.defaultProps = {
+Table.defaultProps = {
   title: '',
   margin: '0 auto',
   redirect: () => {},
   goToUrl: '',
   rowsPrimaryKey: 0,
+  dateFields: [],
 };
 
-AdminTable.propTypes = {
+Table.propTypes = {
   title: PropTypes.string,
   margin: PropTypes.string,
   rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
@@ -109,4 +135,5 @@ AdminTable.propTypes = {
   head: PropTypes.arrayOf(PropTypes.string).isRequired,
   redirect: PropTypes.func,
   goToUrl: PropTypes.string,
+  dateFields: PropTypes.arrayOf(PropTypes.number),
 };

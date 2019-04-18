@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+
+import Table from '../../../components/Table';
 import AdminMenu from '../../../components/Admin/Menu';
 import AdminPageTitle from '../../../components/Admin/Title';
-import AdminTable from '../../../components/Admin/Table';
 import AdminRightDiv from '../../../components/Admin/RightDiv';
 
 export default class AdminHome extends Component {
@@ -22,12 +23,13 @@ export default class AdminHome extends Component {
         <AdminMenu path={this.currentPath} />
         <AdminRightDiv>
           <AdminPageTitle comment="comentário">Painel Administrativo</AdminPageTitle>
-          <AdminTable
+          <Table
             title="Chamados em aberto"
             margin="1.5% auto"
             redirect={push}
             goToUrl="/admin/atendimento"
             rowsPrimaryKey={0}
+            dateFields={[5]}
             head={[
               '#',
               'Área',
@@ -44,7 +46,7 @@ export default class AdminHome extends Component {
                 'Em aberto',
                 'Java bugou',
                 'X',
-                'dd/mm/YYYY',
+                '19/10/2018',
                 'brancobro@yahoo.com.br',
               ],
               [
@@ -53,7 +55,7 @@ export default class AdminHome extends Component {
                 'Em atendimento',
                 'Impressora sem papel',
                 'X',
-                'dd/mm/YYYY',
+                '14/04/2019',
                 'rafamoreira@777.com',
               ],
             ]}

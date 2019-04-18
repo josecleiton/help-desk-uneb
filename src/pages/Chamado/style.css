@@ -26,6 +26,6 @@ div#hist-mov {
   border-left: none;
 }
 
-div h2 {
+div#hist-mov h2 {
   text-align: center;
 }
