@@ -10,14 +10,30 @@ import './style.css';
 export default class Table extends Component {
   constructor(props) {
     super(props);
-    const { rows, head } = props;
+    const { head, columnSortKey } = props;
     this.state = {
       tableHead: this.makeTableHead(head, -1, 0),
-      tableRows: this.makeTableRows(rows),
+      tableRows: this.makeTableRows(this.initialSort(columnSortKey)),
     };
     this.activeHeader = Array(head.length).fill(0);
-    this.defaultRows = [...rows];
   }
+
+  initialSort = (column) => {
+    const { dateFields, rows } = this.props;
+    const columnIsDate = dateFields.indexOf(column) !== -1;
+    rows.sort((a, b) => {
+      if (!columnIsDate) {
+        if (a[column] > b[column]) return -1;
+        if (a[column] < b[column]) return 1;
+      } else {
+        const timeStamps = this.makeDateFields(a[column], b[column]);
+        if (timeStamps[0] > timeStamps[1]) return -1;
+        if (timeStamps[0] < timeStamps[1]) return 1;
+      }
+      return 0;
+    });
+    return rows;
+  };
 
   makeDateFields = (a, b) => {
     const toTimeStamp = Array(2);
@@ -46,9 +62,15 @@ export default class Table extends Component {
   ));
 
   makeTableRows = (stringRows) => {
-    const { goToUrl, rowsPrimaryKey } = this.props;
+    const { goToUrl, rowsPrimaryKey, checkInfo } = this.props;
     const htmlCells = stringRows.map(el => (
-      <TableRow key={el[0]} primaryKey={rowsPrimaryKey} elements={el} url={goToUrl} />
+      <TableRow
+        key={el[0]}
+        primaryKey={rowsPrimaryKey}
+        elements={el}
+        url={goToUrl}
+        checkInfo={checkInfo}
+      />
     ));
     return htmlCells;
   };
@@ -85,9 +107,10 @@ export default class Table extends Component {
         tableRows: this.makeTableRows(rows),
       });
     } else {
+      const { columnSortKey } = this.props;
       this.setState({
         tableHead: this.makeTableHead(head, -1, 0),
-        tableRows: this.makeTableRows(this.defaultRows),
+        tableRows: this.makeTableRows(this.initialSort(columnSortKey)),
       });
     }
   };
@@ -125,6 +148,7 @@ Table.propTypes = {
   margin: PropTypes.string,
   rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
   rowsPrimaryKey: PropTypes.number,
+  columnSortKey: PropTypes.number.isRequired,
   head: PropTypes.arrayOf(PropTypes.string).isRequired,
   goToUrl: PropTypes.string,
   dateFields: PropTypes.arrayOf(PropTypes.number),

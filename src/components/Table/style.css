@@ -46,15 +46,16 @@ table.admin thead th:last-child {
   border-top-right-radius: 5px;
 }
 
+table.admin tbody tr {
+  transition: all 0.4s;
+}
+
 table.admin tbody tr:nth-child(2n-1) {
   background: #ddd;
 }
 
 table.admin tbody tr:nth-child(2n) {
   background: #eee;
-}
-table.admin tbody tr {
-  transition: all 0.4s;
 }
 
 table.admin tbody tr:hover,

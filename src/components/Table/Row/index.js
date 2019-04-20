@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -9,8 +9,8 @@ class TableRow extends Component {
     this.state = {
       animate: false,
       hasLink: url.length !== 0,
+      cells: elements.map(e => <td key={`cell-${e}`}>{e}</td>),
     };
-    this.cells = elements.map(e => <td key={`cell-${e}`}>{e}</td>);
   }
 
   componentDidMount() {
@@ -25,19 +25,36 @@ class TableRow extends Component {
       primaryKey,
       elements,
       history: { push: redirectTo },
+      location,
+      checkInfo,
     } = this.props;
-    if (url && primaryKey + 1) redirectTo(`${url}/${elements[primaryKey]}`);
+    if (!checkInfo) {
+      if (url && primaryKey + 1) redirectTo(`${url}/${elements[primaryKey]}`);
+    } else if (url && primaryKey + 1) {
+      const column = Object.keys(checkInfo)[0];
+      const elementColumn = elements[column];
+      if (elementColumn === checkInfo[column][0]) {
+        redirectTo({
+          pathname: `${checkInfo[column][1]}/${elements[primaryKey]}`,
+          state: { from: location.pathname },
+        });
+      } else {
+        redirectTo(`${url}/${elements[primaryKey]}`);
+      }
+    }
   };
 
   render() {
-    const { animate, hasLink } = this.state;
+    const { animate, hasLink, cells } = this.state;
     return (
-      <tr
-        onClick={this.handleClick}
-        style={{ cursor: hasLink ? 'pointer' : 'regular', opacity: animate ? 1 : 0 }}
-      >
-        {this.cells}
-      </tr>
+      <Fragment>
+        <tr
+          onClick={this.handleClick}
+          style={{ cursor: hasLink ? 'pointer' : 'regular', opacity: animate ? 1 : 0 }}
+        >
+          {cells}
+        </tr>
+      </Fragment>
     );
   }
 }

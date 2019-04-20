@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+import ErrorAlert from '../../ErrorAlert';
+
 import './style.css';
 
 class BuscarChamado extends Component {
@@ -8,6 +11,7 @@ class BuscarChamado extends Component {
     super(props);
     this.state = {
       animate: false,
+      error: false,
     };
   }
 
@@ -18,7 +22,7 @@ class BuscarChamado extends Component {
   }
 
   formChecker = (formObject) => {
-    const inputEl = String(document.querySelector('input[name=input]').value);
+    const inputEl = document.querySelector('input[name=input]').value;
     formObject.preventDefault();
     const {
       history: { push: redirectTo },
@@ -27,17 +31,7 @@ class BuscarChamado extends Component {
     if (!cpfReg.test(inputEl)) {
       const numberReg = /[0-9]/;
       if (inputEl.length > 7 || !numberReg.test(inputEl)) {
-        const errorEl = document.getElementsByClassName('erro')[0];
-        errorEl.style.opacity = 0.85;
-        errorEl.innerHTML = 'Digite um CPF ou um número de chamado válido!';
-        errorEl.addEventListener('mouseover', (e) => {
-          e.target.style.transition = 'all 0.5s';
-          e.target.style.opacity = 1;
-        });
-        errorEl.addEventListener('mouseout', (e) => {
-          e.target.style.transition = 'all 4s';
-          e.target.style.opacity = 0.85;
-        });
+        this.setState({ error: true });
         return false;
       }
       redirectTo(`/chamado/${inputEl}`);
@@ -63,7 +57,7 @@ class BuscarChamado extends Component {
   };
 
   render() {
-    const { animate } = this.state;
+    const { animate, error } = this.state;
     return (
       <div id="buscar-chamado">
         <form onKeyDown={this.listenEsc} onSubmit={this.formChecker} role="presentation">
@@ -71,12 +65,12 @@ class BuscarChamado extends Component {
             placeholder="Insira seu CPF ou o número do chamado..."
             name="input"
             style={{
-              width: animate ? '75%' : '15%',
+              width: animate ? '80%' : '15%',
             }}
             required
           />
         </form>
-        <div className="erro" />
+        {error ? <ErrorAlert>Digite um CPF ou um número de chamado válido!</ErrorAlert> : ''}
       </div>
     );
   }

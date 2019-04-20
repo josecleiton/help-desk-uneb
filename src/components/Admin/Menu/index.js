@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import AdminMenuItem from './Item';
 import './style.css';
-import Estados from '../../misc/estados';
+import Estados from '../../../configs/estados';
 
 export default class AdminMenu extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.criaArrayDeEstados();
   }
 
@@ -25,26 +24,17 @@ export default class AdminMenu extends Component {
   };
 
   render() {
-    const { path } = this.props;
     return (
       <div className="admin-menu">
         <ul role="menu">
-          <AdminMenuItem url="/admin" currentpath={path}>
-            Início
-          </AdminMenuItem>
-          <AdminMenuItem
-            url="/admin/meus-chamados"
-            icon="fas fa-envelope"
-            submenu={this.Estados}
-            currentpath={path}
-          >
+          <AdminMenuItem url="/admin">Início</AdminMenuItem>
+          <AdminMenuItem url="/admin/meus-chamados" icon="fas fa-envelope" submenu={this.Estados}>
             Meus Chamados
           </AdminMenuItem>
           <AdminMenuItem
             url="/admin/gerenciar"
             submenu={[{ areas: 'Áreas' }, { chamados: 'Chamados' }, { tecnicos: 'Técnicos' }]}
             icon="fas fa-tools"
-            currentpath={path}
           >
             Gerenciar
           </AdminMenuItem>
@@ -61,7 +51,3 @@ export default class AdminMenu extends Component {
     );
   }
 }
-
-AdminMenu.propTypes = {
-  path: PropTypes.func.isRequired,
-};

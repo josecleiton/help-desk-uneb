@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './style.css';
 
-export default class AdminMenuItem extends Component {
+class AdminMenuItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,12 +13,21 @@ export default class AdminMenuItem extends Component {
   }
 
   componentDidMount() {
-    const { submenu, currentpath, url } = this.props;
+    const {
+      submenu,
+      match: { path },
+      url,
+    } = this.props;
     const menuItemEl = this.node.current;
     if (submenu.length) {
       this.setState({ hasSubMenu: true }, this.fillSubMenu());
     }
-    if (currentpath() === url) {
+    let currentPath = path;
+    const del = path.indexOf(':');
+    if (del !== -1) {
+      currentPath = path.substr(0, del - 1);
+    }
+    if (currentPath === url) {
       this.catEarEl = document.createElement('span');
       this.catEarEl.setAttribute('class', 'ear-right');
 
@@ -85,5 +94,7 @@ AdminMenuItem.propTypes = {
   icon: PropTypes.string,
   submenu: PropTypes.arrayOf(PropTypes.object),
   url: PropTypes.string.isRequired,
-  currentpath: PropTypes.func.isRequired,
+  match: PropTypes.objectOf(PropTypes.any).isRequired,
 };
+
+export default withRouter(AdminMenuItem);

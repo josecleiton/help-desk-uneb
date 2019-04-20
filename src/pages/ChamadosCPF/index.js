@@ -53,7 +53,9 @@ export default class ChamadosCPF extends Component {
             'Data de criação',
           ]}
           rowsPrimaryKey={0}
-          dateFields={[3, 4]}
+          dateFields={[6, 7]}
+          columnSortKey={6}
+          checkInfo={{ 4: ['Em aberto', '/edit-chamado'] }}
           rows={[
             [
               '19001',
@@ -62,7 +64,7 @@ export default class ChamadosCPF extends Component {
               'TI',
               'Em atendimento',
               'Cleiton',
-              '18/04/2019 02:00',
+              '10/04/2019 02:00',
               '17/03/2018 00:00',
             ],
             [
@@ -70,7 +72,7 @@ export default class ChamadosCPF extends Component {
               'Computador Colegiado SI',
               'Impressora parou',
               'TI',
-              'Concluído',
+              'Em aberto',
               'Cleiton',
               '15/04/2019 11:00',
               '10/04/2019 22:00',

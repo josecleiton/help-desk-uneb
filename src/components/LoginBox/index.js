@@ -18,6 +18,7 @@ class LoginBox extends Component {
       height: '40px',
       padding: '10px',
       marginTop: '10px',
+      display: 'block',
     };
   }
 
@@ -60,18 +61,14 @@ class LoginBox extends Component {
           }}
         >
           <form onSubmit={this.handleSubmit}>
-            <p>
+            <div>
               <strong>Área de Login</strong>
               <a href="#login" title="Área de acesso para técnicos.">
                 <i className="fas fa-user-tie" />
               </a>
-            </p>
-            <p>
-              <Input placeholder="Usuário" style={this.inputStyle} required />
-            </p>
-            <p>
-              <Input type="password" style={this.inputStyle} required />
-            </p>
+            </div>
+            <Input placeholder="Usuário" style={this.inputStyle} required />
+            <Input type="password" style={this.inputStyle} required />
             <nav>
               <button type="submit" className="login-button">
                 Entrar

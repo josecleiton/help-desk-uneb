@@ -1,18 +1,18 @@
-div.not-found {
+div.error {
   transition: all 1s;
   text-align: center;
 }
 
-div.not-found i {
+div.error i {
   margin-top: 7%;
   margin-bottom: 2%;
 }
 
-div.not-found h1 {
+div.error h1 {
   margin-bottom: 2%;
 }
 
-div.not-found p {
+div.error p {
   margin: 0 auto;
   width: 70%;
 }

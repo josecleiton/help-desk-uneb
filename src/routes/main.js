@@ -9,8 +9,10 @@ import TablePage from '../pages/Table';
 import VisualizarChamado from '../pages/Chamado';
 import AbrirChamado from '../pages/AbrirChamado';
 import ChamadosCPF from '../pages/ChamadosCPF';
+import EditChamado from '../pages/EditChamado';
 
 import NotFound from '../pages/NotFound';
+import InvalidAccess from '../pages/InvalidAccess';
 
 const MainRoutes = () => (
   <Switch>
@@ -21,6 +23,8 @@ const MainRoutes = () => (
     <Route path="/admin" component={Admin} />
     <Route path="/table" component={TablePage} />
     <Route path="/abrir-chamado" component={AbrirChamado} />
+    <Route path="/edit-chamado/:id" component={EditChamado} />
+    <Route path="/acesso-invalido" component={InvalidAccess} />
     <Route component={NotFound} />
   </Switch>
 );
