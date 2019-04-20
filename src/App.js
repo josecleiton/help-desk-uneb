@@ -1,11 +1,12 @@
 import React from 'react';
-import './App.css';
 import MainRoutes from './routes/main';
 // import Main from "./pages/Main";
+import './App.css';
+
 const App = () => (
-  <div className="App">
-    <MainRoutes />
-  </div>
+  <MainRoutes>
+    <div className="App" />
+  </MainRoutes>
 );
 
 export default App;

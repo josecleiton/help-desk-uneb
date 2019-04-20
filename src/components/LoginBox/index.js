@@ -1,12 +1,13 @@
 // AQUI FICARÁ O CAMPO DE LOGIN
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Input from '../Input';
 
 import './style.css';
 
-export default class LoginBox extends Component {
+class LoginBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,19 +28,18 @@ export default class LoginBox extends Component {
   }
 
   componentDidUpdate() {
-    const { animate } = this.state;
-    if (animate) {
-      setTimeout(() => {
-        document.getElementById('login-content').style.transition = 'all 0.3s';
-        document.getElementById('login').style.transition = 'all 0.5s';
-      }, 200);
-    }
+    setTimeout(() => {
+      document.getElementById('login-content').style.transition = 'all 0.3s';
+      document.getElementById('login').style.transition = 'all 0.5s';
+    }, 50);
   }
 
   handleSubmit = (formEl) => {
-    const { redirect } = this.props;
+    const {
+      history: { push },
+    } = this.props;
     formEl.preventDefault();
-    redirect('/admin');
+    push('/admin');
   };
 
   render() {
@@ -89,5 +89,7 @@ export default class LoginBox extends Component {
 
 LoginBox.propTypes = {
   className: PropTypes.string.isRequired,
-  redirect: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
+
+export default withRouter(LoginBox);

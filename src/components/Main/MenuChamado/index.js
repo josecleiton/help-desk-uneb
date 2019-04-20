@@ -1,15 +1,28 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Fragment } from 'react';
+
+import BuscarChamado from '../BuscarChamado';
+import AreaAtendimento from '../AreaAtendimento';
 
 import './style.css';
 
 export default class MenuChamado extends Component {
   constructor(props) {
     super(props);
+    this.defaultButtons = (
+      <Fragment>
+        <button type="button" className="criar" onClick={this.criaChamado}>
+          {' '}
+          Criar Chamado
+        </button>
+        <button type="button" className="acompanhar" onClick={this.buscaChamado}>
+          Acompanhar Chamado
+        </button>
+      </Fragment>
+    );
     this.state = {
       animate: false,
+      buttons: this.defaultButtons,
     };
-    this.botoes = ''; // OS BOTÕES ACOMPANHAR/CRIAR CHAMADO FICARÃO TEMPORARIAMENTE AQUI
   }
 
   componentDidMount() {
@@ -18,38 +31,24 @@ export default class MenuChamado extends Component {
     }, 50);
   }
 
+  handleEsc = (key) => {
+    if (key === 'Esc') this.setState({ buttons: this.defaultButtons });
+  };
+
   buscaChamado = () => {
-    const { escListener } = this.props;
-    escListener('Buscar');
-    // let botoesEl = document.getElementById("botoes");
-    // ReactDOM.unmountComponentAtNode(botoesEl);
-    // ReactDOM.render(<BuscarChamado onKeyDown={this.listenEsc} />, botoesEl);
+    this.setState({ buttons: <BuscarChamado escListener={this.handleEsc} /> });
   };
 
   criaChamado = () => {
-    const { escListener } = this.props;
-    escListener('Criar');
-    // let botoesEl = document.getElementById("botoes");
-    // ReactDOM.unmountComponentAtNode(botoesEl);
-    // ReactDOM.render(<BuscarChamado onKeyDown={this.listenEsc} />, botoesEl);
+    this.setState({ buttons: <AreaAtendimento /> });
   };
 
   render() {
-    const { animate } = this.state;
+    const { animate, buttons } = this.state;
     return (
       <div className="main-buttons" style={{ opacity: animate ? 1 : 0 }}>
-        <button type="button" className="criar" onClick={this.criaChamado}>
-          {' '}
-          Criar Chamado
-        </button>
-        <button type="button" className="acompanhar" onClick={this.buscaChamado}>
-          Acompanhar Chamado
-        </button>
+        {buttons}
       </div>
     );
   }
 }
-
-MenuChamado.propTypes = {
-  escListener: PropTypes.func.isRequired,
-};

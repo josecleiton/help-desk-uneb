@@ -1,0 +1,5 @@
+.text-area {
+  border-radius: 5px;
+  padding: 10px;
+  resize: vertical;
+}

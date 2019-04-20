@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export default class TableRow extends Component {
+class TableRow extends Component {
   constructor(props) {
     super(props);
     const { elements, url } = props;
@@ -20,9 +21,12 @@ export default class TableRow extends Component {
 
   handleClick = () => {
     const {
-      url, primaryKey, elements, toRedirect,
+      url,
+      primaryKey,
+      elements,
+      history: { push: redirectTo },
     } = this.props;
-    if (primaryKey + 1) toRedirect(`${url}/${elements[primaryKey]}`);
+    if (url && primaryKey + 1) redirectTo(`${url}/${elements[primaryKey]}`);
   };
 
   render() {
@@ -41,12 +45,13 @@ export default class TableRow extends Component {
 TableRow.defaultProps = {
   primaryKey: -1,
   url: '',
-  toRedirect: () => {},
 };
 
 TableRow.propTypes = {
   elements: PropTypes.arrayOf(PropTypes.string).isRequired,
   primaryKey: PropTypes.number,
   url: PropTypes.string,
-  toRedirect: PropTypes.func,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
+
+export default withRouter(TableRow);

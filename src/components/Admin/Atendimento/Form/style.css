@@ -15,14 +15,6 @@ form.admin-chamado div {
   padding: 0;
 }
 
-textarea.admin-chamado {
-  padding: 10;
-  width: 100%;
-  height: 50px;
-  margin-bottom: 20px;
-  resize: vertical;
-}
-
 select.admin-chamado {
   color: #fff;
   background: #2964ad;
@@ -48,3 +40,30 @@ button.admin-chamado:hover,
 button.admin-chamado:focus {
   background: #df1919;
 }
+
+div.admin-chamado-input {
+  margin-left: 20px;
+}
+
+div.admin-chamado-input label {
+  cursor: pointer;
+}
+
+div.admin-chamado-input input[type="checkbox"] {
+  display: none;
+}
+
+div.admin-chamado-input input[type="checkbox"] + .label-checkbox:before {
+  content: "?";
+}
+div.admin-chamado-input
+  input[type="checkbox"]:checked
+  + .label-checkbox:before {
+  content: "\2714";
+  margin-left: 10px;
+  font-weight: bold;
+  color: green;
+}
+/* div.admin-chamado-input input[type="checkbox"]::before {
+  content: "\2714";
+} */

@@ -7,18 +7,17 @@ import LargeBox from '../../components/LargeBox';
 import './style.css';
 
 export default class VisualizarChamado extends Component {
-  constructor() {
-    super();
-    this.state = { id: '', animate: false };
-  }
-
-  componentDidMount() {
+  constructor(props) {
+    super(props);
     const {
       match: {
         params: { id },
       },
-    } = this.props;
-    this.setState({ id });
+    } = props;
+    this.state = { id, animate: false };
+  }
+
+  componentDidMount() {
     setTimeout(() => {
       this.setState({ animate: true });
     }, 50);

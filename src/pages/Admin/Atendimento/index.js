@@ -6,41 +6,10 @@ import AdminRightDiv from '../../../components/Admin/RightDiv';
 import AdminPageTitle from '../../../components/Admin/Title';
 import LargeBox from '../../../components/LargeBox';
 import SortArrow from '../../../components/LargeBox/SortArrow';
-import AtendimentoForm from '../../../components/Admin/AtendimentoForm';
+import AtendimentoForm from '../../../components/Admin/Atendimento/Form';
+import Content from './Content';
 
 import './style.css';
-
-const RenderContent = () => (
-  <Fragment>
-    <p>
-      <strong>Solicitante:</strong>
-      {' '}
-user@email.com
-    </p>
-    <p>
-      <strong>Status:</strong>
-      {' '}
-Aberto
-    </p>
-    <p>
-      <strong>Data de Abertura:</strong>
-      {' '}
-dd/mm/YYYY
-    </p>
-
-    <p>
-      <strong>Área:</strong>
-      {' '}
-TI
-    </p>
-
-    <p>
-      <strong>Anexo:</strong>
-      {' '}
-Ver imagem
-    </p>
-  </Fragment>
-);
 
 const HiddenContent = () => (
   <h3 className="hidden-content-box">
@@ -62,9 +31,14 @@ export default class Atendimento extends Component {
   };
 
   slide = (clicked) => {
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
     this.setState({ clicked });
     if (clicked) {
-      this.setState({ content: <RenderContent /> });
+      this.setState({ content: <Content id={id} /> });
     } else {
       this.setState({ content: <HiddenContent /> });
     }
@@ -81,14 +55,8 @@ export default class Atendimento extends Component {
       <Fragment>
         <AdminMenu path={this.currentPath} />
         <AdminRightDiv>
-          <AdminPageTitle comment={`#${id}`}>Atendimento de Chamado</AdminPageTitle>
-          <LargeBox
-            style={{
-              width: '95%',
-              margin: '110px auto 50px auto',
-              height: clicked ? '400px' : '50px',
-            }}
-          >
+          <AdminPageTitle>Atendimento de Chamado</AdminPageTitle>
+          <LargeBox className={clicked ? 'admin-atendimento-box-clicked' : 'admin-atendimento-box'}>
             <div className="admin-atendimento-sort-arrow">
               <SortArrow slide={this.slide} />
             </div>

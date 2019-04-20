@@ -12,9 +12,13 @@ const AdminPageTitle = (props) => {
   );
 };
 
+AdminPageTitle.defaultProps = {
+  comment: '',
+};
+
 AdminPageTitle.propTypes = {
   children: PropTypes.string.isRequired,
-  comment: PropTypes.string.isRequired,
+  comment: PropTypes.string,
 };
 
 export default AdminPageTitle;

@@ -2,6 +2,33 @@ div.admin-atendimento {
   margin: 100px auto;
 }
 
+.admin-atendimento-box {
+  width: 95%;
+  margin: 110px auto 50px auto;
+  height: 50px;
+  padding: 10px;
+}
+
+.admin-atendimento-box-clicked {
+  width: 95%;
+  margin: 110px auto 50px auto;
+  height: 400px;
+  padding: 10px;
+}
+
+@media (max-width: 680px) {
+  .admin-atendimento-box {
+    height: 100px;
+  }
+}
+
+@media (max-width: 470px) {
+  .hidden-content-box {
+    position: relative;
+    bottom: 20px;
+  }
+}
+
 .admin-atendimento-sort-arrow {
   float: right;
   position: relative;
@@ -12,4 +39,8 @@ div.admin-atendimento {
 .hidden-content-box {
   width: 90%;
   float: left;
+  justify-items: center;
+}
+.admin-atendimento-content p {
+  margin: 10px 0;
 }

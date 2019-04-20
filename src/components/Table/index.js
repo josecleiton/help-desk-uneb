@@ -22,8 +22,8 @@ export default class Table extends Component {
   makeDateFields = (a, b) => {
     const toTimeStamp = Array(2);
     const result = Array(2);
-    toTimeStamp[0] = String(a);
-    toTimeStamp[1] = String(b);
+    toTimeStamp[0] = a;
+    toTimeStamp[1] = b;
     for (let i = 0; i < 2; i += 1) {
       const day = toTimeStamp[i].substr(0, 2);
       const month = toTimeStamp[i].substr(3, 2);
@@ -46,15 +46,9 @@ export default class Table extends Component {
   ));
 
   makeTableRows = (stringRows) => {
-    const { redirect, goToUrl, rowsPrimaryKey } = this.props;
+    const { goToUrl, rowsPrimaryKey } = this.props;
     const htmlCells = stringRows.map(el => (
-      <TableRow
-        key={el[0]}
-        primaryKey={rowsPrimaryKey}
-        elements={el}
-        url={goToUrl}
-        toRedirect={redirect}
-      />
+      <TableRow key={el[0]} primaryKey={rowsPrimaryKey} elements={el} url={goToUrl} />
     ));
     return htmlCells;
   };
@@ -121,7 +115,6 @@ export default class Table extends Component {
 Table.defaultProps = {
   title: '',
   margin: '0 auto',
-  redirect: () => {},
   goToUrl: '',
   rowsPrimaryKey: 0,
   dateFields: [],
@@ -133,7 +126,6 @@ Table.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
   rowsPrimaryKey: PropTypes.number,
   head: PropTypes.arrayOf(PropTypes.string).isRequired,
-  redirect: PropTypes.func,
   goToUrl: PropTypes.string,
   dateFields: PropTypes.arrayOf(PropTypes.number),
 };

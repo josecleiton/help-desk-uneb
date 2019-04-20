@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+
 import Header from '../../Header';
 import LoginBox from '../../LoginBox';
+
 import './style.css';
 
 export default class MainHeader extends Component {
   constructor(props) {
     super(props);
-    this.loginClicks = 0;
+    this.state = { login: 0 };
   }
 
   loginRender = () => {
-    const { redirect } = this.props;
-    const menuLoginLi = document.getElementsByClassName('menu-login')[0];
-    const menuLoginDiv = document.getElementById('menu-login');
+    const { login } = this.state;
+    this.setState({ login: login + 1 });
+  };
+
+  /*
+  loginRender = () => {
     if (this.loginClicks % 2 === 0) {
       ReactDOM.render(
-        <LoginBox maxHeight={225} className="main-login" redirect={redirect} />,
+        <BrowserRouter>
+          <LoginBox maxHeight={225} className="main-login" />
+        </BrowserRouter>,
         menuLoginDiv,
       );
       menuLoginLi.style.backgroundColor = '#ef191a';
@@ -31,8 +36,20 @@ export default class MainHeader extends Component {
     }
     this.loginClicks += 1;
   };
-
+*/
   render() {
+    const { login } = this.state;
+    let loginEl = '';
+    if (login) {
+      const menuLoginLi = document.getElementsByClassName('menu-login')[0];
+      if (login % 2) {
+        loginEl = <LoginBox maxHeight={255} className="main-login" />;
+        menuLoginLi.style.backgroundColor = '#ef191a';
+      } else {
+        menuLoginLi.style.backgroundColor = '';
+        loginEl = '';
+      }
+    }
     return (
       <Header>
         <nav className="menu">
@@ -51,7 +68,7 @@ export default class MainHeader extends Component {
                 <i className="fas fa-user" />
                 Login
               </span>
-              <div id="menu-login" />
+              <div id="menu-login">{loginEl}</div>
             </li>
           </ul>
         </nav>
@@ -59,7 +76,3 @@ export default class MainHeader extends Component {
     );
   }
 }
-
-MainHeader.propTypes = {
-  redirect: PropTypes.func.isRequired,
-};
