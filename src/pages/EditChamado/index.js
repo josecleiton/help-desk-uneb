@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
 import MainHeader from '../../components/Main/Header';
@@ -11,21 +12,31 @@ export default class EditChamado extends Component {
     const {
       location: { state },
     } = this.props;
+    this.initialSeconds = 10;
+    this.deleted = false;
     this.state = {
       validAccess: state !== undefined,
-      excluido: false,
+      excluido: this.deleted,
+      seconds: this.initialSeconds,
     };
   }
 
-  /*
   componentDidMount() {
-
-    const {
-      location: { state },
-    } = this.props;
-    if (state) console.log(state.from);
+    let timeLeft = this.initialSeconds;
+    this.timer = setInterval(() => {
+      timeLeft -= 1;
+      if (!timeLeft) {
+        clearInterval(this.timer);
+        this.visualizar();
+      }
+      this.setState({ seconds: timeLeft });
+    }, 1000);
   }
-  */
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
   visualizar = () => {
     const {
       history: { push: redirectTo },
@@ -40,6 +51,7 @@ export default class EditChamado extends Component {
     const {
       history: { replace: redirectTo },
     } = this.props;
+    clearInterval(this.timer);
     this.setState({ excluido: true });
     setTimeout(() => {
       redirectTo('/');
@@ -52,12 +64,19 @@ export default class EditChamado extends Component {
         params: { id },
       },
     } = this.props;
-    const { validAccess, excluido } = this.state;
+    const { seconds, validAccess, excluido } = this.state;
     return (
       <Fragment>
         <MainHeader />
         {validAccess ? (
           <div className="wrapper">
+            <h4 style={{ marginBottom: '2%' }}>
+              Clique em visualizar ou espere
+              {'  '}
+              {seconds}
+              {'  '}
+              segundos para ser redirecionado...
+            </h4>
             <h1>
               Deseja excluir o chamado
               {'  '}
@@ -83,3 +102,9 @@ export default class EditChamado extends Component {
     );
   }
 }
+
+EditChamado.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  match: PropTypes.objectOf(PropTypes.any).isRequired,
+  location: PropTypes.objectOf(PropTypes.any).isRequired,
+};
