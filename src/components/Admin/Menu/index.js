@@ -19,7 +19,8 @@ export default class AdminMenu extends Component {
       if (blankSpace !== -1) {
         key = element.substr(blankSpace + 1, element.length - blankSpace - 1);
       }
-      this.Estados.push({ [key.toLowerCase()]: value });
+      key = key.toLowerCase();
+      if (key !== 'aberto') this.Estados.push({ [key]: value });
     });
   };
 
@@ -32,7 +33,7 @@ export default class AdminMenu extends Component {
             Meus Chamados
           </AdminMenuItem>
           <AdminMenuItem
-            url="/admin/gerenciar"
+            url="/admin/gerenciamento"
             submenu={[{ areas: 'Áreas' }, { chamados: 'Chamados' }, { tecnicos: 'Técnicos' }]}
             icon="fas fa-tools"
           >

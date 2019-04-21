@@ -45,12 +45,30 @@ div.admin-chamado-input {
   margin-left: 20px;
 }
 
+div.admin-chamado-input strong {
+  margin-left: 5px;
+}
+
 div.admin-chamado-input label {
   cursor: pointer;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  display: block;
+  padding: 5px;
+  transition: all 0.2s;
+}
+
+div.admin-chamado-input label:hover {
+  background: rgba(0, 0, 0, 0.15);
 }
 
 div.admin-chamado-input input[type="checkbox"] {
   display: none;
+}
+
+div.admin-chamado-input input[type="checkbox"] + .label-checkbox:before {
+  transition: all 0.1s;
 }
 
 div.admin-chamado-input input[type="checkbox"] + .label-checkbox:before {

@@ -29,7 +29,12 @@ class TableRow extends Component {
       checkInfo,
     } = this.props;
     if (!checkInfo) {
-      if (url && primaryKey + 1) redirectTo(`${url}/${elements[primaryKey]}`);
+      if (url && primaryKey + 1) {
+        redirectTo({
+          pathname: `${url}/${elements[primaryKey]}`,
+          state: { from: location.pathname },
+        });
+      }
     } else if (url && primaryKey + 1) {
       const column = Object.keys(checkInfo)[0];
       const elementColumn = elements[column];
@@ -39,7 +44,10 @@ class TableRow extends Component {
           state: { from: location.pathname },
         });
       } else {
-        redirectTo(`${url}/${elements[primaryKey]}`);
+        redirectTo({
+          pathname: `${url}/${elements[primaryKey]}`,
+          state: { from: location.pathname },
+        });
       }
     }
   };

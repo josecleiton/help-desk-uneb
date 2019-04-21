@@ -5,14 +5,11 @@ import AdminRoutes from '../../routes/admin';
 import Header from '../../components/Header';
 import AdminHeader from '../../components/Admin/Header';
 
-// import AdminMenu from '../../components/Admin/Menu';
-
 const Admin = () => (
   <Fragment>
     <Header>
       <AdminHeader />
     </Header>
-
     <AdminRoutes />
   </Fragment>
 );

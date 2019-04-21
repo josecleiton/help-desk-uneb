@@ -44,3 +44,9 @@ div.admin-atendimento {
 .admin-atendimento-content p {
   margin: 10px 0;
 }
+
+div.admin-right a {
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: bold;
+  text-decoration: none;
+}

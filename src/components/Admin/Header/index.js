@@ -1,5 +1,5 @@
 import React from 'react';
 
-const AdminHeader = () => <nav>Muda isso aqui, porra</nav>;
+const AdminHeader = () => <span>Muda isso aqui</span>;
 
 export default AdminHeader;
