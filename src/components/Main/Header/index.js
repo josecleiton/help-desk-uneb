@@ -43,7 +43,11 @@ export default class MainHeader extends Component {
     if (login) {
       const menuLoginLi = document.getElementsByClassName('menu-login')[0];
       if (login % 2) {
-        loginEl = <LoginBox maxHeight={255} className="main-login" />;
+        loginEl = (
+          <div id="menu-login">
+            <LoginBox maxHeight={255} className="main-login" />
+          </div>
+        );
         menuLoginLi.style.backgroundColor = '#ef191a';
       } else {
         menuLoginLi.style.backgroundColor = '';
@@ -60,15 +64,16 @@ export default class MainHeader extends Component {
             </li>
             <li className="menu-login">
               <span
-                role="presentation"
+                role="button"
                 style={{ cursor: 'pointer' }}
                 onClick={this.loginRender}
+                tabIndex="0"
                 onKeyDown={() => {}}
               >
                 <i className="fas fa-user" />
                 Login
               </span>
-              <div id="menu-login">{loginEl}</div>
+              {loginEl}
             </li>
           </ul>
         </nav>

@@ -70,7 +70,7 @@ class BuscarChamado extends Component {
             required
           />
         </form>
-        {error ? <ErrorAlert>Digite um CPF ou um número de chamado válido!</ErrorAlert> : ''}
+        {error ? <ErrorAlert>Digite um CPF ou um número de chamado válido!</ErrorAlert> : null}
       </div>
     );
   }

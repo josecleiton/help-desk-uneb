@@ -68,35 +68,26 @@ Atendimento #
           {chamadoId}
         </h1>
         <form onSubmit={this.handleSubmit} className="admin-chamado">
-          {encaminhar ? (
-            ''
-          ) : (
+          {!encaminhar ? (
             <div className="admin-chamado-textarea">
               <TextArea
                 placeholder={`Informações adicionais sobre o chamado #${chamadoId}`}
                 style={{ width: '100%', marginBottom: '10px' }}
               />
             </div>
-          )}
+          ) : null}
           {/* COLOCAR CONDIÇÃO AQUI PARA PREVENIR A VISUALIZAÇÃO DO "ENCAMINHAR" EM ESTADO "TRANSFERIDO" */}
           <div className="admin-chamado-input">
-            <label htmlFor="encaminhar">
+            <label htmlFor="encaminhar" role="button">
               Encaminhar
               <input type="checkbox" id="encaminhar" onClick={this.handleEncaminhar} />
               <span className="label-checkbox" />
             </label>
           </div>
           {encaminhar ? (
-            <div className="admin-chamado-input">
-              <AtendimentoEncaminhar />
-              <button type="submit" className="admin-chamado">
-                Encaminhar
-              </button>
-            </div>
-          ) : (
             <Fragment>
               <div className="admin-chamado-input">
-                <label htmlFor="tombamento">
+                <label htmlFor="tombamento" role="button">
                   Tombamento de Patrimônio
                   <input type="checkbox" id="tombamento" onClick={this.handleTombamento} />
                   <span className="label-checkbox" />
@@ -118,6 +109,13 @@ Atendimento #
                 </button>
               </div>
             </Fragment>
+          ) : (
+            <div className="admin-chamado-input">
+              <AtendimentoEncaminhar />
+              <button type="submit" className="admin-chamado">
+                Encaminhar
+              </button>
+            </div>
           )}
         </form>
       </div>

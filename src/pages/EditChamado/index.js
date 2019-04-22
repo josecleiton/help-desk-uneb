@@ -13,10 +13,9 @@ export default class EditChamado extends Component {
       location: { state },
     } = this.props;
     this.initialSeconds = 10;
-    this.deleted = false;
     this.state = {
       validAccess: state !== undefined,
-      excluido: this.deleted,
+      excluido: false,
       seconds: this.initialSeconds,
     };
   }
@@ -26,7 +25,6 @@ export default class EditChamado extends Component {
     this.timer = setInterval(() => {
       timeLeft -= 1;
       if (!timeLeft) {
-        clearInterval(this.timer);
         this.visualizar();
       }
       this.setState({ seconds: timeLeft });
@@ -34,7 +32,8 @@ export default class EditChamado extends Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.timer);
+    const { excluido } = this.state;
+    if (!excluido) clearInterval(this.timer);
   }
 
   visualizar = () => {

@@ -7,18 +7,18 @@ import Input from '../Input';
 
 import './style.css';
 
+const inputStyle = {
+  width: '100%',
+  height: '40px',
+  padding: '10px',
+  marginTop: '10px',
+  display: 'block',
+};
 class LoginBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
       animate: false,
-    };
-    this.inputStyle = {
-      width: '100%',
-      height: '40px',
-      padding: '10px',
-      marginTop: '10px',
-      display: 'block',
     };
   }
 
@@ -67,8 +67,8 @@ class LoginBox extends Component {
                 <i className="fas fa-user-tie" />
               </a>
             </div>
-            <Input placeholder="Usuário" style={this.inputStyle} required />
-            <Input type="password" style={this.inputStyle} required />
+            <Input placeholder="Usuário" style={inputStyle} required />
+            <Input type="password" style={inputStyle} required />
             <nav>
               <button type="submit" className="login-button">
                 Entrar

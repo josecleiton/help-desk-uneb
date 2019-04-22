@@ -80,7 +80,7 @@ class AdminMenuItem extends Component {
               <span>{children}</span>
             </nav>
           </NavLink>
-          {hasSubMenu ? <ul className="admin-submenu">{this.subMenu}</ul> : ''}
+          {hasSubMenu ? <ul className="admin-submenu">{this.subMenu}</ul> : null}
         </li>
         <hr className="line" />
       </div>

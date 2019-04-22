@@ -13,7 +13,7 @@ export default class TableHead extends Component {
       <th
         onClick={this.handleClick}
         style={
-          highlight ? { background: clickCounter % 2 ? '#d61818' : '#347dd6', opacity: 1 } : {}
+          highlight ? { background: clickCounter % 2 ? '#d61818' : '#347dd6', opacity: 1 } : null
         }
       >
         <span>{children}</span>

@@ -39,14 +39,6 @@ export default class AdminMenu extends Component {
           >
             Gerenciar
           </AdminMenuItem>
-          {/* <AdminMenuItem
-            url="/admin/test"
-            icon="fas fa-question"
-            submenu={['Test 1', 'Test 2']}
-            currentpath={path}
-          >
-            Test
-          </AdminMenuItem> */}
         </ul>
       </div>
     );

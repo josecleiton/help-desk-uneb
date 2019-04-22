@@ -37,7 +37,7 @@ const Gerenciamento = (props) => {
       params: { subpage },
     },
   } = props;
-  let componentToRender = '';
+  let componentToRender = null;
   switch (subpage) {
     case 'areas':
       componentToRender = <GerenciamentoAreas />;

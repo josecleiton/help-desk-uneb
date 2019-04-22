@@ -5,11 +5,10 @@ import PropTypes from 'prop-types';
 class TableRow extends Component {
   constructor(props) {
     super(props);
-    const { elements, url } = props;
+    const { url } = props;
     this.state = {
       animate: false,
       hasLink: url.length !== 0,
-      cells: elements.map(e => <td key={`cell-${e}`}>{e}</td>),
     };
   }
 
@@ -28,7 +27,8 @@ class TableRow extends Component {
       location,
       checkInfo,
     } = this.props;
-    if (!checkInfo) {
+    const arrayCheckInfo = Object.keys(checkInfo);
+    if (!arrayCheckInfo.length) {
       if (url && primaryKey + 1) {
         redirectTo({
           pathname: `${url}/${elements[primaryKey]}`,
@@ -36,7 +36,7 @@ class TableRow extends Component {
         });
       }
     } else if (url && primaryKey + 1) {
-      const column = Object.keys(checkInfo)[0];
+      const column = arrayCheckInfo[0];
       const elementColumn = elements[column];
       if (elementColumn === checkInfo[column][0]) {
         redirectTo({
@@ -53,14 +53,18 @@ class TableRow extends Component {
   };
 
   render() {
-    const { animate, hasLink, cells } = this.state;
+    const { animate, hasLink } = this.state;
+    const { elements } = this.props;
     return (
       <Fragment>
         <tr
           onClick={this.handleClick}
           style={{ cursor: hasLink ? 'pointer' : 'regular', opacity: animate ? 1 : 0 }}
+          role="button"
         >
-          {cells}
+          {elements.map(e => (
+            <td key={`cell-${e}`}>{e}</td>
+          ))}
         </tr>
       </Fragment>
     );
@@ -69,14 +73,17 @@ class TableRow extends Component {
 
 TableRow.defaultProps = {
   primaryKey: -1,
+  checkInfo: {},
   url: '',
 };
 
 TableRow.propTypes = {
   elements: PropTypes.arrayOf(PropTypes.string).isRequired,
   primaryKey: PropTypes.number,
+  checkInfo: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
   url: PropTypes.string,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
+  location: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default withRouter(TableRow);

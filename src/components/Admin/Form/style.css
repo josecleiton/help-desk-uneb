@@ -1,0 +1,8 @@
+form.admin {
+  width: 80%;
+  background: rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 3px;
+  transition: all 0.5s;
+}

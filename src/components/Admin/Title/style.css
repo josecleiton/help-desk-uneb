@@ -2,6 +2,8 @@
   float: left;
   margin: 1em;
   font-weight: lighter;
+  width: 100%;
+  display: block;
 }
 
 .admin-page-title h2 {
@@ -13,5 +15,4 @@
 .admin-page-title h3 {
   color: rgba(0, 0, 0, 0.3);
   font-weight: lighter;
-  text-align: center;
 }

@@ -1,0 +1,51 @@
+.card-shape {
+  display: inline-block;
+  text-align: left;
+  width: 200px;
+  background: rgba(0, 0, 0, 0.8);
+  opacity: 0.9;
+  border-radius: 2px;
+  transition: all 0.6s;
+  margin: 20px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.card-shape:hover {
+  opacity: 1;
+}
+
+.card-shape-inner div:nth-child(1) {
+  font-size: 1.2em;
+}
+
+.card-shape-inner div:nth-child(2) {
+  font-family: "Source Code Pro";
+  font-size: 0.8em;
+}
+
+div.card-shape a {
+  display: flex;
+  background: rgba(0, 0, 0, 0.3);
+  justify-content: center;
+  justify-items: center;
+  padding: 4px;
+  text-decoration: none;
+  font-weight: lighter;
+  font-size: 0.8em;
+  color: #fff;
+  transition: all 0.4s;
+}
+
+div.card-shape a:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.card-shape-inner {
+  padding: 10px;
+}
+
+.fa-arrow-circle-right {
+  position: relative;
+  top: 3px;
+  left: 5px;
+}

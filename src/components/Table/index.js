@@ -140,6 +140,7 @@ Table.defaultProps = {
   margin: '0 auto',
   goToUrl: '',
   rowsPrimaryKey: 0,
+  checkInfo: {},
   dateFields: [],
 };
 
@@ -149,6 +150,7 @@ Table.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
   rowsPrimaryKey: PropTypes.number,
   columnSortKey: PropTypes.number.isRequired,
+  checkInfo: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
   head: PropTypes.arrayOf(PropTypes.string).isRequired,
   goToUrl: PropTypes.string,
   dateFields: PropTypes.arrayOf(PropTypes.number),
