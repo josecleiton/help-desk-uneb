@@ -7,6 +7,11 @@ import TableCaption from './Caption';
 
 import './style.css';
 
+/*
+  PARA UTILIZAR ESSE COMPONENTE É NECESSÁRIO ENVOLVÊ-LO EM UMA TAG:
+  TABLECONTEXT, MESMO QUE O VALUE SEJA UM OBJETO VAZIO.
+*/
+
 export default class Table extends Component {
   constructor(props) {
     super(props);
@@ -62,16 +67,7 @@ export default class Table extends Component {
   ));
 
   makeTableRows = (stringRows) => {
-    const { goToUrl, rowsPrimaryKey, checkInfo } = this.props;
-    const htmlCells = stringRows.map(el => (
-      <TableRow
-        key={el[0]}
-        primaryKey={rowsPrimaryKey}
-        elements={el}
-        url={goToUrl}
-        checkInfo={checkInfo}
-      />
-    ));
+    const htmlCells = stringRows.map(el => <TableRow key={el[0]} elements={el} />);
     return htmlCells;
   };
 
@@ -138,9 +134,6 @@ export default class Table extends Component {
 Table.defaultProps = {
   title: '',
   margin: '0 auto',
-  goToUrl: '',
-  rowsPrimaryKey: 0,
-  checkInfo: {},
   dateFields: [],
 };
 
@@ -148,10 +141,7 @@ Table.propTypes = {
   title: PropTypes.string,
   margin: PropTypes.string,
   rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
-  rowsPrimaryKey: PropTypes.number,
   columnSortKey: PropTypes.number.isRequired,
-  checkInfo: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
   head: PropTypes.arrayOf(PropTypes.string).isRequired,
-  goToUrl: PropTypes.string,
   dateFields: PropTypes.arrayOf(PropTypes.number),
 };

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import MainHeader from '../../components/Main/Header';
+import TableContext from '../../components/Table/Context';
 import Table from '../../components/Table';
 import Footer from '../../components/Footer';
 
@@ -39,46 +40,51 @@ export default class ChamadosCPF extends Component {
         <div className="chamados-cpf">
           <h1>Chamados por CPF</h1>
         </div>
-        <Table
-          title={` ${this.cpf}`}
-          goToUrl="/chamado"
-          head={[
-            '#',
-            'Equipamento',
-            'Defeito',
-            'Setor',
-            'Status',
-            'Técnico',
-            'Última modificação',
-            'Data de criação',
-          ]}
-          rowsPrimaryKey={0}
-          dateFields={[6, 7]}
-          columnSortKey={6}
-          checkInfo={{ 4: ['Em aberto', '/edit-chamado'] }}
-          rows={[
-            [
-              '19001',
-              'Computador Colegiado SI',
-              'Java bugou',
-              'TI',
-              'Em atendimento',
-              'Cleiton',
-              '10/04/2019 02:00',
-              '17/03/2018 00:00',
-            ],
-            [
-              '19002',
-              'Computador Colegiado SI',
-              'Impressora parou',
-              'TI',
-              'Em aberto',
-              'Cleiton',
-              '15/04/2019 11:00',
-              '10/04/2019 22:00',
-            ],
-          ]}
-        />
+        <TableContext.Provider
+          value={{
+            goToUrl: '/chamado',
+            rowsPrimaryKey: 0,
+            checkInfo: { 4: ['Em aberto', '/edit-chamado'] },
+          }}
+        >
+          <Table
+            title={` ${this.cpf}`}
+            head={[
+              '#',
+              'Equipamento',
+              'Defeito',
+              'Setor',
+              'Status',
+              'Técnico',
+              'Última modificação',
+              'Data de criação',
+            ]}
+            dateFields={[6, 7]}
+            columnSortKey={6}
+            rows={[
+              [
+                '19001',
+                'Computador Colegiado SI',
+                'Java bugou',
+                'TI',
+                'Em atendimento',
+                'Cleiton',
+                '10/04/2019 02:00',
+                '17/03/2018 00:00',
+              ],
+              [
+                '19002',
+                'Computador Colegiado SI',
+                'Impressora parou',
+                'TI',
+                'Em aberto',
+                'Cleiton',
+                '15/04/2019 11:00',
+                '10/04/2019 22:00',
+              ],
+            ]}
+          />
+        </TableContext.Provider>
         <Footer />
       </>
     );

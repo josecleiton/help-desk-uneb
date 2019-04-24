@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import TableContext from '../Context';
+
 class TableRow extends Component {
   constructor(props) {
     super(props);
-    const { url } = props;
     this.state = {
       animate: false,
-      hasLink: url.length !== 0,
     };
   }
 
@@ -18,14 +18,11 @@ class TableRow extends Component {
     }, 50);
   }
 
-  handleClick = () => {
+  handleClick = (url, primaryKey = -1, checkInfo = {}) => {
     const {
-      url,
-      primaryKey,
       elements,
       history: { push: redirectTo },
       location,
-      checkInfo,
     } = this.props;
     const arrayCheckInfo = Object.keys(checkInfo);
     if (!arrayCheckInfo.length) {
@@ -53,35 +50,32 @@ class TableRow extends Component {
   };
 
   render() {
-    const { animate, hasLink } = this.state;
+    const { animate } = this.state;
     const { elements } = this.props;
     return (
-      <>
-        <tr
-          onClick={this.handleClick}
-          style={{ cursor: hasLink ? 'pointer' : 'regular', opacity: animate ? 1 : 0 }}
-          role="button"
-        >
-          {elements.map(e => (
-            <td key={`cell-${e}`}>{e}</td>
-          ))}
-        </tr>
-      </>
+      <TableContext.Consumer>
+        {(state) => {
+          const { goToUrl, rowsPrimaryKey, checkInfo } = state;
+          const handleClick = () => this.handleClick(goToUrl, rowsPrimaryKey, checkInfo);
+          return (
+            <tr
+              onClick={goToUrl && handleClick}
+              style={{ cursor: goToUrl ? 'pointer' : 'regular', opacity: animate ? 1 : 0 }}
+              role="button"
+            >
+              {elements.map(e => (
+                <td key={`cell-${e}`}>{e}</td>
+              ))}
+            </tr>
+          );
+        }}
+      </TableContext.Consumer>
     );
   }
 }
 
-TableRow.defaultProps = {
-  primaryKey: -1,
-  checkInfo: {},
-  url: '',
-};
-
 TableRow.propTypes = {
   elements: PropTypes.arrayOf(PropTypes.string).isRequired,
-  primaryKey: PropTypes.number,
-  checkInfo: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
-  url: PropTypes.string,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   location: PropTypes.objectOf(PropTypes.any).isRequired,
 };
