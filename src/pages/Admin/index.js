@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import AdminRoutes from '../../routes/admin';
 // import AdminContext from './context';
@@ -8,13 +8,13 @@ import AdminHeader from '../../components/Admin/Header';
 import AdminMenu from '../../components/Admin/Menu';
 
 const Admin = () => (
-  <Fragment>
+  <>
     <Header>
       <AdminHeader />
     </Header>
     <AdminMenu />
     <AdminRoutes />
-  </Fragment>
+  </>
 );
 
 export default Admin;

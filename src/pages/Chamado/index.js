@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import MainHeader from '../../components/Main/Header';
@@ -26,7 +26,7 @@ export default class VisualizarChamado extends Component {
   render() {
     const { id, animate } = this.state;
     return (
-      <Fragment>
+      <>
         <MainHeader />
         <div id="consultar-chamado" style={{ opacity: animate ? 1 : 0 }}>
           <p className="consultar-chamado-title">
@@ -63,7 +63,7 @@ TI
             <p>Aqui haverá uma tabela com status/area/técnico/data do ocorrido</p>
           </LargeBox>
         </div>
-      </Fragment>
+      </>
     );
   }
 }

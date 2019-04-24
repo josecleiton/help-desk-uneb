@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 import BuscarChamado from '../BuscarChamado';
 import AreaAtendimento from '../AreaAtendimento';
@@ -9,7 +9,7 @@ export default class MenuChamado extends Component {
   constructor(props) {
     super(props);
     this.defaultButtons = (
-      <Fragment>
+      <>
         <button type="button" className="criar" onClick={this.criaChamado}>
           {' '}
           Criar Chamado
@@ -17,7 +17,7 @@ export default class MenuChamado extends Component {
         <button type="button" className="acompanhar" onClick={this.buscaChamado}>
           Acompanhar Chamado
         </button>
-      </Fragment>
+      </>
     );
     this.state = {
       animate: false,

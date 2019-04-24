@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Card from '../Card';
@@ -55,12 +55,12 @@ export default class Deck extends Component {
       cardPages, mounted, page, maxPageNum,
     } = this.state;
     return (
-      <Fragment>
+      <>
         <div ref={this.node} className="deck">
           {mounted && cardPages[page - 1]}
         </div>
         <PageNumber handleClick={this.changePage} cardsPerPage={maxPageNum} />
-      </Fragment>
+      </>
     );
   }
 }

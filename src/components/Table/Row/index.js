@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -56,7 +56,7 @@ class TableRow extends Component {
     const { animate, hasLink } = this.state;
     const { elements } = this.props;
     return (
-      <Fragment>
+      <>
         <tr
           onClick={this.handleClick}
           style={{ cursor: hasLink ? 'pointer' : 'regular', opacity: animate ? 1 : 0 }}
@@ -66,7 +66,7 @@ class TableRow extends Component {
             <td key={`cell-${e}`}>{e}</td>
           ))}
         </tr>
-      </Fragment>
+      </>
     );
   }
 }

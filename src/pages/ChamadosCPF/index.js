@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import MainHeader from '../../components/Main/Header';
@@ -34,7 +34,7 @@ export default class ChamadosCPF extends Component {
 
   render() {
     return (
-      <Fragment>
+      <>
         <MainHeader />
         <div className="chamados-cpf">
           <h1>Chamados por CPF</h1>
@@ -80,7 +80,7 @@ export default class ChamadosCPF extends Component {
           ]}
         />
         <Footer />
-      </Fragment>
+      </>
     );
   }
 }

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -48,7 +48,7 @@ export default class Atendimento extends Component {
     return (
       <AdminRightDiv>
         {validAccess ? (
-          <Fragment>
+          <>
             <AdminPageTitle>Atendimento de Chamado</AdminPageTitle>
             <LargeBox
               className={clicked ? 'admin-atendimento-box-clicked' : 'admin-atendimento-box'}
@@ -59,7 +59,7 @@ export default class Atendimento extends Component {
               {clicked ? <Content id={id} /> : <HiddenContent />}
             </LargeBox>
             <AtendimentoForm chamadoId={id} />
-          </Fragment>
+          </>
         ) : (
           <Error icon="far fa-dizzy" title="Acesso não é permitido">
             O acesso direto a essa página não é permitido, retorne ao início pelo menu ou

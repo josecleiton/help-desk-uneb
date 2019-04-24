@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
@@ -65,7 +65,7 @@ export default class EditChamado extends Component {
     } = this.props;
     const { seconds, validAccess, excluido } = this.state;
     return (
-      <Fragment>
+      <>
         <MainHeader />
         {validAccess ? (
           <div className="wrapper">
@@ -97,7 +97,7 @@ export default class EditChamado extends Component {
           <Redirect to="/acesso-invalido" />
         )}
         <Footer />
-      </Fragment>
+      </>
     );
   }
 }

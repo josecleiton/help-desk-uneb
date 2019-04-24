@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 import AdminRightDiv from '../../../../components/Admin/RightDiv';
 import AdminPageTitle from '../../../../components/Admin/Title';
@@ -41,17 +41,17 @@ export default class GerenciamentoAreas extends Component {
         <div className="admin-gerenciamento-areas">
           <button type="button" onClick={this.handleNovaArea}>
             {novaArea ? (
-              <Fragment>
+              <>
                 Insira os dados da área
                 {' '}
                 <i className="fas fa-arrow-down" />
-              </Fragment>
+              </>
             ) : (
-              <Fragment>
+              <>
                 Criar nova área
                 {' '}
                 <i className="fas fa-plus" />
-              </Fragment>
+              </>
             )}
           </button>
           {novaArea && (
