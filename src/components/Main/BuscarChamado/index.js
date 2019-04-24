@@ -64,13 +64,14 @@ class BuscarChamado extends Component {
           <input
             placeholder="Insira seu CPF ou o número do chamado..."
             name="input"
+            type="text"
             style={{
               width: animate ? '80%' : '15%',
             }}
             required
           />
         </form>
-        {error ? <ErrorAlert>Digite um CPF ou um número de chamado válido!</ErrorAlert> : null}
+        {error && <ErrorAlert>Digite um CPF ou um número de chamado válido!</ErrorAlert>}
       </div>
     );
   }

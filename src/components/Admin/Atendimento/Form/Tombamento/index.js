@@ -23,6 +23,7 @@ export default class AtendimentoTombamento extends Component {
         <TextArea
           placeholder="Informações adicionais sobre o tombamento."
           style={{ width: '100%', marginBottom: '10px' }}
+          required
         />
       </div>
     );

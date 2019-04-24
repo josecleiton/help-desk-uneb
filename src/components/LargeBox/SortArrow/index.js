@@ -8,7 +8,7 @@ export default class SortArrow extends Component {
     super(props);
 
     this.state = {
-      toRender: <i className="fas fa-sort-down fa-2x" role="link" />,
+      toRender: <i className="fas fa-sort-down fa-2x fa-rotate-180" role="link" />,
     };
     this.clicked = false;
   }

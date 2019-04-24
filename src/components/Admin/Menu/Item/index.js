@@ -7,45 +7,43 @@ class AdminMenuItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hasSubMenu: false,
+      subMenu: null,
+      highlight: false,
     };
     this.node = React.createRef();
   }
 
   componentDidMount() {
     const {
-      submenu,
-      match: { path },
-      url,
+      location: { pathname },
     } = this.props;
-    const menuItemEl = this.node.current;
-    if (submenu.length) {
-      this.setState({ hasSubMenu: true }, this.fillSubMenu());
-    }
-    let currentPath = path;
-    const del = path.indexOf(':');
-    if (del !== -1) {
-      currentPath = path.substr(0, del - 1);
-    }
-    if (currentPath === url) {
-      this.catEarEl = document.createElement('span');
-      this.catEarEl.setAttribute('class', 'ear-right');
+    this.setState({ subMenu: this.fillSubMenu() });
+    this.highlightMenu(pathname);
+  }
 
-      menuItemEl.style.background = '#d81717';
-      menuItemEl.appendChild(this.catEarEl);
+  componentDidUpdate(prevProps) {
+    const {
+      location: { pathname: prevPathName },
+    } = prevProps;
+    const {
+      location: { pathname },
+    } = this.props;
+    if (prevPathName !== pathname) {
+      this.highlightMenu(pathname);
     }
   }
 
-  handleClick = (event) => {
-    const { hasSubMenu } = this.state;
-    if (hasSubMenu) {
-      event.preventDefault();
-    }
+  makePathName = path => (path.length > 6 ? `/admin/${path.split('/')[2]}` : path);
+
+  highlightMenu = (path) => {
+    const { url } = this.props;
+    this.setState({ highlight: this.makePathName(path) === url });
   };
 
   fillSubMenu = () => {
     const { submenu, url } = this.props;
-    this.subMenu = submenu.map((element) => {
+    if (!submenu) return null;
+    const submenuEl = submenu.map((element) => {
       const key = Object.keys(element)[0];
       const value = element[key];
 
@@ -63,15 +61,16 @@ class AdminMenuItem extends Component {
         </li>
       );
     });
+    return <ul className="admin-submenu">{submenuEl}</ul>;
   };
 
   render() {
     const { icon, children, url } = this.props;
-    const { hasSubMenu } = this.state;
-    // const submenuLi = submenu.map(item => <li key={item}>{item}</li>);
+    const { subMenu, highlight } = this.state;
     return (
       <div>
-        <li ref={this.node} className="menu-item">
+        <li ref={this.node} className={highlight ? 'menu-item-highlighted' : 'menu-item'}>
+          {highlight && <span className="ear-right" />}
           <NavLink exact to={url} activeStyle={{ fontWeight: 'bolder' }}>
             <nav>
               <span className="admin-menu-icon">
@@ -80,7 +79,7 @@ class AdminMenuItem extends Component {
               <span>{children}</span>
             </nav>
           </NavLink>
-          {hasSubMenu ? <ul className="admin-submenu">{this.subMenu}</ul> : null}
+          {subMenu}
         </li>
         <hr className="line" />
       </div>
@@ -94,7 +93,7 @@ AdminMenuItem.propTypes = {
   icon: PropTypes.string,
   submenu: PropTypes.arrayOf(PropTypes.object),
   url: PropTypes.string.isRequired,
-  match: PropTypes.objectOf(PropTypes.any).isRequired,
+  location: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default withRouter(AdminMenuItem);

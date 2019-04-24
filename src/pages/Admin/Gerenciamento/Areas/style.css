@@ -39,14 +39,6 @@
   font-weight: normal;
 }
 
-.card-wrapper {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  margin: 0 auto;
-}
-
 .card-shape {
   color: #fff;
   font-size: 1.2em;

@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 
+import AdminRightDiv from '../../../../components/Admin/RightDiv';
 import AdminPageTitle from '../../../../components/Admin/Title';
-import Card from '../../../../components/Admin/Card';
+import Deck from '../../../../components/Admin/Deck';
 import Input from '../../../../components/Input';
 import AdminForm from '../../../../components/Admin/Form';
 
@@ -35,7 +36,7 @@ export default class GerenciamentoAreas extends Component {
   render() {
     const { novaArea } = this.state;
     return (
-      <Fragment>
+      <AdminRightDiv>
         <AdminPageTitle comment="comentário">Áreas</AdminPageTitle>
         <div className="admin-gerenciamento-areas">
           <button type="button" onClick={this.handleNovaArea}>
@@ -53,7 +54,7 @@ export default class GerenciamentoAreas extends Component {
               </Fragment>
             )}
           </button>
-          {novaArea ? (
+          {novaArea && (
             <AdminForm handleSubmit={this.handleFormSubmit}>
               <Input type="text" placeholder="Nome" style={inputStyle} />
               <Input type="text" placeholder="Nome" style={inputStyle} />
@@ -61,16 +62,18 @@ export default class GerenciamentoAreas extends Component {
               <Input type="text" placeholder="Nome" style={inputStyle} />
               <button type="submit">Enviar</button>
             </AdminForm>
-          ) : null}
-          <div className="cards-wrapper">
-            <Card info={{ title: 'titulo', chamados: '1000' }} url="/admin/gerenciamento/areas" />
-            <Card info={{ title: 'titulo', chamados: '1000' }} url="/admin/gerenciamento/areas" />
-            <Card info={{ title: 'titulo', chamados: '1000' }} url="/admin/gerenciamento/areas" />
-            <Card info={{ title: 'titulo', chamados: '1000' }} url="/admin/gerenciamento/areas" />
-            <Card info={{ title: 'titulo', chamados: '1000' }} url="/admin/gerenciamento/areas" />
-          </div>
+          )}
+          <Deck
+            cards={[
+              { info: { title: 'titulo', chamados: '1000' }, url: '/admin/gerenciamento/areas' },
+              { info: { title: 'titulo', chamados: '1000' }, url: '/admin/gerenciamento/areas' },
+              { info: { title: 'titulo', chamados: '1000' }, url: '/admin/gerenciamento/areas' },
+              { info: { title: 'titulo', chamados: '1000' }, url: '/admin/gerenciamento/areas' },
+              { info: { title: 'titulo', chamados: '1000' }, url: '/admin/gerenciamento/areas' },
+            ]}
+          />
         </div>
-      </Fragment>
+      </AdminRightDiv>
     );
   }
 }

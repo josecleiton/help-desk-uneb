@@ -1,5 +1,10 @@
 import React from 'react';
+import AdminRightDiv from '../../../../components/Admin/RightDiv';
 
-const GerenciamentoTecnicos = () => <h1>Técnicos</h1>;
+const GerenciamentoTecnicos = () => (
+  <AdminRightDiv>
+    <h1>Técnicos</h1>
+  </AdminRightDiv>
+);
 
 export default GerenciamentoTecnicos;

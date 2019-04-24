@@ -1,7 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import AdminMenu from '../../../components/Admin/Menu';
 import AdminTitle from '../../../components/Admin/Title';
 import AdminRightDiv from '../../../components/Admin/RightDiv';
 
@@ -15,12 +14,9 @@ export default class AdminMeusChamados extends Component {
 
   render() {
     return (
-      <Fragment>
-        <AdminMenu path={this.currentPath} />
-        <AdminRightDiv>
-          <AdminTitle comment="comentário">Meus Chamados</AdminTitle>
-        </AdminRightDiv>
-      </Fragment>
+      <AdminRightDiv>
+        <AdminTitle comment="comentário">Meus Chamados</AdminTitle>
+      </AdminRightDiv>
     );
   }
 }

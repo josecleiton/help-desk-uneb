@@ -7,7 +7,7 @@ export default class TableCaption extends Component {
   componentDidMount() {
     const { orderingColors } = this.props;
     const captionBoxes = document.querySelectorAll('ul.table-caption li div');
-    for (let i = 0; i < captionBoxes.length; i += 1) {
+    for (let i = 0, limit = captionBoxes.length; i < limit; i += 1) {
       captionBoxes[i].style.background = orderingColors[i];
     }
   }

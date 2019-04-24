@@ -90,7 +90,7 @@ export default class EditChamado extends Component {
                   excluir
                 </button>
               </div>
-              {excluido ? <ErrorAlert>Chamado excluído!</ErrorAlert> : ''}
+              {excluido && <ErrorAlert>Chamado excluído!</ErrorAlert>}
             </h1>
           </div>
         ) : (

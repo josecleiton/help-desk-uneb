@@ -1,5 +1,10 @@
 import React from 'react';
+import AdminRightDiv from '../../../../components/Admin/RightDiv';
 
-const GerenciamentoChamados = () => <h1>Chamados</h1>;
+const GerenciamentoChamados = () => (
+  <AdminRightDiv>
+    <h1>Chamados</h1>
+  </AdminRightDiv>
+);
 
 export default GerenciamentoChamados;

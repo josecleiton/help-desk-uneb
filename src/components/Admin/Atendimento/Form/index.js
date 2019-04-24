@@ -68,15 +68,14 @@ Atendimento #
           {chamadoId}
         </h1>
         <form onSubmit={this.handleSubmit} className="admin-chamado">
-          {!encaminhar ? (
+          {!encaminhar && (
             <div className="admin-chamado-textarea">
               <TextArea
                 placeholder={`Informações adicionais sobre o chamado #${chamadoId}`}
                 style={{ width: '100%', marginBottom: '10px' }}
               />
             </div>
-          ) : null}
-          {/* COLOCAR CONDIÇÃO AQUI PARA PREVENIR A VISUALIZAÇÃO DO "ENCAMINHAR" EM ESTADO "TRANSFERIDO" */}
+          )}
           <div className="admin-chamado-input">
             <label htmlFor="encaminhar" role="button">
               Encaminhar
@@ -84,7 +83,7 @@ Atendimento #
               <span className="label-checkbox" />
             </label>
           </div>
-          {encaminhar ? (
+          {!encaminhar ? (
             <Fragment>
               <div className="admin-chamado-input">
                 <label htmlFor="tombamento" role="button">
@@ -92,9 +91,7 @@ Atendimento #
                   <input type="checkbox" id="tombamento" onClick={this.handleTombamento} />
                   <span className="label-checkbox" />
                 </label>
-                <div id="admin-chamado-tombamento">
-                  {tombamento ? <AtendimentoTombamento /> : ''}
-                </div>
+                <div id="admin-chamado-tombamento">{tombamento && <AtendimentoTombamento />}</div>
               </div>
               <div className="admin-chamado-input">
                 <strong>Prioridade</strong>

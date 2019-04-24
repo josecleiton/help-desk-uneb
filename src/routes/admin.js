@@ -11,7 +11,7 @@ const AdminRoutes = () => (
   <Switch>
     <Route exact path="/admin" component={AdminHomePage} />
     <Route path="/admin/meus-chamados/:selection?" component={AdminMeusChamados} />
-    <Route path="/admin/gerenciamento/:subpage?" component={Gerenciamento} />
+    <Route path="/admin/gerenciamento/" component={Gerenciamento} />
     <Route path="/admin/atendimento/:id" component={Atendimento} />
     <Route component={NotFound} />
   </Switch>

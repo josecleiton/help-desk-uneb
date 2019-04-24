@@ -7,7 +7,7 @@ const AdminPageTitle = (props) => {
   return (
     <div className="admin-page-title">
       <h2>{children}</h2>
-      {comment ? <h3>{comment}</h3> : null}
+      {comment && <h3>{comment}</h3>}
     </div>
   );
 };

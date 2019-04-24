@@ -3,6 +3,10 @@
   overflow: auto;
 }
 
+table.admin {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
 table.admin caption {
   font-size: 30px;
   font-weight: normal;
@@ -13,6 +17,7 @@ table.admin td,
 th {
   text-align: center;
   padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 table.admin th {
@@ -39,11 +44,11 @@ table.admin thead {
 }
 
 table.admin thead th:first-child {
-  border-top-left-radius: 5px;
+  border-top-left-radius: 2px;
 }
 
 table.admin thead th:last-child {
-  border-top-right-radius: 5px;
+  border-top-right-radius: 2px;
 }
 
 table.admin tbody tr {
@@ -51,22 +56,22 @@ table.admin tbody tr {
 }
 
 table.admin tbody tr:nth-child(2n-1) {
-  background: #ddd;
+  background: rgba(0, 0, 0, 0.07);
 }
 
 table.admin tbody tr:nth-child(2n) {
-  background: #eee;
+  background: rgba(0, 0, 0, 0.1);
 }
 
 table.admin tbody tr:hover,
 table.admin tbody tr:focus {
-  background: #ccc;
+  background: rgba(0, 0, 0, 0.2);
 }
 
 table.admin tbody tr:last-child td:first-child {
-  border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 2px;
 }
 
 table.admin tbody tr:last-child td:last-child {
-  border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 2px;
 }

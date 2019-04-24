@@ -120,8 +120,8 @@ export default class Table extends Component {
     const { tableRows, tableHead } = this.state;
     return (
       <div className="admin-table-wrapper">
-        <table className="admin" style={{ margin }}>
-          <caption style={{ display: title.length ? '' : 'none' }}>
+        <table className="admin" style={{ margin }} cellPadding="0" cellSpacing="0">
+          <caption style={{ display: title.length ? null : 'none' }}>
             {title}
             <TableCaption orderingColors={['#d61818', '#347dd6', '#2964ad']} />
           </caption>

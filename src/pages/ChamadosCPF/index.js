@@ -21,7 +21,7 @@ export default class ChamadosCPF extends Component {
   makeCPF = (toCPF) => {
     let cpf = '';
     const delimeters = '..-';
-    for (let i = 0, j = 0; i < toCPF.length; i += 3) {
+    for (let i = 0, j = 0, limit = toCPF.length; i < limit; i += 3) {
       if (j <= 2) {
         cpf += toCPF.substr(i, 3) + delimeters[j];
         j += 1;

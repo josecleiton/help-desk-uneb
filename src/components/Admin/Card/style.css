@@ -14,11 +14,11 @@
   opacity: 1;
 }
 
-.card-shape-inner div:nth-child(1) {
+.card-shape-inner div:first-child {
   font-size: 1.2em;
 }
 
-.card-shape-inner div:nth-child(2) {
+.card-shape-inner div:last-child {
   font-family: "Source Code Pro";
   font-size: 0.8em;
 }

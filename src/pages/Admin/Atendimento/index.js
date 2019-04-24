@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import AdminMenu from '../../../components/Admin/Menu';
 import AdminRightDiv from '../../../components/Admin/RightDiv';
 import AdminPageTitle from '../../../components/Admin/Title';
 import LargeBox from '../../../components/LargeBox';
@@ -47,32 +46,29 @@ export default class Atendimento extends Component {
     } = this.props;
     const { clicked, validAccess } = this.state;
     return (
-      <Fragment>
-        <AdminMenu />
-        <AdminRightDiv>
-          {validAccess ? (
-            <Fragment>
-              <AdminPageTitle>Atendimento de Chamado</AdminPageTitle>
-              <LargeBox
-                className={clicked ? 'admin-atendimento-box-clicked' : 'admin-atendimento-box'}
-              >
-                <div className="admin-atendimento-sort-arrow">
-                  <SortArrow slide={this.slide} />
-                </div>
-                {clicked ? <Content id={id} /> : <HiddenContent />}
-              </LargeBox>
-              <AtendimentoForm chamadoId={id} />
-            </Fragment>
-          ) : (
-            <Error icon="far fa-dizzy" title="Acesso não é permitido">
-              O acesso direto a essa página não é permitido, retorne ao início pelo menu ou
-              {' '}
-              <Link to="/admin">clicando aqui</Link>
+      <AdminRightDiv>
+        {validAccess ? (
+          <Fragment>
+            <AdminPageTitle>Atendimento de Chamado</AdminPageTitle>
+            <LargeBox
+              className={clicked ? 'admin-atendimento-box-clicked' : 'admin-atendimento-box'}
+            >
+              <div className="admin-atendimento-sort-arrow">
+                <SortArrow slide={this.slide} />
+              </div>
+              {clicked ? <Content id={id} /> : <HiddenContent />}
+            </LargeBox>
+            <AtendimentoForm chamadoId={id} />
+          </Fragment>
+        ) : (
+          <Error icon="far fa-dizzy" title="Acesso não é permitido">
+            O acesso direto a essa página não é permitido, retorne ao início pelo menu ou
+            {' '}
+            <Link to="/admin">clicando aqui</Link>
 .
-            </Error>
-          )}
-        </AdminRightDiv>
-      </Fragment>
+          </Error>
+        )}
+      </AdminRightDiv>
     );
   }
 }
