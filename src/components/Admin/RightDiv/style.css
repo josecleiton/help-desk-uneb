@@ -4,11 +4,13 @@
   !!!!!!!
   */
 div.admin-right {
-  float: right;
+  /* float: right; */
   width: 80%;
   transition: all 1s;
   padding-left: 1em;
   transition: all 0.6s;
+  position: absolute;
+  right: 0;
 }
 
 @media (max-width: 470px) {

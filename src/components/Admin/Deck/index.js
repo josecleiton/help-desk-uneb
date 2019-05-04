@@ -59,7 +59,7 @@ export default class Deck extends Component {
         <div ref={this.node} className="deck">
           {mounted && cardPages[page - 1]}
         </div>
-        <PageNumber handleClick={this.changePage} cardsPerPage={maxPageNum} />
+        <PageNumber handleClick={this.changePage} elementsPerPage={maxPageNum} />
       </>
     );
   }

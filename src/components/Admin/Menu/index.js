@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AdminMenuItem from './Item';
 import './style.css';
 import Estados from '../../../configs/estados';
+import UserInfo from './UserInfo';
 
 export default class AdminMenu extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ export default class AdminMenu extends Component {
   render() {
     return (
       <div className="admin-menu">
+        <UserInfo />
         <ul role="menu">
           <AdminMenuItem url="/admin">Início</AdminMenuItem>
           <AdminMenuItem url="/admin/meus-chamados" icon="fas fa-envelope" submenu={this.Estados}>

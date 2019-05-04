@@ -27,9 +27,9 @@ export default class PageNumber extends Component {
   };
 
   makePageNumber = () => {
-    const { cardsPerPage } = this.props;
+    const { elementsPerPage } = this.props;
     const numbers = [];
-    for (let i = 1; i <= cardsPerPage; i += 1) {
+    for (let i = 1; i <= elementsPerPage; i += 1) {
       numbers.push(
         <li key={i}>
           <button type="button" id="page-number" onClick={this.handleClick}>
@@ -53,6 +53,6 @@ export default class PageNumber extends Component {
 }
 
 PageNumber.propTypes = {
-  cardsPerPage: PropTypes.number.isRequired,
+  elementsPerPage: PropTypes.number.isRequired,
   handleClick: PropTypes.func.isRequired,
 };

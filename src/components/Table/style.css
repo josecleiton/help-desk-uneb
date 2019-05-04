@@ -17,7 +17,7 @@ table.admin td,
 th {
   text-align: center;
   padding: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
 table.admin th {
@@ -56,11 +56,11 @@ table.admin tbody tr {
 }
 
 table.admin tbody tr:nth-child(2n-1) {
-  background: rgba(0, 0, 0, 0.07);
+  background: rgba(0, 0, 0, 0.06);
 }
 
 table.admin tbody tr:nth-child(2n) {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.09);
 }
 
 table.admin tbody tr:hover,

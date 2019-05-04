@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import TableHead from './Head';
 import TableRow from './Row';
 import TableCaption from './Caption';
+import PageNumber from '../PageNumber';
 
 import './style.css';
 
@@ -15,11 +16,19 @@ import './style.css';
 export default class Table extends Component {
   constructor(props) {
     super(props);
-    const { head, columnSortKey } = props;
     this.state = {
+      tableHead: null,
+      tableRows: null,
+      pages: 0,
+    };
+  }
+
+  componentDidMount() {
+    const { head, columnSortKey } = this.props;
+    this.setState({
       tableHead: this.makeTableHead(head, -1, 0),
       tableRows: this.makeTableRows(this.initialSort(columnSortKey)),
-    };
+    });
     this.activeHeader = Array(head.length).fill(0);
   }
 
@@ -67,6 +76,9 @@ export default class Table extends Component {
   ));
 
   makeTableRows = (stringRows) => {
+    const { maxRowsPerPage } = this.props;
+    console.log(maxRowsPerPage);
+    this.setState({ pages: Math.ceil(stringRows.length / maxRowsPerPage) });
     const htmlCells = stringRows.map(el => <TableRow key={el[0]} elements={el} />);
     return htmlCells;
   };
@@ -113,7 +125,7 @@ export default class Table extends Component {
 
   render() {
     const { title, margin } = this.props;
-    const { tableRows, tableHead } = this.state;
+    const { tableRows, tableHead, pages } = this.state;
     return (
       <div className="admin-table-wrapper">
         <table className="admin" style={{ margin }} cellPadding="0" cellSpacing="0">
@@ -126,6 +138,7 @@ export default class Table extends Component {
           </thead>
           <tbody>{tableRows}</tbody>
         </table>
+        {pages && <PageNumber elementsPerPage={pages} />}
       </div>
     );
   }
@@ -144,4 +157,5 @@ Table.propTypes = {
   columnSortKey: PropTypes.number.isRequired,
   head: PropTypes.arrayOf(PropTypes.string).isRequired,
   dateFields: PropTypes.arrayOf(PropTypes.number),
+  maxRowsPerPage: PropTypes.number.isRequired,
 };

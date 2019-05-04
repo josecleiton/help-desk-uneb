@@ -62,7 +62,7 @@ export default class AtendimentoForm extends Component {
     const { chamadoId } = this.props;
     const { tombamento, encaminhar } = this.state;
     return (
-      <div>
+      <div style={{ marginBottom: '50' }}>
         <h1 className="admin-chamado">
 Atendimento #
           {chamadoId}
