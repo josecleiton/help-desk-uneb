@@ -14,8 +14,7 @@ export default class UserInfo extends Component {
 
   shouldComponentUpdate(prevProps, prevStates) {
     const { clicked, over } = this.state;
-    if (clicked !== prevStates.clicked || over !== prevStates.over) return true;
-    return false;
+    return clicked !== prevStates.clicked || over !== prevStates.over;
   }
 
   handleClick = () => {
