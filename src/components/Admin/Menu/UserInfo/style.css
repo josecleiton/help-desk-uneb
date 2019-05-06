@@ -1,9 +1,13 @@
 .user-info-wrapper {
-  background: rgba(0, 0, 0, 0.3);
   padding: 10px;
   color: #fff;
   font-size: 0.8em;
+  transition: all 0.4s;
+  box-shadow: 0 4px 2px -1px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
 }
+
 .user-info-wrapper hr {
   position: relative;
   border: 1px solid rgba(0, 0, 0, 0.2);

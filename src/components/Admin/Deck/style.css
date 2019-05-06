@@ -1,3 +1,6 @@
+.deck-wrapper {
+  margin: 50px auto;
+}
 .deck {
   width: 100%;
   display: flex;

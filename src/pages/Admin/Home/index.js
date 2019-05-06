@@ -23,6 +23,7 @@ const AdminHome = () => (
           'Data de Abertura',
           'Solicitante',
         ]}
+        maxRowsPerPage={10}
         rows={[
           ['190001', 'TI', 'Em aberto', 'Java bugou', 'X', '19/10/2018', 'brancobro@yahoo.com.br'],
           [

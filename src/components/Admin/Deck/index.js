@@ -13,14 +13,14 @@ export default class Deck extends Component {
     this.state = {
       page: 1,
       cardPages: null,
-      mounted: false,
+      ready: false,
       maxPageNum: Math.ceil(props.cards.length / this.cardsPerPage),
     };
     this.node = React.createRef();
   }
 
   componentDidMount() {
-    this.setState({ mounted: true, cardPages: this.makeCardPages(this.cardsPerPage) });
+    this.setState({ ready: true, cardPages: this.makeCardPages(this.cardsPerPage) });
   }
 
   changePage = (page) => {
@@ -52,15 +52,15 @@ export default class Deck extends Component {
 
   render() {
     const {
-      cardPages, mounted, page, maxPageNum,
+      cardPages, ready, page, maxPageNum,
     } = this.state;
     return (
-      <>
+      <div className="deck-wrapper">
         <div ref={this.node} className="deck">
-          {mounted && cardPages[page - 1]}
+          {ready && cardPages[page - 1]}
         </div>
         <PageNumber handleClick={this.changePage} elementsPerPage={maxPageNum} />
-      </>
+      </div>
     );
   }
 }

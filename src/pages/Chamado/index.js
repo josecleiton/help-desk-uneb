@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import MainHeader from '../../components/Main/Header';
 import LargeBox from '../../components/LargeBox';
+import Footer from '../../components/Footer';
 
 import './style.css';
 
@@ -63,6 +64,7 @@ TI
             <p>Aqui haverá uma tabela com status/area/técnico/data do ocorrido</p>
           </LargeBox>
         </div>
+        <Footer />
       </>
     );
   }

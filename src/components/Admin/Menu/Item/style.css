@@ -60,7 +60,6 @@
 
 .admin-submenu {
   transition: 0.2s;
-  border-radius: 5px;
 }
 
 .admin-submenu:first-child {

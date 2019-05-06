@@ -54,7 +54,7 @@ class AdminMenuItem extends Component {
             key={`link-${key}`}
             to={`${url}/${key}`}
             className="admin-submenu-item"
-            activeStyle={{ fontWeight: 'bolder' }}
+            activeStyle={{ fontWeight: 'bolder', background: 'rgba(0,0,0,0.4)' }}
           >
             {value}
           </NavLink>

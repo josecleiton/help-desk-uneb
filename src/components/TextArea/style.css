@@ -2,4 +2,6 @@
   border-radius: 5px;
   padding: 10px;
   resize: vertical;
+  background: #fff;
+  color: rgba(0, 0, 0, 0.7);
 }

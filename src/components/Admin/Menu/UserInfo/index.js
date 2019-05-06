@@ -8,7 +8,14 @@ export default class UserInfo extends Component {
     super(props);
     this.state = {
       clicked: false,
+      over: false,
     };
+  }
+
+  shouldComponentUpdate(prevProps, prevStates) {
+    const { clicked, over } = this.state;
+    if (clicked !== prevStates.clicked || over !== prevStates.over) return true;
+    return false;
   }
 
   handleClick = () => {
@@ -17,11 +24,24 @@ export default class UserInfo extends Component {
   };
 
   render() {
-    const { clicked } = this.state;
+    const { clicked, over } = this.state;
     return (
-      <div className="user-info-wrapper">
+      <div
+        className="user-info-wrapper"
+        style={{ background: over || clicked ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.3)' }}
+        onMouseOver={() => {
+          this.setState({ over: true });
+        }}
+        onFocus={() => {
+          this.setState({ over: true });
+        }}
+        onMouseLeave={() => {
+          this.setState({ over: false });
+        }}
+      >
         <div
-          role="presentation"
+          role="button"
+          tabIndex={0}
           className="user-info"
           onClick={this.handleClick}
           onKeyPress={this.handleClick}
