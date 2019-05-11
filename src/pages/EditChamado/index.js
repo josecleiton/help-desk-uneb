@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-
 import MainHeader from '../../components/Main/Header';
 import Footer from '../../components/Footer';
 import ErrorAlert from '../../components/ErrorAlert';
+import Button from '../../components/Button';
 
 export default class EditChamado extends Component {
   constructor(props) {
@@ -71,24 +71,18 @@ export default class EditChamado extends Component {
           <div className="wrapper">
             <h4 style={{ marginBottom: '2%' }}>
               Clique em visualizar ou espere
-              {'  '}
               {seconds}
-              {'  '}
               segundos para ser redirecionado...
             </h4>
             <h1>
               Deseja excluir o chamado
-              {'  '}
               {id}
-              {' '}
 ?
               <div className="edit-chamado-button">
-                <button type="button" onClick={this.visualizar}>
-                  visualizar
-                </button>
-                <button type="button" onClick={this.excluir}>
+                <Button onClick={this.visualizar}>visualizar</Button>
+                <Button background="red" onClick={this.excluir}>
                   excluir
-                </button>
+                </Button>
               </div>
               {excluido && <ErrorAlert>Chamado excluído!</ErrorAlert>}
             </h1>
