@@ -10,10 +10,13 @@ const AbrirChamadoForm = () => {
     fontSize: '18px',
     border: '1px solid #333333',
   };
+
+  const setor = window.location.search;
   return (
     <div className="main-form-chamado">
       <form>
-        <h2>(setor selecionado)</h2>
+        <h2>{setor.split('?')}</h2>
+
         <div>
           <h3>Nome</h3>
           <Input type="text" placeholder="Nome Completo" style={inputStyle} />
