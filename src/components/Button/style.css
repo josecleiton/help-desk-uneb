@@ -1,0 +1,13 @@
+.Generic-Button {
+  opacity: 1;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 5px;
+}
+.Generic-Button:hover {
+  opacity: 0.7;
+}
