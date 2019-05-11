@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import AbrirChamadoForm from '../../components/AbrirChamado/Form';
@@ -9,16 +10,20 @@ const AbrirChamado = ({
   match: {
     params: { setor },
   },
-}) => (
-  <div>
+  location: { state },
+}) => (state ? (
+  <>
     <MainHeader />
     <AbrirChamadoForm setor={setor} />
     <Footer />
-  </div>
-);
+  </>
+) : (
+  <Redirect to="/acesso-invalido" />
+));
 
 AbrirChamado.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
+  location: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default AbrirChamado;

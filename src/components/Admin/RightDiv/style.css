@@ -4,18 +4,17 @@
   !!!!!!!
   */
 div.admin-right {
-  /* float: right; */
   width: 80%;
   transition: all 1s;
-  padding-left: 1em;
+  padding: 0 2%;
   transition: all 0.6s;
   position: absolute;
   right: 0;
   float: right;
 }
 
-@media (max-width: 470px) {
+@media (max-width: 650px) {
   div.admin-right {
-    width: 70%;
+    width: calc(100% - 60px);
   }
 }

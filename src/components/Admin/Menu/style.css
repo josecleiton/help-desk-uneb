@@ -10,9 +10,9 @@ div.admin-menu {
   position: fixed;
 }
 
-@media (max-width: 470px) {
+@media (max-width: 650px) {
   div.admin-menu {
-    width: 30%;
+    width: 60px;
   }
 }
 

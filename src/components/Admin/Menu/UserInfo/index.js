@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 import './style.css';
@@ -14,7 +15,10 @@ export default class UserInfo extends Component {
 
   shouldComponentUpdate(prevProps, prevStates) {
     const { clicked, over } = this.state;
-    return clicked !== prevStates.clicked || over !== prevStates.over;
+    const { expand } = this.props;
+    return (
+      expand !== prevProps.expand || clicked !== prevStates.clicked || over !== prevStates.over
+    );
   }
 
   handleClick = () => {
@@ -24,6 +28,7 @@ export default class UserInfo extends Component {
 
   render() {
     const { clicked, over } = this.state;
+    const { expand } = this.props;
     return (
       <div
         className="user-info-wrapper"
@@ -46,14 +51,16 @@ export default class UserInfo extends Component {
           onKeyPress={this.handleClick}
         >
           <i className="fas fa-user-shield fa-2x" title="Administrador" />
-          <ul>
-            <li>
-              Bem-vindo:
-              {' '}
-              <strong>José Cleiton</strong>
-            </li>
-            <li>Online há: X minutos</li>
-          </ul>
+          {expand && (
+            <ul>
+              <li>
+                Bem-vindo:
+                {' '}
+                <strong>José Cleiton</strong>
+              </li>
+              <li>Online há: X minutos</li>
+            </ul>
+          )}
         </div>
         {clicked && (
           <>
@@ -80,3 +87,7 @@ export default class UserInfo extends Component {
     );
   }
 }
+
+UserInfo.propTypes = {
+  expand: PropTypes.bool.isRequired,
+};

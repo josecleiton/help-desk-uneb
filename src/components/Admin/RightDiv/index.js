@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './style.css';
 
 export default class AdminRightDiv extends Component {
@@ -17,7 +18,6 @@ export default class AdminRightDiv extends Component {
 
   render() {
     const { animate } = this.state;
-    // eslint-disable-next-line react/prop-types
     const { children } = this.props;
     return (
       <div className="admin-right" style={{ opacity: animate ? 1 : 0 }}>
@@ -26,3 +26,8 @@ export default class AdminRightDiv extends Component {
     );
   }
 }
+
+AdminRightDiv.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element])
+    .isRequired,
+};

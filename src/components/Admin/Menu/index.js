@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import Media from 'react-media';
+
 import AdminMenuItem from './Item';
-import './style.css';
 import Estados from '../../../configs/estados';
 import UserInfo from './UserInfo';
+import AdminFooter from './Footer';
+
+import './style.css';
 
 export default class AdminMenu extends Component {
   constructor(props) {
@@ -27,35 +31,35 @@ export default class AdminMenu extends Component {
 
   render() {
     return (
-      <div className="admin-menu">
-        <UserInfo />
-        <ul role="menu">
-          <AdminMenuItem url="/admin">Início</AdminMenuItem>
-          <AdminMenuItem url="/admin/meus-chamados" icon="fas fa-envelope" submenu={this.Estados}>
-            Meus Chamados
-          </AdminMenuItem>
-          <AdminMenuItem
-            url="/admin/gerenciamento"
-            submenu={[{ areas: 'Áreas' }, { chamados: 'Chamados' }, { tecnicos: 'Técnicos' }]}
-            icon="fas fa-tools"
-          >
-            Gerenciar
-          </AdminMenuItem>
-        </ul>
-        <div className="menu-footer">
-          &copy; 2019
-          {' '}
-          <a href="https://github.com/josecleiton" target="_blank" rel="noopener noreferrer">
-            <strong>JOSÉ CLEITON</strong>
-          </a>
-          {' '}
-          &&
-          {' '}
-          <a href="https://github.com/Daanilo-s19" target="_blank" rel="noopener noreferrer">
-            <strong>DANILO NASCIMENTO</strong>
-          </a>
-        </div>
-      </div>
+      <Media query="(min-width: 650px)">
+        {matches => (
+          <div className="admin-menu">
+            <UserInfo expand={matches} />
+            <ul role="menu">
+              <AdminMenuItem url="/admin" expand={matches}>
+                Início
+              </AdminMenuItem>
+              <AdminMenuItem
+                url="/admin/meus-chamados"
+                icon="fas fa-envelope"
+                submenu={this.Estados}
+                expand={matches}
+              >
+                Meus Chamados
+              </AdminMenuItem>
+              <AdminMenuItem
+                url="/admin/gerenciamento"
+                submenu={[{ areas: 'Áreas' }, { chamados: 'Chamados' }, { tecnicos: 'Técnicos' }]}
+                icon="fas fa-tools"
+                expand={matches}
+              >
+                Gerenciar
+              </AdminMenuItem>
+            </ul>
+            <AdminFooter expand={matches} />
+          </div>
+        )}
+      </Media>
     );
   }
 }

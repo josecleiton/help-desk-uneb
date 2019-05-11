@@ -25,10 +25,11 @@ class AreaAtendimento extends Component {
     const valSelect = document.querySelector('select[name=area]').value;
     if (valSelect) {
       const {
-        history: { push: redirect },
+        history: { push: redirectTo },
+        location,
       } = this.props;
       this.setState({ error: false });
-      redirect(`/abrir-chamado/${valSelect}`);
+      redirectTo({ pathname: `/abrir-chamado/${valSelect}`, state: { from: location.pathname } });
     } else {
       this.setState({ error: true });
     }
@@ -63,6 +64,7 @@ class AreaAtendimento extends Component {
 
 AreaAtendimento.propTypes = {
   history: PropTypes.objectOf(PropTypes.any).isRequired,
+  location: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default withRouter(AreaAtendimento);

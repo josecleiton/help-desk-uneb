@@ -65,7 +65,9 @@ class AdminMenuItem extends Component {
   };
 
   render() {
-    const { icon, children, url } = this.props;
+    const {
+      icon, children, url, expand,
+    } = this.props;
     const { subMenu, highlight } = this.state;
     return (
       <div>
@@ -76,10 +78,10 @@ class AdminMenuItem extends Component {
               <span className="admin-menu-icon">
                 <i className={icon} />
               </span>
-              <span>{children}</span>
+              {expand && <span>{children}</span>}
             </nav>
           </NavLink>
-          {subMenu}
+          {expand && subMenu}
         </li>
         <hr className="line" />
       </div>
@@ -93,6 +95,7 @@ AdminMenuItem.propTypes = {
   icon: PropTypes.string,
   submenu: PropTypes.arrayOf(PropTypes.object),
   url: PropTypes.string.isRequired,
+  expand: PropTypes.bool.isRequired,
   location: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
