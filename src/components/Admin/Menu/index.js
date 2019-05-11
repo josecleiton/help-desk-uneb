@@ -42,6 +42,19 @@ export default class AdminMenu extends Component {
             Gerenciar
           </AdminMenuItem>
         </ul>
+        <div className="menu-footer">
+          &copy; 2019
+          {' '}
+          <a href="https://github.com/josecleiton" target="_blank" rel="noopener noreferrer">
+            <strong>JOSÉ CLEITON</strong>
+          </a>
+          {' '}
+          &&
+          {' '}
+          <a href="https://github.com/Daanilo-s19" target="_blank" rel="noopener noreferrer">
+            <strong>DANILO NASCIMENTO</strong>
+          </a>
+        </div>
       </div>
     );
   }

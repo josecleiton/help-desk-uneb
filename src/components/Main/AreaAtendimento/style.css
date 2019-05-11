@@ -49,3 +49,10 @@
     width: 350px;
   }
 }
+
+.error-alert {
+  width: 100%;
+  position: absolute;
+  padding: 2 20;
+  margin-top: 125;
+}

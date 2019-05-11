@@ -22,7 +22,7 @@ const MainRoutes = () => (
     <Route path="/chamados-cpf/:cpf" component={ChamadosCPF} />
     <Route path="/admin" component={Admin} />
     <Route path="/table" component={TablePage} />
-    <Route path="/abrir-chamado" component={AbrirChamado} />
+    <Route path="/abrir-chamado/:setor" component={AbrirChamado} />
     <Route path="/edit-chamado/:id" component={EditChamado} />
     <Route path="/acesso-invalido" component={InvalidAccess} />
     <Route component={NotFound} />

@@ -15,3 +15,7 @@
   text-align: center;
   width: 100%;
 }
+
+.error-alert {
+  margin-top: 20px;
+}

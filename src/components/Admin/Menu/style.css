@@ -5,7 +5,7 @@ div.admin-menu {
   max-width: 300px;
   background: rgba(0, 0, 0, 0.7);
   transition: all 0.7s;
-  height: 100% !important;
+  min-height: 100% !important;
   border-right: 1px solid white;
   position: fixed;
 }
@@ -27,4 +27,25 @@ div.admin-logo {
   font-size: 30px;
   color: #fff;
   /* border-bottom: 1px solid #122b4b; */
+}
+
+.menu-footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-family: "Source Code Pro", monospace;
+  font-size: 12px;
+  padding: 10px;
+}
+
+.menu-footer a {
+  transition: all 0.2s;
+}
+
+.menu-footer a:hover,
+.menu-footer a:focus {
+  color: rgba(255, 255, 255, 0.5);
 }

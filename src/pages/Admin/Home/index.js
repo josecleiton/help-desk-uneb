@@ -7,7 +7,7 @@ import AdminRightDiv from '../../../components/Admin/RightDiv';
 
 const AdminHome = () => (
   <AdminRightDiv>
-    <AdminPageTitle comment="comentário">Painel Administrativo</AdminPageTitle>
+    <AdminPageTitle comment="Painel Administrativo">HD7</AdminPageTitle>
     <TableContext.Provider value={{ goToUrl: '/admin/atendimento', rowsPrimaryKey: 0 }}>
       <Table
         title="Chamados em aberto"
