@@ -14,7 +14,7 @@ export default class TableCaption extends Component {
 
   render() {
     return (
-      <ul className="table-caption">
+      <ul className="table-caption" title="ordenamento das colunas">
         <li>
           <div />
           descendente

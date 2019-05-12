@@ -56,7 +56,9 @@ class AreaAtendimento extends Component {
             </button>
           </div>
         </div>
-        {error && <ErrorAlert>Selecione o setor desejado.</ErrorAlert>}
+        {error && (
+          <ErrorAlert className="error-area-atendimento">Selecione o setor desejado.</ErrorAlert>
+        )}
       </>
     );
   }

@@ -1,3 +1,6 @@
+.admin-chamado-wrapper {
+  margin-bottom: 1px;
+}
 .admin-chamado {
   border-radius: 5px;
   padding: 5px;
@@ -82,6 +85,8 @@ div.admin-chamado-input
   font-weight: bold;
   color: green;
 }
-/* div.admin-chamado-input input[type="checkbox"]::before {
-  content: "\2714";
-} */
+
+.error-atendimento-form {
+  border: 1px solid #b41919;
+  border-radius: 4px;
+}

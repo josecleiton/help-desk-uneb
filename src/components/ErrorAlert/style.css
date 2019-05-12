@@ -1,4 +1,4 @@
-div.error-alert {
+.error-alert {
   height: 30px;
   background: #ef191a;
   border: 1px solid #b41919;
@@ -9,4 +9,5 @@ div.error-alert {
   font-weight: bold;
   transition: 0.5s;
   padding-top: 2px;
+  text-align: center;
 }

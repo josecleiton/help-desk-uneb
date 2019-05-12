@@ -18,16 +18,21 @@ export default class ErrorAlert extends Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, className } = this.props;
     const { animate } = this.state;
     return (
-      <div className="error-alert" style={{ opacity: animate ? 1 : 0 }}>
+      <div className={`error-alert ${className}`} style={{ opacity: animate ? 1 : 0 }}>
         {children}
       </div>
     );
   }
 }
 
+ErrorAlert.defaultProps = {
+  className: '',
+};
+
 ErrorAlert.propTypes = {
   children: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };

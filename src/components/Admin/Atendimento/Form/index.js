@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import TextArea from '../../../TextArea';
 import AtendimentoTombamento from './Tombamento';
 import AtendimentoEncaminhar from './Encaminhar';
+import ErrorAlert from '../../../ErrorAlert';
 
 import './style.css';
 
@@ -19,27 +20,37 @@ export default class AtendimentoForm extends Component {
     this.state = {
       tombamento: false,
       encaminhar: false,
+      error: '',
     };
   }
 
   handleSubmit = (el) => {
     const { tombamento, encaminhar } = this.state;
-    const formData = [];
+    const formData = {};
     el.preventDefault();
     if (!encaminhar) {
       const textAreaEl = document.querySelector('div.admin-chamado-textarea textarea');
-      const selectEl = document.querySelector('select.admin-chamado');
-      const selectedOptionVal = selectEl.options[selectEl.selectedIndex].value;
-      formData.push(textAreaEl.value, selectedOptionVal);
+      const priorityEl = document.querySelector('select.admin-chamado');
+      const priorityVal = priorityEl.options[priorityEl.selectedIndex].value;
+      if (!priorityVal) {
+        this.setState({ error: 'Você deve selecionar uma prioridade para este chamado!' });
+        return;
+      }
+      formData.info = textAreaEl.value;
+      formData.priority = priorityVal;
       if (tombamento) {
         const textAreaTombamento = document.querySelector('div.atendimento-tombamento textarea')
           .value;
-        formData.push(textAreaTombamento);
+        formData.tombamento = textAreaTombamento;
       }
     } else {
-      const selectEl = document.querySelector('select.admin-chamado');
-      const selectedOptionVal = selectEl.options[selectEl.selectedIndex].value;
-      formData.push(selectedOptionVal);
+      const encaminharSetorEl = document.querySelector('select.admin-chamado');
+      const encaminhaSetorVal = encaminharSetorEl.options[encaminharSetorEl.selectedIndex].value;
+      if (!encaminhaSetorVal) {
+        this.setState({ error: 'Você deve selecionar um setor para encaminhar este chamado!' });
+        return;
+      }
+      formData.encaminhar = encaminhaSetorVal;
     }
     console.log('Dados do formulário: ', formData);
   };
@@ -60,9 +71,9 @@ export default class AtendimentoForm extends Component {
 
   render() {
     const { chamadoId } = this.props;
-    const { tombamento, encaminhar } = this.state;
+    const { tombamento, encaminhar, error } = this.state;
     return (
-      <div style={{ marginBottom: '50' }}>
+      <div className="admin-chamado-wrapper">
         <h1 className="admin-chamado">
 Atendimento #
           {chamadoId}
@@ -95,7 +106,8 @@ Atendimento #
               </div>
               <div className="admin-chamado-input">
                 <strong>Prioridade</strong>
-                <select name="prioridade" className="admin-chamado">
+                <select name="priority" className="admin-chamado">
+                  <option value="">-------</option>
                   <option value="baixa">Baixa</option>
                   <option value="media">Média</option>
                   <option value="alta">Alta</option>
@@ -115,6 +127,7 @@ Atendimento #
             </div>
           )}
         </form>
+        {error && <ErrorAlert className="error-atendimento-form">{error}</ErrorAlert>}
       </div>
     );
   }
