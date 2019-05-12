@@ -29,6 +29,17 @@ export default class MenuChamado extends Component {
     setTimeout(() => {
       this.setState({ animate: true });
     }, 50);
+    this.goBack = (
+      <button
+        type="button"
+        className="goback"
+        onClick={() => {
+          this.handleEsc('Esc');
+        }}
+      >
+        <i className="fas fa-undo-alt" />
+      </button>
+    );
   }
 
   handleEsc = (key) => {
@@ -36,11 +47,25 @@ export default class MenuChamado extends Component {
   };
 
   buscaChamado = () => {
-    this.setState({ buttons: <BuscarChamado escListener={this.handleEsc} /> });
+    this.setState({
+      buttons: (
+        <>
+          <BuscarChamado escListener={this.handleEsc} />
+          {this.goBack}
+        </>
+      ),
+    });
   };
 
   criaChamado = () => {
-    this.setState({ buttons: <AreaAtendimento /> });
+    this.setState({
+      buttons: (
+        <>
+          <AreaAtendimento />
+          {this.goBack}
+        </>
+      ),
+    });
   };
 
   render() {

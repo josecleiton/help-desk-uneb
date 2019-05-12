@@ -54,3 +54,21 @@ button.acompanhar:hover {
     font-size: 20px;
   }
 }
+
+button.goback {
+  background: none;
+  border: none;
+  width: auto;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.fas.fa-undo-alt {
+  opacity: 0.3;
+  transition: all 0.4s;
+}
+
+.fas.fa-undo-alt:hover,
+.fas.fa-undo-alt:focus {
+  opacity: 1;
+}
