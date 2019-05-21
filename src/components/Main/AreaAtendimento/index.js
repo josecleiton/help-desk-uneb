@@ -29,7 +29,7 @@ class AreaAtendimento extends Component {
         location,
       } = this.props;
       this.setState({ error: false });
-      redirectTo({ pathname: `/abrir-chamado/${valSelect}`, state: { from: location.pathname } });
+      redirectTo({ pathname: `/abrir-chamado/${valSelect}`, state: { from: location } });
     } else {
       this.setState({ error: true });
     }

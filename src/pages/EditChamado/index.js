@@ -62,6 +62,7 @@ export default class EditChamado extends Component {
       match: {
         params: { id },
       },
+      location,
     } = this.props;
     const { seconds, validAccess, excluido } = this.state;
     return (
@@ -88,7 +89,7 @@ export default class EditChamado extends Component {
             </h1>
           </div>
         ) : (
-          <Redirect to="/acesso-invalido" />
+          <Redirect to={{ pathname: '/acesso-invalido', state: { from: location } }} />
         )}
         <Footer />
       </>

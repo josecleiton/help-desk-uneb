@@ -29,7 +29,7 @@ class TableRow extends Component {
       if (url && primaryKey + 1) {
         redirectTo({
           pathname: `${url}/${elements[primaryKey]}`,
-          state: { from: location.pathname },
+          state: { from: location },
         });
       }
     } else if (url && primaryKey + 1) {
@@ -38,12 +38,12 @@ class TableRow extends Component {
       if (elementColumn === checkInfo[column][0]) {
         redirectTo({
           pathname: `${checkInfo[column][1]}/${elements[primaryKey]}`,
-          state: { from: location.pathname },
+          state: { from: location },
         });
       } else {
         redirectTo({
           pathname: `${url}/${elements[primaryKey]}`,
-          state: { from: location.pathname },
+          state: { from: location },
         });
       }
     }

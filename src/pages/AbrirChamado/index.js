@@ -10,15 +10,15 @@ const AbrirChamado = ({
   match: {
     params: { setor },
   },
-  location: { state },
-}) => (state ? (
+  location,
+}) => (location.state ? (
   <>
     <MainHeader />
     <AbrirChamadoForm setor={setor} />
     <Footer />
   </>
 ) : (
-  <Redirect to="/acesso-invalido" />
+  <Redirect to={{ pathname: '/acesso-invalido', state: { from: location } }} />
 ));
 
 AbrirChamado.propTypes = {
