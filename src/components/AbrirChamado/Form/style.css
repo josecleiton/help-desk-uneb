@@ -1,90 +1,60 @@
-.main-form-chamado {
+.form-chamado {
   display: flex;
-  width: 100%;
-  height: auto;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+}
 
-  color: aliceblue;
-  box-sizing: border-box;
-  margin-top: 20px;
-}
-.main-form-chamado h2 {
-  font-size: 25px;
-  margin: 20px 0;
-}
-.main-form-chamado form {
+.form-chamado form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #333333;
+  flex-wrap: wrap;
 }
-.main-form-chamado form div {
+.form-chamado form div {
+  width: 500px;
   display: flex;
-  width: 100%;
-  max-width: 1200px;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-}
-
-.main-form-chamado form div select {
-  width: 20%;
-  padding: 10px;
-  margin: 20px;
-  border-radius: 6px;
-}
-
-.main-form-chamado form div textarea {
-  flex: 1;
-  width: 70%;
-  height: 150px;
-  margin: 20px;
-  border-radius: 6px;
-}
-.main-form-chamado form div input[type="file"] {
-  margin-left: -10px;
-}
-
-.main-form-chamado form div label,
-h3 {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 10px 10px 10px 15px;
-}
-.main-form-chamado form button {
-  width: 20%;
-  height: 60px;
-  color: white;
-  font-weight: bold;
-  padding: 15px;
-  border-radius: 6px;
-  border: 0;
-  font-size: 18px;
-  margin-bottom: 20px;
-  background-color: red;
-  opacity: 0.5;
-  cursor: pointer;
-  margin: 15px;
-}
-.main-form-chamado form button:hover {
-  opacity: 1;
-}
-
-#main-form-submit {
-  display: flex;
   justify-content: space-between;
+  margin: 14px;
 }
-#main-form-submit button[name="retornar"] {
-  background-color: blue;
+.form-chamado form div select,
+input {
+  width: 400px;
+  height: 27px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+}
+.form-chamado form div input,
+textarea {
+  padding: 10px;
+  font-size: 12px;
 }
 
-@media (max-width: 700px) {
-  .main-form-chamado form div {
-    flex-direction: column;
-    width: 100%;
-    font-size: 10px;
-  }
+.form-chamado form div textarea {
+  width: 400px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+}
+.form-chamado form div select,
+textarea,
+input:hover {
+  border: 1px solid rgb(53, 180, 230);
+}
+.form-chamado form div input[type="file"] {
+  border-radius: 0;
+  border: 0;
+  padding: 0;
+  width: 150px;
+}
+.form-chamado small {
+  display: flex;
+  flex-direction: row;
+  margin: 0 10px;
+}
+.form-chamado i {
+  margin-right: 5px;
+  font-size: 25px;
 }
