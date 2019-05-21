@@ -32,7 +32,6 @@ export default class MenuChamado extends Component {
     this.goBack = (
       <button
         type="button"
-        className="goback"
         onClick={() => {
           this.handleEsc('Esc');
         }}
@@ -49,10 +48,10 @@ export default class MenuChamado extends Component {
   buscaChamado = () => {
     this.setState({
       buttons: (
-        <>
+        <div className="goback">
           <BuscarChamado escListener={this.handleEsc} />
           {this.goBack}
-        </>
+        </div>
       ),
     });
   };
@@ -60,10 +59,10 @@ export default class MenuChamado extends Component {
   criaChamado = () => {
     this.setState({
       buttons: (
-        <>
+        <div className="goback">
           <AreaAtendimento />
           {this.goBack}
-        </>
+        </div>
       ),
     });
   };
