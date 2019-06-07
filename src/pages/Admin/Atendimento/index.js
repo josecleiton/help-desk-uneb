@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import AdminRightDiv from '../../../components/Admin/RightDiv';
 import AdminPageTitle from '../../../components/Admin/Title';
+import AtendimentoContext from '../../../components/Admin/Atendimento/Context';
 import LargeBox from '../../../components/LargeBox';
 import SortArrow from '../../../components/LargeBox/SortArrow';
 import AtendimentoForm from '../../../components/Admin/Atendimento/Form';
@@ -11,6 +12,13 @@ import Content from './Content';
 import Error from '../../../components/Error';
 
 import './style.css';
+
+/**
+ * Página incompleta.
+ * Função a ser implementada:
+ * Acessar o banco de dados e selecionar o estado atual do chamado
+ * A partir desse estado, chamar o form correspondente
+ */
 
 const HiddenContent = () => (
   <h3 className="hidden-content-box">
@@ -48,7 +56,7 @@ export default class Atendimento extends Component {
     return (
       <AdminRightDiv>
         {validAccess ? (
-          <>
+          <AtendimentoContext.Provider value={{ id }}>
             <AdminPageTitle>Atendimento de Chamado</AdminPageTitle>
             <LargeBox
               className={clicked ? 'admin-atendimento-box-clicked' : 'admin-atendimento-box'}
@@ -58,8 +66,8 @@ export default class Atendimento extends Component {
               </div>
               {clicked ? <Content id={id} /> : <HiddenContent />}
             </LargeBox>
-            <AtendimentoForm chamadoId={id} />
-          </>
+            <AtendimentoForm estado="Em aberto" />
+          </AtendimentoContext.Provider>
         ) : (
           <Error icon="far fa-dizzy" title="Acesso não é permitido">
             O acesso direto a essa página não é permitido, retorne ao início pelo menu ou
