@@ -51,7 +51,7 @@ export default class Table extends Component {
 
   makeDateFields = (a, b) => {
     const toTimeStamp = [a, b];
-    const result = Array(2);
+    const result = Array(toTimeStamp.length);
     for (let i = 0; i < result.length; i += 1) {
       const day = toTimeStamp[i].substr(0, 2);
       const month = toTimeStamp[i].substr(3, 2);
