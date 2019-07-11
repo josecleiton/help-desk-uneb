@@ -29,7 +29,7 @@ export default class Table extends Component {
       tableHead: this.makeTableHead(head, -1, 0),
       tableRows: this.makeTableRows(this.initialSort(columnSortKey)),
     });
-    this.activeHeader = Array(head.length).fill(0);
+    this.activeHeader = Array(2).fill(0); // [coluna-atual, status]
   }
 
   initialSort = (column) => {
@@ -52,9 +52,7 @@ export default class Table extends Component {
   makeDateFields = (a, b) => {
     const toTimeStamp = [a, b];
     const result = Array(2);
-    // toTimeStamp[0] = a;
-    // toTimeStamp[1] = b;
-    for (let i = 0; i < 2; i += 1) {
+    for (let i = 0; i < result.length; i += 1) {
       const day = toTimeStamp[i].substr(0, 2);
       const month = toTimeStamp[i].substr(3, 2);
       toTimeStamp[i] = toTimeStamp[i].replace(RegExp(`${day}|${month}`, 'g'), match => (match === day ? month : day));
@@ -85,11 +83,16 @@ export default class Table extends Component {
 
   handleSort = (column) => {
     const { rows, head, dateFields } = this.props;
-    const columnState = this.activeHeader[column] + 1;
+    let columnState;
+    if (this.activeHeader[0] === column) {
+      columnState = this.activeHeader[1] + 1;
+    } else {
+      this.activeHeader[0] = column;
+      columnState = 1;
+    }
     const columnIsDate = dateFields.indexOf(column) !== -1;
-    this.activeHeader.fill(0);
     if (columnState % 3) {
-      this.activeHeader[column] = columnState;
+      this.activeHeader[1] = columnState;
       rows.sort((a, b) => {
         if (columnState % 2) {
           if (!columnIsDate) {
