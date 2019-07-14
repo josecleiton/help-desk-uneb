@@ -49,7 +49,12 @@ export default class AdminMenu extends Component {
               </AdminMenuItem>
               <AdminMenuItem
                 url="/admin/gerenciamento"
-                submenu={[{ areas: 'Áreas' }, { chamados: 'Chamados' }, { tecnicos: 'Técnicos' }]}
+                submenu={[
+                  { areas: 'Áreas' },
+                  { chamados: 'Chamados' },
+                  { tecnicos: 'Técnicos' },
+                  { setores: 'Setores' },
+                ]}
                 icon="fas fa-tools"
                 expand={matches}
               >

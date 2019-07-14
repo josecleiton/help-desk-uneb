@@ -20,6 +20,9 @@ const GerenciamentoHome = () => (
         <Link to="/admin/gerenciamento/tecnicos">
           <li>Técnicos</li>
         </Link>
+        <Link to="/admin/gerenciamento/setores">
+          <li>Setores</li>
+        </Link>
       </ul>
     </div>
   </AdminRightDiv>

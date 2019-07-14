@@ -1,43 +1,11 @@
-.admin-gerenciamento-areas button {
-  width: 99%;
-  border: 0;
-  border-radius: 5px;
-  background: rgba(0, 0, 0, 0.1);
-  padding: 5px;
-  color: rgba(0, 0, 0, 0.8);
-  font-size: 1.2em;
-  margin: 20px auto;
-  cursor: pointer;
-  transition: all 0.4s;
-}
-
-.fa-plus {
-  opacity: 0.9;
-}
-
-.admin-gerenciamento-areas button:hover,
-.admin-gerenciamento-areas button:focus {
-  background: rgba(0, 0, 0, 0.15);
-}
-
-.admin-gerenciamento-areas button:last-child {
-  background: #2964ad;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  color: #fff;
-}
-
-.admin-gerenciamento-areas button:last-child:hover,
-.admin-gerenciamento-areas button:last-child:focus {
-  background: #163863;
-}
-.admin-gerenciamento-areas ul {
+/* .admin-gerenciamento-areas ul {
   list-style: none;
 }
 
 .admin-gerenciamento-areas h2 {
   text-align: center;
   font-weight: normal;
-}
+} */
 
 .card-shape {
   color: #fff;
