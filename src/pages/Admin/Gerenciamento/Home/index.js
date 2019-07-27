@@ -11,9 +11,6 @@ const GerenciamentoHome = () => (
     <AdminPageTitle comment="faça uma seleção">Gerenciamento</AdminPageTitle>
     <div className="admin-gerenciamento">
       <ul>
-        <Link to="/admin/gerenciamento/areas">
-          <li>Áreas</li>
-        </Link>
         <Link to="/admin/gerenciamento/chamados">
           <li>Chamados</li>
         </Link>

@@ -50,7 +50,6 @@ export default class AdminMenu extends Component {
               <AdminMenuItem
                 url="/admin/gerenciamento"
                 submenu={[
-                  { areas: 'Áreas' },
                   { chamados: 'Chamados' },
                   { tecnicos: 'Técnicos' },
                   { setores: 'Setores' },

@@ -25,19 +25,44 @@ export default class AdminGerenciamentoForm extends Component {
   };
 
   render() {
-    const { buttonChildren, handleSubmit } = this.props;
+    const {
+      buttonChildren, handleSubmit, inputForm, selectForm,
+    } = this.props;
     const { novaArea } = this.state;
     return (
       <div className="admin-gerenciamento-form">
         <button type="button" onClick={this.handleNovaArea}>
           {buttonChildren[novaArea]}
         </button>
+
         {novaArea ? (
           <AdminForm handleSubmit={handleSubmit}>
-            <Input type="text" placeholder="Nome" style={inputStyle} />
-            <Input type="text" placeholder="Nome" style={inputStyle} />
-            <Input type="text" placeholder="Nome" style={inputStyle} />
-            <Input type="text" placeholder="Nome" style={inputStyle} />
+            {inputForm ? (inputForm.map(inputs => (
+              <div>
+                <strong>{inputs.label}</strong>
+                <Input
+                  key={inputs.id}
+                  type={inputs.tipo}
+                  placeholder={inputs.placeholder}
+                  style={inputStyle}
+                />
+              </div>
+            ))
+            ) : null }
+            { selectForm ? (
+              selectForm.map(select => (
+                <div>
+                  <strong>{select.label}</strong>
+                  <select key={select.id}>
+                    {select.option.map(options => (
+                      <option value={options.value}>{options.nome}</option>
+                    ))}
+                  </select>
+                </div>
+              ))
+            ) : null}
+
+
             <button type="submit" id="submit">
               Enviar
             </button>
@@ -51,4 +76,6 @@ export default class AdminGerenciamentoForm extends Component {
 AdminGerenciamentoForm.propTypes = {
   handleSubmit: propTypes.func.isRequired,
   buttonChildren: propTypes.arrayOf(propTypes.any).isRequired,
+  inputForm: propTypes.arrayOf(propTypes.any).isRequired,
+  selectForm: propTypes.arrayOf(propTypes.any).isRequired,
 };
