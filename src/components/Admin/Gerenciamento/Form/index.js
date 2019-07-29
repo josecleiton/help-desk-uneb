@@ -37,20 +37,21 @@ export default class AdminGerenciamentoForm extends Component {
 
         {novaArea ? (
           <AdminForm handleSubmit={handleSubmit}>
-            {inputForm ? (inputForm.map(inputs => (
-              <div>
-                <strong>{inputs.label}</strong>
-                <Input
-                  key={inputs.id}
-                  type={inputs.tipo}
-                  placeholder={inputs.placeholder}
-                  style={inputStyle}
-                />
-              </div>
-            ))
-            ) : null }
-            { selectForm ? (
-              selectForm.map(select => (
+            {inputForm
+              ? inputForm.map(inputs => (
+                <div>
+                  <strong>{inputs.label}</strong>
+                  <Input
+                    key={inputs.id}
+                    type={inputs.tipo}
+                    placeholder={inputs.placeholder}
+                    style={inputStyle}
+                  />
+                </div>
+              ))
+              : null}
+            {selectForm
+              ? selectForm.map(select => (
                 <div>
                   <strong>{select.label}</strong>
                   <select key={select.id}>
@@ -60,8 +61,7 @@ export default class AdminGerenciamentoForm extends Component {
                   </select>
                 </div>
               ))
-            ) : null}
-
+              : null}
 
             <button type="submit" id="submit">
               Enviar

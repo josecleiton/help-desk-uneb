@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import AdminTitle from '../../../components/Admin/Title';
 import AdminRightDiv from '../../../components/Admin/RightDiv';
 import TableContext from '../../../components/Table/Context';
+import AdminGerenciamentoForm from '../../../components/Admin/Gerenciamento/Form';
+
 import Table from '../../../components/Table';
 
 export default class AdminMeusChamados extends Component {
@@ -18,6 +20,66 @@ export default class AdminMeusChamados extends Component {
     return (
       <AdminRightDiv>
         <AdminTitle comment="comentário">Meus Chamados</AdminTitle>
+        <AdminGerenciamentoForm
+          handleSubmit={this.handleFormSubmit}
+          buttonChildren={[
+            <>
+              Buscar chamado
+              {' '}
+              <i className="fas fa-plus" />
+            </>,
+            <>
+              Preencha a busca e a forma de busca
+              {' '}
+              <i className="fas fa-arrow-down" />
+            </>,
+          ]}
+          selectForm={[
+            {
+              label: 'Buscar por:',
+              id: 'setor',
+              option: [
+                {
+                  nome: '',
+                  value: '',
+                },
+                {
+                  nome: 'Área',
+                  value: 'area',
+                },
+                {
+                  nome: 'Situação',
+                  value: 'situacao',
+                },
+                {
+                  nome: 'problema',
+                  value: 'problema',
+                },
+                {
+                  nome: 'Qtd de dias',
+                  value: 'qtd_de_dia',
+                },
+                {
+                  nome: 'data de abertura',
+                  value: 'data_abertura',
+                },
+                {
+                  nome: 'Solicitante',
+                  value: 'solicitante',
+                },
+              ],
+            },
+          ]}
+          inputForm={[
+            {
+              label: 'Chamado',
+              id: 'chamado',
+              tipo: 'text',
+              placeholder: 'Informe o dado do chamado',
+            },
+          ]}
+        />
+
         <TableContext.Provider value={{}}>
           <Table
             title="Chamados de Cleiton"

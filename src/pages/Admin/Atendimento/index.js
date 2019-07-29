@@ -6,7 +6,6 @@ import AdminRightDiv from '../../../components/Admin/RightDiv';
 import AdminPageTitle from '../../../components/Admin/Title';
 import AtendimentoContext from '../../../components/Admin/Atendimento/Context';
 import LargeBox from '../../../components/LargeBox';
-import SortArrow from '../../../components/LargeBox/SortArrow';
 import AtendimentoForm from '../../../components/Admin/Atendimento/Form';
 import Content from './Content';
 import Error from '../../../components/Error';
@@ -20,19 +19,13 @@ import './style.css';
  * A partir desse estado, chamar o form correspondente
  */
 
-const HiddenContent = () => (
-  <h3 className="hidden-content-box">
-    Descrição do chamado oculta, clique na seta para mais informações.
-  </h3>
-);
-
 export default class Atendimento extends Component {
   constructor(props) {
     super(props);
     const {
       location: { state },
     } = props;
-    this.state = { clicked: false, validAccess: state !== undefined };
+    this.state = { validAccess: state !== undefined };
   }
 
   currentPath = () => {
@@ -42,29 +35,20 @@ export default class Atendimento extends Component {
     return path.substr(0, path.lastIndexOf('/'));
   };
 
-  slide = (clicked) => {
-    this.setState({ clicked });
-  };
-
   render() {
     const {
       match: {
         params: { id },
       },
     } = this.props;
-    const { clicked, validAccess } = this.state;
+    const { validAccess } = this.state;
     return (
       <AdminRightDiv>
         {validAccess ? (
           <AtendimentoContext.Provider value={{ id }}>
             <AdminPageTitle>Atendimento de Chamado</AdminPageTitle>
-            <LargeBox
-              className={clicked ? 'admin-atendimento-box-clicked' : 'admin-atendimento-box'}
-            >
-              <div className="admin-atendimento-sort-arrow">
-                <SortArrow slide={this.slide} />
-              </div>
-              {clicked ? <Content id={id} /> : <HiddenContent />}
+            <LargeBox className="admin-atendimento-box-clicked">
+              <Content id={id} />
             </LargeBox>
             <AtendimentoForm estado="Em aberto" />
           </AtendimentoContext.Provider>
