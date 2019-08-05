@@ -126,6 +126,10 @@ export default class Table extends Component {
     }
   };
 
+  pageNumber = (e) => {
+    console.log(e);
+  }
+
   render() {
     const { title, margin } = this.props;
     const { tableRows, tableHead, pages } = this.state;
@@ -141,7 +145,7 @@ export default class Table extends Component {
           </thead>
           <tbody>{tableRows}</tbody>
         </table>
-        {pages && <PageNumber elementsPerPage={pages} />}
+        {pages && <PageNumber handleClick={this.pageNumber} elementsPerPage={pages} />}
       </div>
     );
   }

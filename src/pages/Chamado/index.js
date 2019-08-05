@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import MainHeader from '../../components/Main/Header';
 import LargeBox from '../../components/LargeBox';
 import Footer from '../../components/Footer';
+import HistoricoMovimentacao from '../../components/HistoricoChamado';
 
 import './style.css';
 
@@ -58,10 +59,13 @@ dd/mm/YYYY
               {' '}
 TI
             </p>
-            <div id="hist-mov">
+            <HistoricoMovimentacao>
+              Aqui terá uma tabela com todo o historico.
+            </HistoricoMovimentacao>
+            {/* <div id="hist-mov">
               <h2>Histórico de Movimentações</h2>
             </div>
-            <p>Aqui haverá uma tabela com status/area/técnico/data do ocorrido</p>
+            <p>Aqui haverá uma tabela com status/area/técnico/data do ocorrido</p> */}
           </LargeBox>
         </div>
         <Footer />
