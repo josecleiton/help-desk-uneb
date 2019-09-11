@@ -18,9 +18,8 @@ export default class AdminHome extends Component {
   }
 
   componentDidMount() {
-    // const jwtToken = localStorage.getItem('HD7-AuthToken');
-    // console.log(jwtToken);
-    // api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('HD7-AuthToken')}`
+    const jwtToken = localStorage.getItem('HD7-AuthToken');
+    api.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
     api.post('/api/chamado/read_em_aberto.php').then((res) => {
       // console.log(res);
       // this.setState({chamados: res.data});

@@ -8,6 +8,7 @@ const Card = (props) => {
   const {
     info: { title, chamados },
     url,
+    payload,
     location: { pathname: currentPath },
   } = props;
   return (
@@ -16,7 +17,7 @@ const Card = (props) => {
         <div>{title}</div>
         <div>{chamados}</div>
       </div>
-      <Link to={{ pathname: `${url}/${title}`, state: { from: currentPath } }}>
+      <Link to={{ pathname: `${url}/${title}`, state: { from: currentPath, payload } }}>
         mostrar mais
         {' '}
         <i className="fas fa-arrow-circle-right" />
@@ -31,6 +32,7 @@ Card.propTypes = {
     chamados: PropTypes.string.isRequired,
   }).isRequired,
   url: PropTypes.string.isRequired,
+  payload: PropTypes.objectOf(PropTypes.any).isRequired,
   location: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 

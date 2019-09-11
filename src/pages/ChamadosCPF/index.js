@@ -26,13 +26,13 @@ export default class ChamadosCPF extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const {
       match: {
         params: { cpf },
       },
     } = this.props;
-    await api.post('/api/usuario/read.php', { cpf }).then((res) => {
+    api.post('/api/usuario/read.php', { cpf }).then((res) => {
       const { data } = res;
       const { chamados, error } = data;
       // console.log(chamados);
@@ -131,17 +131,17 @@ export default class ChamadosCPF extends Component {
               </TableContext.Provider>
             </>
           ) : (
-            <>
-              <div>Carregando...</div>
-            </>
-          )
+              <>
+                <div>Carregando...</div>
+              </>
+            )
         ) : (
-          <>
-            {' '}
-            <div>{`ERROR: ${error}`}</div>
-            {' '}
-          </>
-        )}
+            <>
+              {' '}
+              <div>{`ERROR: ${error}`}</div>
+              {' '}
+            </>
+          )}
         <Footer />
       </>
     );

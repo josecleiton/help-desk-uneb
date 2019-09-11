@@ -36,7 +36,7 @@ export default class AdminMenu extends Component {
       <AdminContext.Consumer>
         {(state) => {
           const cargo = state.user.cargo || '';
-          console.log(state);
+          // console.log(state);
           return (
             <Media query="(min-width: 650px)">
               {matches => (

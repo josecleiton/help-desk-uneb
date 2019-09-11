@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
 
 import api from '../../../../services/api';
@@ -13,24 +14,30 @@ export default class GerenciamentoSetores extends Component {
     super(props);
     this.state = {
       setores: null,
-      loaded: null,
-    }
+      error: null,
+    };
   }
+
   componentDidMount() {
+    const jwtToken = localStorage.getItem('HD7-AuthToken');
+    api.defaults.headers.common.Authorization = `Bearer ${jwtToken}`;
     api.post('/api/setor/read.php').then((res) => {
+      // console.log(res.data);
       if (!res.data.error) {
         this.setState({ setores: res.data });
       } else {
-        this.setState({ error: res.data.mensagem })
+        this.setState({ error: res.data.mensagem });
       }
-    })
+    });
   }
+
   handleFormSubmit = (e) => {
     e.preventDefault();
     console.log(e.target); // ???
   };
 
   render() {
+    const { setores, error } = this.state;
     return (
       <AdminRightDiv>
         <AdminPageTitle comment="comentário">Setores</AdminPageTitle>
@@ -112,15 +119,21 @@ export default class GerenciamentoSetores extends Component {
           ]}
         />
 
-        <Deck
-          cards={[
-            { info: { title: 'titulo', chamados: '1000' }, url: '/admin/gerenciamento/setor' },
-            { info: { title: 'titulo', chamados: '1000' }, url: '/admin/gerenciamento/setor' },
-            { info: { title: 'titulo', chamados: '1000' }, url: '/admin/gerenciamento/setor' },
-            { info: { title: 'titulo', chamados: '1000' }, url: '/admin/gerenciamento/setor' },
-            { info: { title: 'titulo', chamados: '1000' }, url: '/admin/gerenciamento/setor' },
-          ]}
-        />
+        {!error ? (
+          setores ? (
+            <Deck
+              cards={setores.map(setor => ({
+                info: { title: setor.nome, chamados: setor.email },
+                url: '/admin/gerenciamento/setor',
+                payload: setor,
+              }))}
+            />
+          ) : (
+            <div>Loading...</div>
+          )
+        ) : (
+          <div>Erro no carregamento dos Setores...</div>
+        )}
       </AdminRightDiv>
     );
   }

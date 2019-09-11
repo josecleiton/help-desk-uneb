@@ -37,18 +37,18 @@ export default class Deck extends Component {
     }
     let i = -1;
     cards.forEach((element, index) => {
-      const { info, url } = element;
+      const { info, url, payload } = element;
       if (!(index % cardsPerPage)) {
         i += 1;
       }
-      result[i].push(<Card key={Math.random()} info={info} url={url} />);
+      result[i].push(<Card key={Math.random()} info={info} url={url} payload={payload} />);
     });
     return result;
   };
 
-  handlePage = (el) => {
-    console.log(el.target.innerHTML);
-  };
+  // handlePage = (el) => {
+  //   console.log(el.target.innerHTML);
+  // };
 
   render() {
     const {
@@ -70,6 +70,7 @@ Deck.propTypes = {
     PropTypes.shape({
       info: PropTypes.shape({ title: PropTypes.string, chamados: PropTypes.string }),
       url: PropTypes.string,
+      payload: PropTypes.objectOf(PropTypes.any),
     }).isRequired,
   ).isRequired,
 };
