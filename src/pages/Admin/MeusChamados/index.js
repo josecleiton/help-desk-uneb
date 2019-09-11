@@ -16,6 +16,10 @@ export default class AdminMeusChamados extends Component {
     return path;
   };
 
+  handleFormSubmit = (e) => {
+    console.log(e);
+  }
+
   render() {
     return (
       <AdminRightDiv>

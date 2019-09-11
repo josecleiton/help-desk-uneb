@@ -20,7 +20,7 @@ export default class PageNumber extends Component {
     const { handleClick } = this.props;
     const { page } = this.state;
     const number = element.target.innerHTML;
-    if (page !== number && handleClick) {
+    if (page !== number) {
       // ME EXPLICA ESSE HANDLECLICK PIVETE
       handleClick(number);
       this.setState({ page: number });

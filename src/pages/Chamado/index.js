@@ -9,6 +9,7 @@ import Table from '../../components/Table';
 import MainHeader from '../../components/Main/Header';
 import LargeBox from '../../components/LargeBox';
 import Footer from '../../components/Footer';
+import HistoricoMovimentacao from '../../components/HistoricoChamado';
 
 import './style.css';
 
@@ -94,6 +95,7 @@ export default class VisualizarChamado extends Component {
                   {` ${payload.data}`}
                 </p>
 
+<<<<<<< HEAD
                 <p>
                   <strong>Setor:</strong>
                   {` ${payload.setor.nome}`}
@@ -117,6 +119,21 @@ export default class VisualizarChamado extends Component {
           ) : (
             <div>Loading...</div>
           )}
+=======
+            <p>
+              <strong>Área:</strong>
+              {' '}
+TI
+            </p>
+            <HistoricoMovimentacao>
+              Aqui terá uma tabela com todo o historico.
+            </HistoricoMovimentacao>
+            {/* <div id="hist-mov">
+              <h2>Histórico de Movimentações</h2>
+            </div>
+            <p>Aqui haverá uma tabela com status/area/técnico/data do ocorrido</p> */}
+          </LargeBox>
+>>>>>>> 690ab45ef88e8cc704a19e6aa1b59e854b0d6b91
         </div>
         <Footer />
       </>

@@ -15,17 +15,3 @@ div.wrapper p {
   margin: 20px 20px 10px 10px;
   font-size: 20px;
 }
-
-div#hist-mov {
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  margin-top: 25px;
-  padding: 10px 0;
-  border: 1px solid black;
-  border-right: none;
-  border-left: none;
-}
-
-div#hist-mov h2 {
-  text-align: center;
-}

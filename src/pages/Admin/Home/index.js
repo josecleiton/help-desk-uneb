@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 
 import api from '../../../services/api';
+=======
+>>>>>>> 690ab45ef88e8cc704a19e6aa1b59e854b0d6b91
 
 import Table from '../../../components/Table';
 import TableContext from '../../../components/Table/Context';
 import AdminPageTitle from '../../../components/Admin/Title';
 import AdminRightDiv from '../../../components/Admin/RightDiv';
+import AdminGerenciamentoForm from '../../../components/Admin/Gerenciamento/Form';
 
 export default class AdminHome extends Component {
   constructor(props) {

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import HistoricoMovimentacao from '../../../../components/HistoricoChamado';
 
 const Content = (props) => {
   const { id } = props;
@@ -36,6 +37,7 @@ TI
         {' '}
 Ver imagem
       </p>
+      <HistoricoMovimentacao>Tabela de modificações vem aqui</HistoricoMovimentacao>
     </div>
   );
 };
