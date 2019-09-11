@@ -26,7 +26,7 @@ dd/mm/YYYY
       </p>
 
       <p>
-        <strong>Área:</strong>
+        <strong>Setor:</strong>
         {' '}
 TI
       </p>

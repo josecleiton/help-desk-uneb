@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Media from 'react-media';
 
+import AdminContext from '../Context';
+
 import AdminMenuItem from './Item';
 import Estados from '../../../configs/estados';
 import UserInfo from './UserInfo';
@@ -31,39 +33,49 @@ export default class AdminMenu extends Component {
 
   render() {
     return (
-      <Media query="(min-width: 650px)">
-        {matches => (
-          <div className="admin-menu">
-            <UserInfo expand={matches} />
-            <ul role="menu">
-              <AdminMenuItem url="/admin" expand={matches}>
-                Início
-              </AdminMenuItem>
-              <AdminMenuItem
-                url="/admin/meus-chamados"
-                icon="fas fa-envelope"
-                submenu={this.Estados}
-                expand={matches}
-              >
-                Meus Chamados
-              </AdminMenuItem>
-              <AdminMenuItem
-                url="/admin/gerenciamento"
-                submenu={[
-                  { chamados: 'Chamados' },
-                  { tecnicos: 'Técnicos' },
-                  { setores: 'Setores' },
-                ]}
-                icon="fas fa-tools"
-                expand={matches}
-              >
-                Gerenciar
-              </AdminMenuItem>
-            </ul>
-            <AdminFooter expand={matches} />
-          </div>
-        )}
-      </Media>
+      <AdminContext.Consumer>
+        {(state) => {
+          const cargo = state.user.cargo || '';
+          console.log(state);
+          return (
+            <Media query="(min-width: 650px)">
+              {matches => (
+                <div className="admin-menu">
+                  <UserInfo expand={matches} />
+                  <ul role="menu">
+                    <AdminMenuItem url="/admin" expand={matches}>
+                      Início
+                    </AdminMenuItem>
+                    <AdminMenuItem
+                      url="/admin/meus-chamados"
+                      icon="fas fa-envelope"
+                      submenu={this.Estados}
+                      expand={matches}
+                    >
+                      Meus Chamados
+                    </AdminMenuItem>
+                    {cargo && (
+                      <AdminMenuItem
+                        url="/admin/gerenciamento"
+                        submenu={[
+                          { chamados: 'Chamados' },
+                          { tecnicos: 'Técnicos' },
+                          cargo === 'A' && { setores: 'Setores' },
+                        ]}
+                        icon="fas fa-tools"
+                        expand={matches}
+                      >
+                        Gerenciar
+                      </AdminMenuItem>
+                    )}
+                  </ul>
+                  <AdminFooter expand={matches} />
+                </div>
+              )}
+            </Media>
+          );
+        }}
+      </AdminContext.Consumer>
     );
   }
 }

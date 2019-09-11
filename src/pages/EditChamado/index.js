@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+
+import api from '../../services/api';
 import MainHeader from '../../components/Main/Header';
 import Footer from '../../components/Footer';
 import ErrorAlert from '../../components/ErrorAlert';
@@ -14,9 +16,9 @@ export default class EditChamado extends Component {
     } = this.props;
     this.initialSeconds = 10;
     this.state = {
-      validAccess: state !== undefined,
-      excluido: false,
+      validAccess: state ? state.from !== undefined : false,
       seconds: this.initialSeconds,
+      mensagem: '',
     };
   }
 
@@ -32,8 +34,8 @@ export default class EditChamado extends Component {
   }
 
   componentWillUnmount() {
-    const { excluido } = this.state;
-    if (!excluido) clearInterval(this.timer);
+    const { mensagem } = this.state;
+    if (!mensagem) clearInterval(this.timer);
   }
 
   visualizar = () => {
@@ -42,19 +44,32 @@ export default class EditChamado extends Component {
       match: {
         params: { id },
       },
+      location,
     } = this.props;
-    redirectTo(`/chamado/${id}`);
+    const {
+      state: { payload },
+    } = location;
+    redirectTo({ pathname: `/chamado/${id}`, state: { from: location, payload } });
   };
 
   excluir = () => {
     const {
       history: { replace: redirectTo },
+      match: {
+        params: { id },
+      },
     } = this.props;
     clearInterval(this.timer);
-    this.setState({ excluido: true });
-    setTimeout(() => {
-      redirectTo('/');
-    }, 2000);
+    // console.log({ id });
+    api.post('/api/chamado/delete.php', { id }).then((res) => {
+      const {
+        data: { mensagem },
+      } = res;
+      this.setState({ mensagem });
+      setTimeout(() => {
+        redirectTo('/');
+      }, 2000);
+    });
   };
 
   render() {
@@ -64,7 +79,7 @@ export default class EditChamado extends Component {
       },
       location,
     } = this.props;
-    const { seconds, validAccess, excluido } = this.state;
+    const { seconds, validAccess, mensagem } = this.state;
     return (
       <>
         <MainHeader />
@@ -85,7 +100,7 @@ export default class EditChamado extends Component {
                   excluir
                 </Button>
               </div>
-              {excluido && <ErrorAlert>Chamado excluído!</ErrorAlert>}
+              {mensagem && <ErrorAlert>{mensagem}</ErrorAlert>}
             </h1>
           </div>
         ) : (

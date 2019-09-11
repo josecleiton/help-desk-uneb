@@ -5,7 +5,15 @@ import Table from '../../components/Table';
 const TablePage = () => (
   <TableContext.Provider value={{}}>
     <Table
-      head={['#', 'Área', 'Situação', 'Problema', 'Qtd de dias', 'Data de Abertura', 'Solicitante']}
+      head={[
+        '#',
+        'Setor',
+        'Situação',
+        'Problema',
+        'Qtd de dias',
+        'Data de Abertura',
+        'Solicitante',
+      ]}
       columnSortKey={5}
       dateFields={[5]}
       rows={[

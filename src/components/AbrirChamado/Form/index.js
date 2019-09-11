@@ -21,6 +21,16 @@ export default class AbrirChamadoForm extends React.Component {
     this.setState({ modInstall: event.target.value });
   };
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('SUBMITADO!');
+    console.log(e);
+  };
+
+  handleNomeChange = (ele) => {
+    console.log('INPUUUUT');
+  };
+
   ModuleInstall = () => {
     const { modInstall } = this.state;
     if (modInstall === 'modulo') {
@@ -40,7 +50,7 @@ export default class AbrirChamadoForm extends React.Component {
               <i className="fas fa-user" />
               Nome:
             </small>
-            <Input type="text" style={inputStyle} />
+            <Input type="text" style={inputStyle} submitHandler={this.handleNomeChange} />
           </div>
           <div>
             <small>
@@ -81,7 +91,7 @@ export default class AbrirChamadoForm extends React.Component {
             </small>
             <textarea cols="30" rows="10" />
           </div>
-          <Button type="submit" background="orange" width="100%" name="retornar">
+          <Button background="orange" width="100%" name="retornar">
             <i className="fas fa-exchange-alt" />
             MUDAR SETOR
           </Button>

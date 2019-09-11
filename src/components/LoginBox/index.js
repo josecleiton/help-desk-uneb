@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import api from '../../services/api';
+
+import isAuth from '../Admin/Auth';
 import Input from '../Input';
 
 import './style.css';
@@ -26,6 +29,13 @@ class LoginBox extends Component {
     setTimeout(() => {
       this.setState({ animate: true });
     }, 50);
+    if (isAuth()) {
+      const {
+        history: { push },
+        location,
+      } = this.props;
+      push({ pathname: '/admin', state: { from: location } });
+    }
   }
 
   componentDidUpdate() {
@@ -38,9 +48,24 @@ class LoginBox extends Component {
   handleSubmit = (formEl) => {
     const {
       history: { push },
+      location,
     } = this.props;
     formEl.preventDefault();
-    push('/admin');
+    const inputs = document.querySelectorAll('div#login-content input');
+    const usuario = inputs[0].value;
+    const senha = inputs[1].value;
+    api.post('/api/auth/login.php', { usuario, senha }).then((res) => {
+      const { data } = res;
+      if (!data.error) {
+        localStorage.setItem('HD7-AuthToken', data.token);
+        localStorage.setItem('HD7-AuthTokenExpire', data.expira);
+
+        push({ pathname: '/admin', state: { from: location, user: data.usuario } });
+      } else {
+        // algum error aconteceu
+        alert(data.mensagem);
+      }
+    });
   };
 
   render() {
@@ -87,6 +112,7 @@ class LoginBox extends Component {
 LoginBox.propTypes = {
   className: PropTypes.string.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
+  location: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default withRouter(LoginBox);

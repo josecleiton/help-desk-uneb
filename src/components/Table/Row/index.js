@@ -18,7 +18,7 @@ class TableRow extends Component {
     }, 50);
   }
 
-  handleClick = (url, primaryKey = -1, checkInfo = {}) => {
+  handleClick = (url, primaryKey = -1, checkInfo = {}, payload = {}) => {
     const {
       elements,
       history: { push: redirectTo },
@@ -29,7 +29,7 @@ class TableRow extends Component {
       if (url && primaryKey + 1) {
         redirectTo({
           pathname: `${url}/${elements[primaryKey]}`,
-          state: { from: location },
+          state: { from: location, payload },
         });
       }
     } else if (url && primaryKey + 1) {
@@ -38,12 +38,12 @@ class TableRow extends Component {
       if (elementColumn === checkInfo[column][0]) {
         redirectTo({
           pathname: `${checkInfo[column][1]}/${elements[primaryKey]}`,
-          state: { from: location },
+          state: { from: location, payload },
         });
       } else {
         redirectTo({
           pathname: `${url}/${elements[primaryKey]}`,
-          state: { from: location },
+          state: { from: location, payload },
         });
       }
     }
@@ -51,12 +51,14 @@ class TableRow extends Component {
 
   render() {
     const { animate } = this.state;
-    const { elements } = this.props;
+    const { elements, idxInRow } = this.props;
     return (
       <TableContext.Consumer>
         {(state) => {
-          const { goToUrl, rowsPrimaryKey, checkInfo } = state;
-          const handleClick = () => this.handleClick(goToUrl, rowsPrimaryKey, checkInfo);
+          const {
+            goToUrl, rowsPrimaryKey, checkInfo, payload,
+          } = state;
+          const handleClick = () => this.handleClick(goToUrl, rowsPrimaryKey, checkInfo, payload[idxInRow]);
           return (
             <tr
               onClick={goToUrl && handleClick}
@@ -76,6 +78,7 @@ class TableRow extends Component {
 
 TableRow.propTypes = {
   elements: PropTypes.arrayOf(PropTypes.string).isRequired,
+  idxInRow: PropTypes.number.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   location: PropTypes.objectOf(PropTypes.any).isRequired,
 };

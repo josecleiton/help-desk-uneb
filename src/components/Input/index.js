@@ -4,7 +4,7 @@ import './style.css';
 
 const Input = (props) => {
   const {
-    type, placeholder, style, required,
+    type, placeholder, style, required, submitHandler,
   } = props;
   return (
     <input
@@ -13,6 +13,7 @@ const Input = (props) => {
       placeholder={placeholder}
       style={style}
       required={required}
+      onSubmit={submitHandler}
     />
   );
 };
@@ -21,6 +22,7 @@ Input.defaultProps = {
   type: 'text',
   placeholder: '',
   required: false,
+  submitHandler: () => {},
 };
 
 Input.propTypes = {
@@ -28,6 +30,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   style: PropTypes.objectOf(PropTypes.string).isRequired,
   required: PropTypes.bool,
+  submitHandler: PropTypes.func,
 };
 
 export default Input;

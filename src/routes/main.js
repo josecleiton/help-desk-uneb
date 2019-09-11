@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Switch, Route } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
 
 import Main from '../pages/Main';
 import Login from '../pages/Login';
@@ -20,8 +21,8 @@ const MainRoutes = () => (
     <Route path="/login" component={Login} />
     <Route path="/chamado/:id" component={VisualizarChamado} />
     <Route path="/chamados-cpf/:cpf" component={ChamadosCPF} />
-    <Route path="/admin" component={Admin} />
-    <Route path="/table" component={TablePage} />
+    <PrivateRoute path="/admin" component={Admin} />
+    <PrivateRoute path="/table" component={TablePage} />
     <Route path="/abrir-chamado/:setor" component={AbrirChamado} />
     <Route path="/edit-chamado/:id" component={EditChamado} />
     <Route path="/acesso-invalido" component={InvalidAccess} />

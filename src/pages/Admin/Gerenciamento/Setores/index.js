@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import api from '../../../../services/api';
+
 import AdminRightDiv from '../../../../components/Admin/RightDiv';
 import AdminPageTitle from '../../../../components/Admin/Title';
 import Deck from '../../../../components/Admin/Deck';
@@ -7,6 +9,22 @@ import AdminGerenciamentoForm from '../../../../components/Admin/Gerenciamento/F
 import './style.css';
 
 export default class GerenciamentoSetores extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      setores: null,
+      loaded: null,
+    }
+  }
+  componentDidMount() {
+    api.post('/api/setor/read.php').then((res) => {
+      if (!res.data.error) {
+        this.setState({ setores: res.data });
+      } else {
+        this.setState({ error: res.data.mensagem })
+      }
+    })
+  }
   handleFormSubmit = (e) => {
     e.preventDefault();
     console.log(e.target); // ???

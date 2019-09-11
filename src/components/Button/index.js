@@ -35,7 +35,7 @@ Button.defaultProps = {
   background: 'rgb(7, 5, 136)',
   color: 'white',
   fontSize: '15px',
-  onClick: null,
+  onClick: () => {},
 };
 
 Button.propTypes = {

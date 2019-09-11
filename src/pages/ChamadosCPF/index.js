@@ -1,5 +1,8 @@
+/* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+import api from '../../services/api';
 
 import MainHeader from '../../components/Main/Header';
 import TableContext from '../../components/Table/Context';
@@ -17,6 +20,38 @@ export default class ChamadosCPF extends Component {
       },
     } = props;
     this.cpf = this.makeCPF(cpf);
+    this.state = {
+      chamados: null,
+      error: false,
+    };
+  }
+
+  async componentDidMount() {
+    const {
+      match: {
+        params: { cpf },
+      },
+    } = this.props;
+    await api.post('/api/usuario/read.php', { cpf }).then((res) => {
+      const { data } = res;
+      const { chamados, error } = data;
+      // console.log(chamados);
+      if (!error) {
+        const usuario = {
+          cpf: data.cpf,
+          email: data.email,
+          telefone: data.telefone,
+          nome: data.nome,
+        };
+        chamados.forEach((element) => {
+          // eslint-disable-next-line no-param-reassign
+          element.usuario = usuario;
+        });
+        this.setState({ chamados });
+      } else {
+        this.setState({ error });
+      }
+    });
   }
 
   makeCPF = (toCPF) => {
@@ -33,58 +68,80 @@ export default class ChamadosCPF extends Component {
     return cpf;
   };
 
+  chamadosToArray = (chamados) => {
+    if (chamados) {
+      return chamados.map((chamado) => {
+        const {
+          id,
+          descricao,
+          setor: { nome: setorNome },
+          tecnico: { email: tecnicoEmail },
+          data,
+          alteracoes,
+        } = chamado;
+        let situacao = 'Em aberto';
+        let ultimaModificacao = 'Não houve';
+        if (alteracoes) {
+          situacao = alteracoes[alteracoes.length - 1].status;
+          ultimaModificacao = alteracoes[alteracoes.length - 1].descricao;
+        }
+        // console.log(chamado);
+        return [id, '', descricao, setorNome, situacao, tecnicoEmail, data, ultimaModificacao];
+      });
+    }
+    return null;
+  };
+
   render() {
+    const { error, chamados } = this.state;
     return (
       <>
         <MainHeader />
         <div className="chamados-cpf">
           <h1>Chamados por CPF</h1>
         </div>
-        <TableContext.Provider
-          value={{
-            goToUrl: '/chamado',
-            rowsPrimaryKey: 0,
-            checkInfo: { 4: ['Em aberto', '/edit-chamado'] },
-          }}
-        >
-          <Table
-            title={` ${this.cpf}`}
-            head={[
-              '#',
-              'Equipamento',
-              'Defeito',
-              'Setor',
-              'Status',
-              'Técnico',
-              'Última modificação',
-              'Data de criação',
-            ]}
-            dateFields={[6, 7]}
-            columnSortKey={6}
-            rows={[
-              [
-                '19001',
-                'Computador Colegiado SI',
-                'Java bugou',
-                'TI',
-                'Em atendimento',
-                'Cleiton',
-                '10/04/2019 02:00',
-                '17/03/2018 00:00',
-              ],
-              [
-                '19002',
-                'Computador Colegiado SI',
-                'Impressora parou',
-                'TI',
-                'Em aberto',
-                'Cleiton',
-                '15/04/2019 11:00',
-                '10/04/2019 22:00',
-              ],
-            ]}
-          />
-        </TableContext.Provider>
+        {!error ? (
+          chamados ? (
+            <>
+              <TableContext.Provider
+                value={{
+                  goToUrl: '/chamado',
+                  rowsPrimaryKey: 0,
+                  payload: chamados,
+                  checkInfo: { 4: ['Em aberto', '/edit-chamado'] },
+                }}
+              >
+                <Table
+                  title={` ${this.cpf}`}
+                  head={[
+                    '#',
+                    'Equipamento',
+                    'Descrição',
+                    'Setor',
+                    'Status',
+                    'Técnico',
+                    'Data de criação',
+                    'Última modificação',
+                  ]}
+                  dateFields={[6, 7]}
+                  columnSortKey={6}
+                  rows={this.chamadosToArray(chamados)}
+                  maxRowsPerPage={10}
+                />
+              </TableContext.Provider>
+            </>
+          ) : (
+            <>
+              <div>Carregando...</div>
+            </>
+          )
+        ) : (
+          <>
+            {' '}
+            <div>{`ERROR: ${error}`}</div>
+            {' '}
+          </>
+        )}
         <Footer />
       </>
     );

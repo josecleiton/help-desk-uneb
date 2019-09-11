@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
+import api from '../../../services/api';
+
 import ErrorAlert from '../../ErrorAlert';
 
 import './style.css';
@@ -12,6 +14,8 @@ class AreaAtendimento extends Component {
     this.state = {
       animate: false,
       error: false,
+      loading: true,
+      setores: null,
     };
   }
 
@@ -19,6 +23,11 @@ class AreaAtendimento extends Component {
     setTimeout(() => {
       this.setState({ animate: true });
     }, 50);
+    api.post('/api/setor/read.php').then((res) => {
+      const { data: setores } = res;
+      this.setState({ loading: false, setores });
+      console.log(setores);
+    });
   }
 
   handleSubmit = () => {
@@ -35,22 +44,36 @@ class AreaAtendimento extends Component {
     }
   };
 
+  getSetores = (setores) => {
+    const setoresFormatados = [
+      <option value="" key={-1}>
+        Selecione
+      </option>,
+    ];
+    setores.forEach((element) => {
+      setoresFormatados.push(
+        <option value={element.nome} key={element.cod}>
+          {element.nome}
+        </option>,
+      );
+    });
+    return setoresFormatados;
+  };
+
   render() {
-    const { animate, error } = this.state;
-    return (
+    const {
+      animate, error, loading, setores,
+    } = this.state;
+    return loading ? (
+      <>
+        <div>Loading...</div>
+      </>
+    ) : (
       <>
         <div className="setor-chamado" style={{ opacity: animate ? 1 : 0 }}>
           <h2>SETOR DE ATENDIMENTO</h2>
           <div>
-            <select name="area">
-              <option value="">Selecione o setor</option>
-              <option value="RH">RH</option>
-              <option value="TI">TI</option>
-              <option value="COMUNICACAO">COMUNICAÇÃO </option>
-              <option value="ADMINISTRATIVO">ADMINISTRATIVO </option>
-              <option value="FINANCEIRO">FINANCEIRO </option>
-              <option value="ACADEMICA">ACADÊMICA </option>
-            </select>
+            <select name="area">{this.getSetores(setores)}</select>
             <button type="submit" onClick={this.handleSubmit}>
               Confirmar
             </button>

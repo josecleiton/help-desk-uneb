@@ -52,11 +52,14 @@ export default class Table extends Component {
   makeDateFields = (a, b) => {
     const toTimeStamp = [a, b];
     const result = Array(toTimeStamp.length);
-    for (let i = 0; i < result.length; i += 1) {
-      const day = toTimeStamp[i].substr(0, 2);
-      const month = toTimeStamp[i].substr(3, 2);
-      toTimeStamp[i] = toTimeStamp[i].replace(RegExp(`${day}|${month}`, 'g'), match => (match === day ? month : day));
-      result[i] = Date.parse(toTimeStamp[i]);
+    for (let dateIndex = 0, max = result.length; dateIndex < max; dateIndex += 1) {
+      const day = toTimeStamp[dateIndex].substr(0, 2);
+      const month = toTimeStamp[dateIndex].substr(3, 2);
+      toTimeStamp[dateIndex] = toTimeStamp[dateIndex].replace(
+        RegExp(`${day}|${month}`, 'g'),
+        match => (match === day ? month : day),
+      );
+      result[dateIndex] = Date.parse(toTimeStamp[dateIndex]);
     }
     return result;
   };
@@ -77,7 +80,9 @@ export default class Table extends Component {
     const { maxRowsPerPage } = this.props;
     console.log(maxRowsPerPage);
     this.setState({ pages: Math.ceil(stringRows.length / maxRowsPerPage) });
-    const htmlCells = stringRows.map(el => <TableRow key={el[0]} elements={el} />);
+    const htmlCells = stringRows.map((el, idx) => (
+      <TableRow idxInRow={idx} key={el[0]} elements={el} />
+    ));
     return htmlCells;
   };
 
@@ -151,6 +156,7 @@ Table.defaultProps = {
   title: '',
   margin: '0 auto',
   dateFields: [],
+  maxRowsPerPage: -1,
 };
 
 Table.propTypes = {
@@ -160,5 +166,5 @@ Table.propTypes = {
   columnSortKey: PropTypes.number.isRequired,
   head: PropTypes.arrayOf(PropTypes.string).isRequired,
   dateFields: PropTypes.arrayOf(PropTypes.number),
-  maxRowsPerPage: PropTypes.number.isRequired,
+  maxRowsPerPage: PropTypes.number,
 };
