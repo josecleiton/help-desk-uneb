@@ -88,11 +88,9 @@ export default class ChamadosCPF extends Component {
                 value.chamado.descricao,
                 value.setor,
                 value.situacao.nome,
-
                 value.chamado.id_tecnico,
-
-                value.chamado.data,
                 value.ultimaAlteracao,
+                value.chamado.data,
               ])}
             />
           )}
