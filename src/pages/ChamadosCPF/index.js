@@ -5,6 +5,7 @@ import MainHeader from '../../components/Main/Header';
 import TableContext from '../../components/Table/Context';
 import Table from '../../components/Table';
 import Footer from '../../components/Footer';
+import api from '../../services/api';
 
 import './style.css';
 
@@ -16,7 +17,26 @@ export default class ChamadosCPF extends Component {
         params: { cpf },
       },
     } = props;
+    this.state = {
+      chamado: null,
+    };
     this.cpf = this.makeCPF(cpf);
+  }
+
+  componentDidMount() {
+    const {
+      match: {
+        params: { cpf },
+      },
+    } = this.props;
+    api
+      .post('/api/chamado/read', { id_usuario: cpf })
+      .then((res) => {
+        this.setState({ chamado: res.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   makeCPF = (toCPF) => {
@@ -34,6 +54,8 @@ export default class ChamadosCPF extends Component {
   };
 
   render() {
+    const { chamado } = this.state;
+    console.log(chamado);
     return (
       <>
         <MainHeader />
@@ -47,50 +69,50 @@ export default class ChamadosCPF extends Component {
             checkInfo: { 4: ['Em aberto', '/edit-chamado'] },
           }}
         >
-          <Table
-            title={` ${this.cpf}`}
-            head={[
-              '#',
-              'Equipamento',
-              'Defeito',
-              'Setor',
-              'Status',
-              'Técnico',
-              'Última modificação',
-              'Data de criação',
-            ]}
-            dateFields={[6, 7]}
-            columnSortKey={6}
-            rows={[
-              [
-                '19001',
-                'Computador Colegiado SI',
-                'Java bugou',
-                'TI',
-                'Em atendimento',
-                'Cleiton',
-                '10/04/2019 02:00',
-                '17/03/2018 00:00',
-              ],
-              [
-                '19002',
-                'Computador Colegiado SI',
-                'Impressora parou',
-                'TI',
-                'Em aberto',
-                'Cleiton',
-                '15/04/2019 11:00',
-                '10/04/2019 22:00',
-              ],
-            ]}
-          />
+          {chamado && (
+            <Table
+              title={` ${this.cpf}`}
+              head={[
+                '#',
+                'Defeito',
+                'Setor',
+                'Status',
+                'Técnico',
+                'Última modificação',
+                'Data de criação',
+              ]}
+              dateFields={[5]}
+              columnSortKey={6}
+              rows={chamado.map(value => [
+                value.chamado.id,
+                value.chamado.descricao,
+                value.setor,
+                value.situacao.nome,
+
+                value.chamado.id_tecnico,
+
+                value.chamado.data,
+                value.ultimaAlteracao,
+              ])}
+            />
+          )}
         </TableContext.Provider>
         <Footer />
       </>
     );
   }
 }
-
+/*
+  value.id,
+                  value.id,
+                  value.descricao,
+                  value.data,
+                  value.ti,
+                  value.tombo,
+                  value.id_tecnico,
+                  value.id_usuario,
+                  value.id_setor,
+*/
 ChamadosCPF.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
 };

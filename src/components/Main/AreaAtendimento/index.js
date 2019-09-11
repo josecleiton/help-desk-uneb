@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import api from '../../../services/api';
 
 import ErrorAlert from '../../ErrorAlert';
 
@@ -12,6 +13,7 @@ class AreaAtendimento extends Component {
     this.state = {
       animate: false,
       error: false,
+      setores: [],
     };
   }
 
@@ -19,6 +21,14 @@ class AreaAtendimento extends Component {
     setTimeout(() => {
       this.setState({ animate: true });
     }, 50);
+    api
+      .get('/api/setor/read')
+      .then((res) => {
+        this.setState({ setores: res.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   handleSubmit = () => {
@@ -36,7 +46,7 @@ class AreaAtendimento extends Component {
   };
 
   render() {
-    const { animate, error } = this.state;
+    const { animate, error, setores } = this.state;
     return (
       <>
         <div className="setor-chamado" style={{ opacity: animate ? 1 : 0 }}>
@@ -44,12 +54,11 @@ class AreaAtendimento extends Component {
           <div>
             <select name="area">
               <option value="">Selecione o setor</option>
-              <option value="RH">RH</option>
-              <option value="TI">TI</option>
-              <option value="COMUNICACAO">COMUNICAÇÃO </option>
-              <option value="ADMINISTRATIVO">ADMINISTRATIVO </option>
-              <option value="FINANCEIRO">FINANCEIRO </option>
-              <option value="ACADEMICA">ACADÊMICA </option>
+              {setores.map(value => (
+                <option value={value.nome} key={value.nome}>
+                  {value.nome}
+                </option>
+              ))}
             </select>
             <button type="submit" onClick={this.handleSubmit}>
               Confirmar

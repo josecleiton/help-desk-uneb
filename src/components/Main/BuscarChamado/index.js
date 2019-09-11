@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+// import api from '../../../services/api';
 
 import ErrorAlert from '../../ErrorAlert';
 
@@ -16,6 +17,14 @@ class BuscarChamado extends Component {
   }
 
   componentDidMount() {
+    /* api
+      .get('/api/chamados')
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      }); */
     setTimeout(() => {
       this.setState({ animate: true });
     }, 50);
