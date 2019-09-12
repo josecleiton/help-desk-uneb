@@ -20,10 +20,8 @@ export default class VisualizarChamado extends Component {
       match: {
         params: { id },
       },
-      location: { state },
     } = props;
     this.state = {
-      byProp: state && state.payload,
       id,
       animate: false,
       payload: null,
@@ -32,12 +30,18 @@ export default class VisualizarChamado extends Component {
   }
 
   async componentDidMount() {
-    const { byProp, id } = this.state;
-    if (!byProp) {
+    const { id } = this.state;
+    const {
+      location: { state },
+    } = this.props;
+    if (state && state.payload) {
+      const { payload } = state;
+      this.setState({ payload });
+    } else {
       api.post('/api/chamado/read.php', { id }).then((res) => {
         const { data } = res;
+        // console.log(data);
         if (!data.error) {
-          console.log(data);
           this.setState({ payload: data });
         } else {
           this.setState({ error: data.mensagem });
@@ -48,15 +52,6 @@ export default class VisualizarChamado extends Component {
       this.setState({ animate: true });
     }, 50);
   }
-
-  formatarAlteracoes = alteracoes => alteracoes.map((ele) => {
-    const {
-      situacao: { nome: situacaoNome },
-      descricao,
-      data,
-    } = ele;
-    return [situacaoNome, descricao, data];
-  });
 
   render() {
     const {
@@ -108,7 +103,14 @@ export default class VisualizarChamado extends Component {
                         head={['Situação', 'Descrição', 'Data']}
                         columnSortKey={2}
                         dateFields={[2]}
-                        rows={this.formatarAlteracoes(payload.alteracoes)}
+                        rows={payload.alteracoes.map((ele) => {
+                          const {
+                            situacao: { nome: situacaoNome },
+                            descricao,
+                            data,
+                          } = ele;
+                          return [situacaoNome, descricao, data];
+                        })}
                       />
                     </TableContext.Provider>
                   </div>
@@ -116,8 +118,8 @@ export default class VisualizarChamado extends Component {
               </LargeBox>
             </>
           ) : (
-                <div>Loading...</div>
-              )}
+            <div>Loading...</div>
+          )}
         </div>
         <Footer />
       </>
@@ -127,4 +129,5 @@ export default class VisualizarChamado extends Component {
 
 VisualizarChamado.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
+  location: PropTypes.objectOf(PropTypes.any).isRequired,
 };

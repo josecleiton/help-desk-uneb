@@ -86,14 +86,10 @@ export default class EditChamado extends Component {
         {validAccess ? (
           <div className="wrapper">
             <h4 style={{ marginBottom: '2%' }}>
-              Clique em visualizar ou espere
-              {seconds}
-              segundos para ser redirecionado...
+              {`Clique em visualizar ou espere ${seconds} segundos para ser redirecionado...`}
             </h4>
             <h1>
-              Deseja excluir o chamado
-              {id}
-?
+              {`Deseja excluir o chamado ${id}?`}
               <div className="edit-chamado-button">
                 <Button onClick={this.visualizar}>visualizar</Button>
                 <Button background="red" onClick={this.excluir}>

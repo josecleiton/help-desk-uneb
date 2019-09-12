@@ -5,6 +5,7 @@ import api from '../../../../../services/api';
 
 import AdminRightDiv from '../../../../../components/Admin/RightDiv';
 import AdminPageTitle from '../../../../../components/Admin/Title';
+import LargeBox from '../../../../../components/LargeBox';
 
 export default class GerenciamentoSetor extends Component {
   constructor(props) {
@@ -32,7 +33,7 @@ export default class GerenciamentoSetor extends Component {
       console.log(setor);
     } else {
       api.post('/api/setor/read.php', { nome }).then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         if (!res.data.error) {
           this.setState({ setor: res.data });
         } else {
@@ -43,11 +44,37 @@ export default class GerenciamentoSetor extends Component {
   }
 
   render() {
-    const { nome } = this.state;
+    const { nome, setor } = this.state;
     return (
       <AdminRightDiv>
-        <AdminPageTitle comment="comentário">Setores</AdminPageTitle>
-        <div>{nome}</div>
+        <AdminPageTitle comment="setor">{nome}</AdminPageTitle>
+        {/* <div>{nome}</div> */}
+        <LargeBox className="admin-atendimento-box-clicked">
+          {setor ? (
+            <div>
+              <p>
+                <h2 style={{ marginBottom: '10px' }}>Dados do Setor</h2>
+              </p>
+              <p>
+                <strong>Código:</strong>
+                {' '}
+                {setor.cod}
+              </p>
+              <p>
+                <strong>Email:</strong>
+                {' '}
+                {setor.email}
+              </p>
+              <p>
+                <strong>Telefone:</strong>
+                {' '}
+                {setor.telefone}
+              </p>
+            </div>
+          ) : (
+            'Loading...'
+          )}
+        </LargeBox>
       </AdminRightDiv>
     );
   }
