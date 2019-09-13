@@ -123,7 +123,7 @@ export default class GerenciamentoSetores extends Component {
           setores ? (
             <Deck
               cards={setores.map(setor => ({
-                info: { title: setor.nome, chamados: setor.email },
+                info: { title: setor.nome, subTitle: setor.email },
                 url: '/admin/gerenciamento/setor',
                 payload: setor,
               }))}

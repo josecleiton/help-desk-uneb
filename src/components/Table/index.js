@@ -150,7 +150,7 @@ export default class Table extends Component {
           </thead>
           <tbody>{tableRows}</tbody>
         </table>
-        {pages && <PageNumber handleClick={this.pageNumber} elementsPerPage={pages} />}
+        {pages ? <PageNumber handleClick={this.pageNumber} elementsPerPage={pages} /> : null}
       </div>
     );
   }

@@ -94,7 +94,7 @@ export default class VisualizarChamado extends Component {
                   <strong>Setor:</strong>
                   {` ${payload.setor.nome}`}
                 </p>
-                {payload.alteracoes && (
+                {payload.alteracoes ? (
                   <div>
                     <br />
                     <TableContext.Provider value={{}}>
@@ -114,7 +114,7 @@ export default class VisualizarChamado extends Component {
                       />
                     </TableContext.Provider>
                   </div>
-                )}
+                ) : null}
               </LargeBox>
             </>
           ) : (

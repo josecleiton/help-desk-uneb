@@ -28,20 +28,18 @@ export default class Admin extends Component {
     // const jwtToken = localStorage.getItem('HD7-AuthToken');
     // console.log(jwtToken);
     const jwtToken = localStorage.getItem('HD7-AuthToken');
-    api.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
-    api
-      .post('/api/auth/info.php')
-      .then((res) => {
-        const { data } = res;
-        console.log(data);
-        if (!data.error) {
-          // const { user } = data;
-          // console.log(user);
-          this.setState({ user: data });
-        } else {
-          this.setState({ error: data.mensagem });
-        }
-      });
+    api.defaults.headers.common.Authorization = `Bearer ${jwtToken}`;
+    api.post('/api/auth/info.php').then((res) => {
+      const { data } = res;
+      // console.log(data);
+      if (!data.error) {
+        // const { user } = data;
+        // console.log(user);
+        this.setState({ user: data });
+      } else {
+        this.setState({ error: data.mensagem });
+      }
+    });
   }
 
   render() {
@@ -54,11 +52,11 @@ export default class Admin extends Component {
           <AdminRoutes />
         </AdminContext.Provider>
       ) : (
-          <div>Loading...</div>
-        )
+        <div>Loading...</div>
+      )
     ) : (
-        <div>{error}</div>
-      );
+      <div>{error}</div>
+    );
   }
 }
 

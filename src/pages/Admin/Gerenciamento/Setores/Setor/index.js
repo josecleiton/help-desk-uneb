@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -6,6 +7,10 @@ import api from '../../../../../services/api';
 import AdminRightDiv from '../../../../../components/Admin/RightDiv';
 import AdminPageTitle from '../../../../../components/Admin/Title';
 import LargeBox from '../../../../../components/LargeBox';
+import ErrorAlert from '../../../../../components/ErrorAlert';
+import Deck from '../../../../../components/Admin/Deck';
+import './style.css';
+// import GerenciamentoSetores from '..';
 
 export default class GerenciamentoSetor extends Component {
   constructor(props) {
@@ -44,14 +49,16 @@ export default class GerenciamentoSetor extends Component {
   }
 
   render() {
-    const { nome, setor } = this.state;
+    const { nome, setor, error } = this.state;
     return (
       <AdminRightDiv>
         <AdminPageTitle comment="setor">{nome}</AdminPageTitle>
         {/* <div>{nome}</div> */}
-        <LargeBox className="admin-atendimento-box-clicked">
-          {setor ? (
-            <div>
+        <LargeBox className="admin-setores-setor-box">
+          {error ? (
+            <ErrorAlert>{error}</ErrorAlert>
+          ) : setor ? (
+            <>
               <p>
                 <h2 style={{ marginBottom: '10px' }}>Dados do Setor</h2>
               </p>
@@ -70,11 +77,24 @@ export default class GerenciamentoSetor extends Component {
                 {' '}
                 {setor.telefone}
               </p>
-            </div>
+            </>
           ) : (
             'Loading...'
           )}
         </LargeBox>
+        {setor && setor.problemas.length ? (
+          <>
+            <h2 className="admin-setores-setor">Problemas</h2>
+            <Deck
+              cards={setor.problemas.map((problema, idx) => ({
+                info: { title: problema.descricao, chamados: idx },
+                url: '/admin/gerenciamento/edit-problema',
+                payload: problema,
+              }))}
+              exact
+            />
+          </>
+        ) : null}
       </AdminRightDiv>
     );
   }

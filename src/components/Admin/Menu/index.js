@@ -4,34 +4,60 @@ import Media from 'react-media';
 import AdminContext from '../Context';
 
 import AdminMenuItem from './Item';
-import Estados from '../../../configs/estados';
+// import Config from '../../../configs';
 import UserInfo from './UserInfo';
 import AdminFooter from './Footer';
+import api from '../../../services/api';
 
 import './style.css';
 
 export default class AdminMenu extends Component {
   constructor(props) {
     super(props);
-    this.criaArrayDeEstados();
+    this.state = {
+      estados: null,
+    };
   }
 
-  criaArrayDeEstados = () => {
-    this.Estados = [{ todos: 'Todos' }];
-    Estados.forEach((element) => {
-      const value = element;
-      let key = element;
-      const blankSpace = element.indexOf(' ');
-
-      if (blankSpace !== -1) {
-        key = element.substr(blankSpace + 1, element.length - blankSpace - 1);
-      }
-      key = key.toLowerCase();
-      if (key !== 'aberto') this.Estados.push({ [key]: value });
+  componentDidMount() {
+    const estados = [{ Todos: 'Todos' }];
+    api.get('/api/situacao/read.php').then((res) => {
+      const { data } = res;
+      data.forEach((element) => {
+        if (element.nome !== 'Em Aberto') estados.push({ [element.nome]: element.nome });
+      });
+      this.setState({ estados });
     });
-  };
+  }
+
+  // criaArrayDeEstados = () => {
+  //   this.Estados = [{ Todos: 'Todos' }];
+  //   Config.getEstados().then((res) => {
+  //     if (res) {
+  //       res.forEach((element) => {
+  //         if (element !== 'Em Aberto') this.Estados.push({ [element.nome]: element.nome });
+  //       });
+  //     } else {
+  //       console.log('Deu ruim na hora de pegar os estados');
+  //     }
+  //   });
+  //   console.log(this.Estados);
+  //   // const Estados = ['Em Aberto', 'Em Atendimento', 'Pendente', 'Transferido', 'Concluido'];
+  //   // Estados.forEach((element) => {
+  //   //   // const value = element;
+  //   //   // let key = element;
+  //   //   // const blankSpace = element.indexOf(' ');
+
+  //   //   // if (blankSpace !== -1) {
+  //   //   //   key = element.substr(blankSpace + 1, element.length - blankSpace - 1);
+  //   //   // }
+  //   //   // key = key.toLowerCase();
+  //   //   if (element !== 'Em Aberto') this.Estados.push({ [element]: element });
+  //   // });
+  // };
 
   render() {
+    const { estados } = this.state;
     return (
       <AdminContext.Consumer>
         {(state) => {
@@ -46,14 +72,16 @@ export default class AdminMenu extends Component {
                     <AdminMenuItem url="/admin" expand={matches}>
                       Início
                     </AdminMenuItem>
-                    <AdminMenuItem
-                      url="/admin/meus-chamados"
-                      icon="fas fa-envelope"
-                      submenu={this.Estados}
-                      expand={matches}
-                    >
-                      Meus Chamados
-                    </AdminMenuItem>
+                    {estados && (
+                      <AdminMenuItem
+                        url="/admin/meus-chamados"
+                        icon="fas fa-envelope"
+                        submenu={estados}
+                        expand={matches}
+                      >
+                        Meus Chamados
+                      </AdminMenuItem>
+                    )}
                     {cargo && (
                       <AdminMenuItem
                         url="/admin/gerenciamento"

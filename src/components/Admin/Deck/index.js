@@ -9,7 +9,7 @@ import './style.css';
 export default class Deck extends Component {
   constructor(props) {
     super(props);
-    this.cardsPerPage = 4;
+    this.cardsPerPage = props.maxCardsPerPage;
     this.state = {
       page: 1,
       cardPages: null,
@@ -28,7 +28,7 @@ export default class Deck extends Component {
   };
 
   makeCardPages = (cardsPerPage) => {
-    const { cards } = this.props;
+    const { cards, exact } = this.props;
     const { maxPageNum } = this.state;
     const matrixLen = maxPageNum;
     const result = Array(matrixLen);
@@ -41,7 +41,9 @@ export default class Deck extends Component {
       if (!(index % cardsPerPage)) {
         i += 1;
       }
-      result[i].push(<Card key={Math.random()} info={info} url={url} payload={payload} />);
+      result[i].push(
+        <Card key={Math.random()} info={info} url={url} exact={exact} payload={payload} />,
+      );
     });
     return result;
   };
@@ -68,9 +70,14 @@ export default class Deck extends Component {
 Deck.propTypes = {
   cards: PropTypes.arrayOf(
     PropTypes.shape({
-      info: PropTypes.shape({ title: PropTypes.string, chamados: PropTypes.string }),
+      info: PropTypes.shape({ title: PropTypes.string, subTitle: PropTypes.string }),
       url: PropTypes.string,
       payload: PropTypes.objectOf(PropTypes.any),
     }).isRequired,
   ).isRequired,
+  maxCardsPerPage: PropTypes.number,
+};
+
+Deck.defaultProps = {
+  maxCardsPerPage: 4,
 };
