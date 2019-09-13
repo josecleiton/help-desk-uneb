@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import api from '../../../services/api';
 
 import Table from '../../../components/Table';
 import TableContext from '../../../components/Table/Context';
@@ -7,7 +8,27 @@ import AdminRightDiv from '../../../components/Admin/RightDiv';
 import AdminGerenciamentoForm from '../../../components/Admin/Gerenciamento/Form';
 
 export default class AdminHome extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      chamado: null,
+    };
+  }
+
+  componentDidMount() {
+    api
+      .get('/api/chamados')
+      .then((res) => {
+        this.setState({ chamado: res.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   render() {
+    const { chamado } = this.state;
+    console.log(chamado);
     return (
       <AdminRightDiv>
         <AdminPageTitle comment="Painel Administrativo">HD7</AdminPageTitle>
@@ -71,42 +92,33 @@ export default class AdminHome extends Component {
               },
             ]}
           />
-          <Table
-            title="Chamados"
-            margin="1.5% auto"
-            columnSortKey={5}
-            dateFields={[5]}
-            head={[
-              '#',
-              'Área',
-              'Situação',
-              'Problema',
-              'Qtd de dias',
-              'Data de Abertura',
-              'Solicitante',
-            ]}
-            maxRowsPerPage={10}
-            rows={[
-              [
-                '190001',
-                'TI',
-                'Em aberto',
-                'Java bugou',
-                'X',
-                '19/10/2018',
-                'brancobro@yahoo.com.br',
-              ],
-              [
-                '190002',
-                'TI',
-                'Em atendimento',
-                'Impressora sem papel',
-                'X',
-                '14/04/2019',
-                'rafamoreira@777.com',
-              ],
-            ]}
-          />
+          {chamado && (
+            <Table
+              title="Chamados"
+              margin="1.5% auto"
+              columnSortKey={5}
+              dateFields={[5]}
+              head={[
+                '#',
+                'Área',
+                'Situação',
+                'Problema',
+                'Qtd de dias',
+                'Data de Abertura',
+                'Solicitante',
+              ]}
+              maxRowsPerPage={10}
+              rows={chamado.map(value => [
+                value.chamado.id,
+                value.chamado.descricao,
+                value.setor,
+                value.situacao.nome,
+                value.chamado.id_tecnico,
+                value.ultimaAlteracao,
+                value.chamado.data,
+              ])}
+            />
+          )}
         </TableContext.Provider>
       </AdminRightDiv>
     );
