@@ -1,7 +1,10 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
-import Input from '../../Input';
+import {
+  Formik, Field, Form, ErrorMessage,
+} from 'formik';
+import * as Yup from 'yup';
 import Button from '../../Button';
 import FormTi from '../FormTi';
 import api from '../../../services/api';
@@ -14,46 +17,26 @@ const inputStyle = {
 
 export default class AbrirChamadoForm extends React.Component {
   constructor(props) {
+    const { setor } = props;
     super(props);
     this.state = {
       modInstall: '',
-      nome: '',
-      email: '',
-      telefone: '',
-      problema: '',
-      imagem: '',
-      descricao: '',
-      setor: '',
+      redirect: false,
+      setor,
     };
   }
 
   componentDidMount() {
+    const { setor } = this.props;
     api
-      .post('/api/chamado/create')
+      .post('/api/problema/read', { nomeSetor: setor })
       .then((res) => {
-        console.log(res);
+        this.setState({ problema: res.data });
       })
       .catch((error) => {
         console.log(error);
       });
   }
-
-  handleClick = () => {
-    const { setor } = this.props;
-    this.setState({
-      nome: document.getElementById('nome').value,
-      email: '',
-      telefone: '',
-      problema: '',
-      imagem: '',
-      descricao: '',
-      setor,
-    });
-  };
-
-  handleChange = (event) => {
-    this.setState({ modInstall: event.target.value });
-  };
 
   ModuleInstall = () => {
     const { modInstall } = this.state;
@@ -63,71 +46,201 @@ export default class AbrirChamadoForm extends React.Component {
     return null;
   };
 
+  handleChange = (event) => {
+    this.setState({ modInstall: event.target.value });
+    console.log(event.target.value);
+  };
+
+  renderRedirect = () => {
+    const { redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/" />;
+    }
+    return null;
+  };
+
   render() {
-    const { setor } = this.props;
-    const {
-      nome, email, telefone, descricao,
-    } = this.state;
+    const { setor, problema } = this.state;
+    const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     return (
-      <div className="form-chamado">
-        <h2>{setor}</h2>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <small>
-              <i className="fas fa-user" />
-              Nome:
-            </small>
-            <Input type="text" id="nome" value={nome} style={inputStyle} />
+      <Formik
+        initialValues={{
+          nome: '',
+          cpf: '',
+          email: '',
+          descricao: '',
+          ti: 0,
+          setor,
+          problema: '',
+        }}
+        validationSchema={Yup.object().shape({
+          nome: Yup.string().required('Preencha o campo NOME'),
+          problema: Yup.string().required('Selecione o PROBLEMA'),
+          cpf: Yup.string()
+            .matches(phoneRegExp, 'formato de CPF inválido! Digite apenas NÚMERO')
+            .required('Preencha o CPF'),
+          telefone: Yup.string()
+            .matches(phoneRegExp, 'formato de telefone inválido! Digite apenas NÚMERO')
+            .required('Preencha o TELEFONE'),
+          email: Yup.string()
+            .email('Email inválido')
+            .required('Preencha o campo email'),
+        })}
+        onSubmit={(fields) => {
+          this.setState({ modInstall: fields.problema });
+          api
+            .post('/api/chamado/create', fields)
+            .then((res) => {
+              alert('CADASTRO REALIZADO COM SUCESSO');
+              setTimeout(() => {
+                this.setState({ redirect: true });
+              }, 1000);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          // alert(`SUCCESS!! :-)\n\n${JSON.stringify(fields, null, 4)}`);
+        }}
+        render={() => (
+          <div className="form-chamado">
+            {this.renderRedirect()}
+            <h2>{setor}</h2>
+            <Form>
+              <div>
+                <small>
+                  <i className="fas fa-user" />
+                  Nome:
+                </small>
+                <Field type="text" name="nome" style={inputStyle} />
+              </div>
+              <ErrorMessage
+                name="nome"
+                component="small"
+                style={{
+                  display: 'flex',
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  backgroundColor: 'red',
+                  color: 'white',
+                }}
+              />
+              <div>
+                <small>
+                  <i className="fas fa-user" />
+                  CPF:
+                </small>
+                <Field type="number" name="cpf" style={inputStyle} />
+              </div>
+              <ErrorMessage
+                name="cpf"
+                component="small"
+                style={{
+                  display: 'flex',
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  backgroundColor: 'red',
+                  color: 'white',
+                }}
+              />
+              <div>
+                <small>
+                  <i className="fas fa-envelope" />
+                  Email:
+                </small>
+                <Field type="email" name="email" style={inputStyle} />
+              </div>
+              <ErrorMessage
+                name="email"
+                component="small"
+                style={{
+                  display: 'flex',
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  backgroundColor: 'red',
+                  color: 'white',
+                }}
+              />
+              <div>
+                <small>
+                  <i className="fas fa-phone" />
+                  Telefone:
+                </small>
+                <Field type="tel" name="telefone" style={inputStyle} />
+              </div>
+              <ErrorMessage
+                name="telefone"
+                component="small"
+                style={{
+                  display: 'flex',
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  backgroundColor: 'red',
+                  color: 'white',
+                }}
+              />
+
+              <div>
+                <small>
+                  <i className="fas fa-bug" />
+                  Problema:
+                </small>
+                <Field component="select" name="problema">
+                  <option value="">Selecione o problema</option>
+                  <option value="00">problema não listado</option>
+                  {problema
+                    && problema.map((value, index) => (
+                      <option id={index} value={value.id}>
+                        {value.descricao}
+                      </option>
+                    ))}
+
+                  {setor === 'TI' ? <option value="modulo"> Modulo de instalação </option> : null}
+                </Field>
+              </div>
+              <ErrorMessage
+                name="problema"
+                component="small"
+                style={{
+                  display: 'flex',
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  backgroundColor: 'red',
+                  color: 'white',
+                }}
+              />
+
+              <div>
+                <small>
+                  <i className="fas fa-images" />
+                  Imagem do defeito:
+                  <Field type="file" name="imagem" />
+                  <ErrorMessage name="imagem" component="div" className="invalid-feedback" />
+                </small>
+              </div>
+
+              {this.ModuleInstall()}
+              <div>
+                <small>
+                  <i className="fas fa-comments" />
+                  Descrição:
+                </small>
+                <Field component="textarea" name="descricao" style={inputStyle} />
+              </div>
+              <div>
+                <Button type="submit" background="blue" width="100%">
+                  <i className="fas fa-file-alt" />
+                  ABRIR CHAMADO
+                </Button>
+              </div>
+            </Form>
           </div>
-          <div>
-            <small>
-              <i className="fas fa-envelope" />
-              Email:
-            </small>
-            <Input type="email" id="email" value={email} style={inputStyle} />
-          </div>
-          <div>
-            <small>
-              <i className="fas fa-phone" />
-              Telefone:
-            </small>
-            <Input type="tel" id="tel" value={telefone} style={inputStyle} />
-          </div>
-          <div>
-            <small>
-              <i className="fas fa-bug" />
-              Problema:
-            </small>
-            <select id="problema" onChange={this.handleChange}>
-              <option value="">informe o problema</option>
-              <option value="01">problema 1</option>
-              <option value="02">problema 2</option>
-              {setor === 'TI' ? <option value="modulo"> Modulo de instalação </option> : null}
-            </select>
-            <small>
-              <i className="fas fa-images" />
-              Imagem do defeito:
-            </small>
-            <input type="file" />
-          </div>
-          {this.ModuleInstall()}
-          <div>
-            <small>
-              <i className="fas fa-comments" />
-              descrição
-            </small>
-            <textarea cols="30" rows="10" id="nome" value={descricao} />
-          </div>
-          <Button type="submit" background="orange" width="100%" name="retornar">
-            <i className="fas fa-exchange-alt" />
-            MUDAR SETOR
-          </Button>
-          <Button type="submit" background="blue" width="100%" onClick={this.handleClick}>
-            <i className="fas fa-file-alt" />
-            ABRIR CHAMADO
-          </Button>
-        </form>
-      </div>
+        )}
+      />
     );
   }
 }
