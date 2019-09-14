@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TableHead from './Head';
 import TableRow from './Row';
 import TableCaption from './Caption';
-import PageNumber from '../PageNumber';
+// import PageNumber from '../PageNumber';
 
 import './style.css';
 
@@ -19,7 +19,7 @@ export default class Table extends Component {
     this.state = {
       tableHead: null,
       tableRows: null,
-      pages: 0,
+      // pages: 0,
     };
   }
 
@@ -29,12 +29,13 @@ export default class Table extends Component {
       tableHead: this.makeTableHead(head, -1, 0),
       tableRows: this.makeTableRows(this.initialSort(columnSortKey)),
     });
-    this.activeHeader = Array(2).fill(0); // [coluna-atual, status]
   }
 
   initialSort = (column) => {
     const { dateFields, rows } = this.props;
     const columnIsDate = dateFields.indexOf(column) !== -1;
+    this.activeHeader = Array(2).fill(0); // [coluna-atual, status]
+    // console.log(column);
     rows.sort((a, b) => {
       if (!columnIsDate) {
         if (a[column] > b[column]) return -1;
@@ -49,20 +50,7 @@ export default class Table extends Component {
     return rows;
   };
 
-  makeDateFields = (a, b) => {
-    const toTimeStamp = [a, b];
-    const result = Array(toTimeStamp.length);
-    for (let dateIndex = 0, max = result.length; dateIndex < max; dateIndex += 1) {
-      const day = toTimeStamp[dateIndex].substr(0, 2);
-      const month = toTimeStamp[dateIndex].substr(3, 2);
-      toTimeStamp[dateIndex] = toTimeStamp[dateIndex].replace(
-        RegExp(`${day}|${month}`, 'g'),
-        match => (match === day ? month : day),
-      );
-      result[dateIndex] = Date.parse(toTimeStamp[dateIndex]);
-    }
-    return result;
-  };
+  makeDateFields = (a, b) => [Date.parse(a), Date.parse(b)];
 
   makeTableHead = (stringHead, toHighlight, clickCounter) => stringHead.map((column, index) => (
     <TableHead
@@ -77,9 +65,9 @@ export default class Table extends Component {
   ));
 
   makeTableRows = (stringRows) => {
-    const { maxRowsPerPage } = this.props;
-    console.log(maxRowsPerPage);
-    this.setState({ pages: Math.ceil(stringRows.length / maxRowsPerPage) });
+    // const { maxRowsPerPage } = this.props;
+    // console.log(maxRowsPerPage);
+    // this.setState({ pages: Math.ceil(stringRows.length / maxRowsPerPage) });
     const htmlCells = stringRows.map((el, idx) => (
       <TableRow idxInRow={idx} key={el[0]} elements={el} />
     ));
@@ -89,16 +77,21 @@ export default class Table extends Component {
   handleSort = (column) => {
     const { rows, head, dateFields } = this.props;
     let columnState;
+    // console.log(this.activeHeader);
+    // console.log(this.activeHeader[0] === column);
     if (this.activeHeader[0] === column) {
       columnState = this.activeHeader[1] + 1;
     } else {
       this.activeHeader[0] = column;
       columnState = 1;
     }
+    // console.log(columnState);
     const columnIsDate = dateFields.indexOf(column) !== -1;
     if (columnState % 3) {
       this.activeHeader[1] = columnState;
+      // console.log(this.activeHeader);
       rows.sort((a, b) => {
+        // console.log(a[column], b[column]);
         if (columnState % 2) {
           if (!columnIsDate) {
             if (a[column] > b[column]) return -1;
@@ -124,6 +117,7 @@ export default class Table extends Component {
       });
     } else {
       const { columnSortKey } = this.props;
+      // console.log("AA");
       this.setState({
         tableHead: this.makeTableHead(head, -1, 0),
         tableRows: this.makeTableRows(this.initialSort(columnSortKey)),
@@ -131,13 +125,13 @@ export default class Table extends Component {
     }
   };
 
-  pageNumber = (e) => {
-    console.log(e);
-  }
+  // pageNumber = (e) => {
+  // console.log(e);
+  // }
 
   render() {
     const { title, margin } = this.props;
-    const { tableRows, tableHead, pages } = this.state;
+    const { tableRows, tableHead } = this.state;
     return (
       <div className="admin-table-wrapper">
         <table className="admin" style={{ margin }} cellPadding="0" cellSpacing="0">
@@ -150,7 +144,7 @@ export default class Table extends Component {
           </thead>
           <tbody>{tableRows}</tbody>
         </table>
-        {pages ? <PageNumber handleClick={this.pageNumber} elementsPerPage={pages} /> : null}
+        {/* {pages ? <PageNumber handleClick={this.pageNumber} elementsPerPage={pages} /> : null} */}
       </div>
     );
   }
@@ -170,5 +164,5 @@ Table.propTypes = {
   columnSortKey: PropTypes.number.isRequired,
   head: PropTypes.arrayOf(PropTypes.string).isRequired,
   dateFields: PropTypes.arrayOf(PropTypes.number),
-  maxRowsPerPage: PropTypes.number,
+  // maxRowsPerPage: PropTypes.number,
 };

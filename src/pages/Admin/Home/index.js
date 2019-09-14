@@ -30,7 +30,7 @@ export default class AdminHome extends Component {
         // this.setState({chamados: res.data});
         if (!res.data.error) {
           // window.location.reload(false);
-          console.log(res.data);
+          // console.log(res.data);
           this.setState({ loaded: true, chamados: res.data });
         } else {
           this.setState({ error: res.data.mensagem });
@@ -79,7 +79,7 @@ export default class AdminHome extends Component {
                   const prioridade = alteracoes[alteracoes.length - 1].prioridade.descricao;
                   const qtdDias = Math.floor((new Date() - new Date(data)) / (86400 * 1000));
                   return [
-                    id,
+                    Number(id),
                     setorNome,
                     prioridade,
                     descricao,

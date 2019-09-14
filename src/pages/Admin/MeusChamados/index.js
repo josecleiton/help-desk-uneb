@@ -194,7 +194,7 @@ export default class AdminMeusChamados extends Component {
                         const situacao = alteracoes[alteracoes.length - 1].situacao.nome;
                         const qtdDias = Math.floor((new Date() - new Date(data)) / (86400 * 1000));
                         return [
-                          id,
+                          Number(id),
                           setorNome,
                           prioridade,
                           situacao,
