@@ -18,7 +18,7 @@ export default class AdminMeusChamados extends Component {
 
   handleFormSubmit = (e) => {
     console.log(e);
-  }
+  };
 
   render() {
     return (

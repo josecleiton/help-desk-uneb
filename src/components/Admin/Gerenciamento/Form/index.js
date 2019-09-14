@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import {
+  Formik, Field, Form, ErrorMessage,
+} from 'formik';
 import propTypes from 'prop-types';
-import AdminForm from '../../Form';
-import Input from '../../../Input';
+import Button from '../../../Button';
+import api from '../../../../services/api';
 import './style.css';
 
 const inputStyle = {
@@ -26,55 +29,88 @@ export default class AdminGerenciamentoForm extends Component {
 
   render() {
     const {
-      buttonChildren, handleSubmit, inputForm, selectForm,
+      buttonChildren, inputForm, handleClick, selectForm, ButtonText, url,
     } = this.props;
     const { novaArea } = this.state;
+
     return (
-      <div className="admin-gerenciamento-form">
-        <button type="button" onClick={this.handleNovaArea}>
-          {buttonChildren[novaArea]}
-        </button>
-
-        {novaArea ? (
-          <AdminForm handleSubmit={handleSubmit}>
-            {inputForm
-              ? inputForm.map(inputs => (
-                <div>
-                  <strong>{inputs.label}</strong>
-                  <Input
-                    key={inputs.id}
-                    type={inputs.tipo}
-                    placeholder={inputs.placeholder}
-                    style={inputStyle}
-                  />
-                </div>
-              ))
-              : null}
-            {selectForm
-              ? selectForm.map(select => (
-                <div>
-                  <strong>{select.label}</strong>
-                  <select key={select.id}>
-                    {select.option.map(options => (
-                      <option value={options.value}>{options.nome}</option>
-                    ))}
-                  </select>
-                </div>
-              ))
-              : null}
-
-            <button type="submit" id="submit">
-              Enviar
+      <Formik
+        onSubmit={(fields) => {
+          api
+            .post(`/api/${url}`, fields)
+            .then((res) => {
+              handleClick(res.data);
+              // this.setState({ chamado: res.data });
+            })
+            .catch(() => {
+              handleClick(null);
+              // this.setState({ chamado: null });
+            });
+        }}
+        render={() => (
+          <div className="admin-gerenciamento-form">
+            <button type="button" onClick={this.handleNovaArea}>
+              {buttonChildren[novaArea]}
             </button>
-          </AdminForm>
-        ) : null}
-      </div>
+            {novaArea ? (
+              <Form>
+                {inputForm
+                  ? inputForm.map(inputs => (
+                    <div>
+                      <strong>{inputs.label}</strong>
+                      <Field
+                        key={inputs.id}
+                        type={inputs.tipo}
+                        name={inputs.nome}
+                        placeholder={inputs.placeholder}
+                        style={inputStyle}
+                      />
+                    </div>
+                  ))
+                  : null}
+                {selectForm
+                  ? selectForm.map(select => (
+                    <div>
+                      <strong>{select.label}</strong>
+                      <Field component="select" name={select.nome} key={select.id}>
+                        {select.option.map(options => (
+                          <option value={options.value}>{options.nome}</option>
+                        ))}
+                      </Field>
+                      <ErrorMessage
+                        name="options"
+                        component="small"
+                        style={{
+                          display: 'flex',
+                          alignContent: 'center',
+                          justifyContent: 'center',
+                          width: '100%',
+                          backgroundColor: 'red',
+                          color: 'white',
+                        }}
+                      />
+                    </div>
+                  ))
+                  : null}
+                <div>
+                  <Button type="submit" background="blue" width="100%">
+                    <i className="fas fa-file-alt" />
+                    {ButtonText}
+                  </Button>
+                </div>
+              </Form>
+            ) : null}
+          </div>
+        )}
+      />
     );
   }
 }
 
 AdminGerenciamentoForm.propTypes = {
-  handleSubmit: propTypes.func.isRequired,
+  handleClick: propTypes.func.isRequired,
+  url: propTypes.string.isRequired,
+  ButtonText: propTypes.string.isRequired,
   buttonChildren: propTypes.arrayOf(propTypes.any).isRequired,
   inputForm: propTypes.arrayOf(propTypes.any).isRequired,
   selectForm: propTypes.arrayOf(propTypes.any).isRequired,
