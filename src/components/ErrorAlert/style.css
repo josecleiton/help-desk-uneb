@@ -11,3 +11,8 @@
   padding-top: 2px;
   text-align: center;
 }
+
+.success {
+  background: #17d647;
+  border: 1px solid #108d2f;
+}

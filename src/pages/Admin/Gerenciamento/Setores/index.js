@@ -7,6 +7,7 @@ import AdminRightDiv from '../../../../components/Admin/RightDiv';
 import AdminPageTitle from '../../../../components/Admin/Title';
 import Deck from '../../../../components/Admin/Deck';
 import AdminGerenciamentoForm from '../../../../components/Admin/Gerenciamento/Form';
+import ErrorAlert from '../../../../components/ErrorAlert';
 import './style.css';
 
 export default class GerenciamentoSetores extends Component {
@@ -21,14 +22,19 @@ export default class GerenciamentoSetores extends Component {
   componentDidMount() {
     const jwtToken = localStorage.getItem('HD7-AuthToken');
     api.defaults.headers.common.Authorization = `Bearer ${jwtToken}`;
-    api.post('/api/setor/read.php').then((res) => {
-      // console.log(res.data);
-      if (!res.data.error) {
-        this.setState({ setores: res.data });
-      } else {
-        this.setState({ error: res.data.mensagem });
-      }
-    });
+    api
+      .post('/api/setor/read.php')
+      .then((res) => {
+        // console.log(res.data);
+        if (!res.data.error) {
+          this.setState({ setores: res.data });
+        } else {
+          this.setState({ error: res.data.mensagem });
+        }
+      })
+      .catch(() => {
+        this.setState({ error: 'Erro no servidor.' });
+      });
   }
 
   handleFormSubmit = (e) => {
@@ -132,7 +138,7 @@ export default class GerenciamentoSetores extends Component {
             <div>Loading...</div>
           )
         ) : (
-          <div>Erro no carregamento dos Setores...</div>
+          <ErrorAlert>{error}</ErrorAlert>
         )}
       </AdminRightDiv>
     );

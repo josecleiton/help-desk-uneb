@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, withRouter } from 'react-router-dom';
 
 import isAuth from '../../components/Admin/Auth';
 
@@ -18,4 +18,4 @@ PrivateRoute.propTypes = {
   component: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
 };
 
-export default PrivateRoute;
+export default withRouter(PrivateRoute);

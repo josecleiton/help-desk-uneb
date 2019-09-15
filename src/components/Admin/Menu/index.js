@@ -55,6 +55,24 @@ export default class AdminMenu extends Component {
   //   //   if (element !== 'Em Aberto') this.Estados.push({ [element]: element });
   //   // });
   // };
+  makeGerenciamento = (cargo, matches) => {
+    if (cargo) {
+      const submenu = [{ chamados: 'Chamados' }, { tecnicos: 'Técnicos' }];
+      if (cargo === 'A') submenu.push({ setores: 'Setores' });
+
+      return (
+        <AdminMenuItem
+          url="/admin/gerenciamento"
+          submenu={submenu}
+          icon="fas fa-tools"
+          expand={matches}
+        >
+          Gerenciar
+        </AdminMenuItem>
+      );
+    }
+    return null;
+  };
 
   render() {
     const { estados } = this.state;
@@ -82,20 +100,7 @@ export default class AdminMenu extends Component {
                         Meus Chamados
                       </AdminMenuItem>
                     )}
-                    {cargo && (
-                      <AdminMenuItem
-                        url="/admin/gerenciamento"
-                        submenu={[
-                          { chamados: 'Chamados' },
-                          { tecnicos: 'Técnicos' },
-                          cargo === 'A' && { setores: 'Setores' },
-                        ]}
-                        icon="fas fa-tools"
-                        expand={matches}
-                      >
-                        Gerenciar
-                      </AdminMenuItem>
-                    )}
+                    {this.makeGerenciamento(cargo, matches)}
                   </ul>
                   <AdminFooter expand={matches} />
                 </div>

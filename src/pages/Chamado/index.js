@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
+// import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import api from '../../services/api';
@@ -9,6 +10,7 @@ import Table from '../../components/Table';
 import MainHeader from '../../components/Main/Header';
 import LargeBox from '../../components/LargeBox';
 import Footer from '../../components/Footer';
+import ErrorAlert from '../../components/ErrorAlert';
 // import HistoricoMovimentacao from '../../components/HistoricoChamado';
 
 import './style.css';
@@ -26,10 +28,11 @@ export default class VisualizarChamado extends Component {
       animate: false,
       payload: null,
       error: '',
+      baseURL: api.defaults.baseURL,
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const { id } = this.state;
     const {
       location: { state },
@@ -38,15 +41,20 @@ export default class VisualizarChamado extends Component {
       const { payload } = state;
       this.setState({ payload });
     } else {
-      api.post('/api/chamado/read.php', { id }).then((res) => {
-        const { data } = res;
-        // console.log(data);
-        if (!data.error) {
-          this.setState({ payload: data });
-        } else {
-          this.setState({ error: data.mensagem });
-        }
-      });
+      api
+        .post('/api/chamado/read.php', { id })
+        .then((res) => {
+          const { data } = res;
+          // console.log(data);
+          if (!data.error) {
+            this.setState({ payload: data });
+          } else {
+            this.setState({ error: data.mensagem });
+          }
+        })
+        .catch(() => {
+          this.setState({ error: 'Erro no servidor' });
+        });
     }
     setTimeout(() => {
       this.setState({ animate: true });
@@ -55,21 +63,15 @@ export default class VisualizarChamado extends Component {
 
   render() {
     const {
-      id, animate, payload, error,
+      id, animate, payload, error, baseURL,
     } = this.state;
-    let situacao = 'Em aberto';
-    if (payload) {
-      const { alteracoes } = payload;
-      if (alteracoes) {
-        situacao = alteracoes[alteracoes.length - 1].situacao.nome;
-      }
-    }
+    console.log(payload);
     return (
       <>
         <MainHeader />
         <div id="consultar-chamado" style={{ opacity: animate ? 1 : 0 }}>
           {error ? (
-            <div>{error}</div>
+            <ErrorAlert>{error}</ErrorAlert>
           ) : payload ? (
             <>
               <p className="consultar-chamado-title">
@@ -83,17 +85,42 @@ export default class VisualizarChamado extends Component {
                 </p>
                 <p>
                   <strong>Situação:</strong>
-                  {` ${situacao}`}
+                  {` ${payload.alteracoes[payload.alteracoes.length - 1].situacao.nome}`}
+                </p>
+                <p>
+                  <strong>Descrição:</strong>
+                  {` ${payload.descricao}`}
                 </p>
                 <p>
                   <strong>Data de Abertura:</strong>
-                  {` ${payload.data}`}
+                  {` ${payload.alteracoes[0].data}`}
                 </p>
-
+                {payload.problema ? (
+                  <p>
+                    <strong>Problema:</strong>
+                    {`${payload.problema.descricao}`}
+                  </p>
+                ) : null}
                 <p>
                   <strong>Setor:</strong>
                   {` ${payload.setor.nome}`}
                 </p>
+                {payload.arquivo && (
+                  <center>
+                    <a
+                      href={`${baseURL}/${payload.arquivo}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        alt={`Anexo do chamado ${payload.id}`}
+                        title={`Anexo do chamado ${payload.id}`}
+                        className="chamado"
+                        src={`${baseURL}/${payload.arquivo}`}
+                      />
+                    </a>
+                  </center>
+                )}
                 {payload.alteracoes ? (
                   <div>
                     <br />
@@ -109,7 +136,7 @@ export default class VisualizarChamado extends Component {
                             descricao,
                             data,
                           } = ele;
-                          return [situacaoNome, descricao, data];
+                          return [situacaoNome, descricao, data, {}];
                         })}
                       />
                     </TableContext.Provider>

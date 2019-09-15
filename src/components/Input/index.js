@@ -4,7 +4,7 @@ import './style.css';
 
 const Input = (props) => {
   const {
-    type, placeholder, style, required, submitHandler,
+    type, placeholder, style, required, submitHandler, handleChange,
   } = props;
   return (
     <input
@@ -14,6 +14,7 @@ const Input = (props) => {
       style={style}
       required={required}
       onSubmit={submitHandler}
+      onChange={handleChange}
     />
   );
 };
@@ -23,6 +24,7 @@ Input.defaultProps = {
   placeholder: '',
   required: false,
   submitHandler: () => {},
+  handleChange: () => {},
 };
 
 Input.propTypes = {
@@ -31,6 +33,7 @@ Input.propTypes = {
   style: PropTypes.objectOf(PropTypes.string).isRequired,
   required: PropTypes.bool,
   submitHandler: PropTypes.func,
+  handleChange: PropTypes.func,
 };
 
 export default Input;

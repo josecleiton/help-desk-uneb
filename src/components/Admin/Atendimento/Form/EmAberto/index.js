@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import api from '../../../../../services/api';
 
 import AtendimentoContext from '../../Context';
 import AtendimentoOption from '../../Option';
@@ -6,12 +7,7 @@ import TextArea from '../../../../TextArea';
 import AtendimentoTombamento from '../Tombamento';
 import AtendimentoEncaminhar from '../Encaminhar';
 import ErrorAlert from '../../../../ErrorAlert';
-
-/*
-  CLASS NÃO FINALIZADA PORQUE FALTA BACKEND,
-  TRATAR: FAZER LOCK NO CHAMADO ASSIM QUE ALGUÉM CLICAR NELE NA TABELA DE
-  CHAMADOS EM ABERTO
-*/
+import AtendimentoPrioridade from '../Prioridade';
 
 export default class AtendimentoFormEmAberto extends Component {
   constructor(props) {
@@ -20,38 +16,81 @@ export default class AtendimentoFormEmAberto extends Component {
       tombamento: false,
       encaminhar: false,
       error: '',
+      success: '',
     };
+    this.id = '';
   }
 
   handleSubmit = (el) => {
     const { tombamento, encaminhar } = this.state;
-    const formData = {};
+    const formData = { id: this.id, situacao: 'Em Aberto' };
     el.preventDefault();
     if (!encaminhar) {
+      formData.nova_situacao = 'Em Atendimento';
       const textAreaEl = document.querySelector('div.admin-chamado-textarea textarea');
-      const priorityEl = document.querySelector('select.admin-chamado');
+      const priorityEl = document.getElementById('prioridade');
       const priorityVal = priorityEl.options[priorityEl.selectedIndex].value;
       if (!priorityVal) {
         this.setState({ error: 'Você deve selecionar uma prioridade para este chamado!' });
         return;
       }
-      formData.info = textAreaEl.value;
-      formData.priority = priorityVal;
+      formData.descricao = textAreaEl.value;
+      formData.prioridade = priorityVal;
       if (tombamento) {
-        const textAreaTombamento = document.querySelector('div.atendimento-tombamento textarea')
-          .value;
-        formData.tombamento = textAreaTombamento;
+        const inputTombamento = document.querySelector('div.atendimento-tombamento input').value;
+        if (inputTombamento.length < 5) {
+          this.setState({ error: 'Tombo tem que ser maior que 4 caracteres' });
+          return;
+        }
+        formData.tombo = inputTombamento;
       }
     } else {
-      const encaminharSetorEl = document.querySelector('select.admin-chamado');
+      formData.nova_situacao = 'Transferido';
+      const priorityEl = document.getElementById('prioridade');
+      const priorityVal = priorityEl.options[priorityEl.selectedIndex].value;
+      if (!priorityVal) {
+        this.setState({ error: 'Você deve selecionar uma prioridade para este chamado!' });
+        return;
+      }
+      formData.prioridade = priorityVal;
+      const encaminharSetorEl = document.getElementById('encaminha-setor');
       const encaminhaSetorVal = encaminharSetorEl.options[encaminharSetorEl.selectedIndex].value;
       if (!encaminhaSetorVal) {
         this.setState({ error: 'Você deve selecionar um setor para encaminhar este chamado!' });
         return;
       }
-      formData.encaminhar = encaminhaSetorVal;
+      const tecnicoEl = document.getElementById('encaminha-tecnico');
+      const tecnicoVal = tecnicoEl.options[tecnicoEl.selectedIndex].value;
+      formData.novo_setor = encaminhaSetorVal;
+      if (tecnicoVal) {
+        formData.novo_tecnico = tecnicoVal;
+      }
+      // console.log(formData);
+      // return;
     }
-    console.log('Dados do formulário: ', formData);
+    // console.log('Dados do formulário: ', formData);
+    const jwtToken = localStorage.getItem('HD7-AuthToken');
+    api.defaults.headers.common.Authorization = `Bearer ${jwtToken}`;
+    // console.log(jwtToken);
+    api
+      .post('/api/chamado/update.php', formData)
+      .then((res) => {
+        console.log(res);
+        if (!res.data.error) {
+          this.setState({ success: res.data.mensagem, error: '' }, () => {
+            const { history } = this.props;
+            setTimeout(() => {
+              history.push('/admin');
+            }, 1000);
+          });
+        } else {
+          this.setState({ error: res.data.mensagem });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({ error: 'Erro no Servidor' });
+      });
   };
 
   handleTombamento = (checked) => {
@@ -63,22 +102,23 @@ export default class AtendimentoFormEmAberto extends Component {
   };
 
   render() {
-    const { encaminhar, error } = this.state;
+    const { encaminhar, error, success } = this.state;
     return (
       <AtendimentoContext.Consumer>
         {(state) => {
-          const { id: chamadoId } = state;
+          const { id } = state;
+          this.id = id;
           return (
             <div className="admin-chamado-wrapper">
               <h1 className="admin-chamado">
 Atendimento #
-                {chamadoId}
+                {id}
               </h1>
               <form onSubmit={this.handleSubmit} className="admin-chamado">
                 {!encaminhar && (
                   <div className="admin-chamado-textarea">
                     <TextArea
-                      placeholder={`Informações adicionais sobre o chamado #${chamadoId}`}
+                      placeholder={`Informações adicionais sobre o chamado #${id}`}
                       style={{ width: '100%', marginBottom: '10px' }}
                     />
                   </div>
@@ -99,14 +139,7 @@ Atendimento #
                       <AtendimentoTombamento />
                     </AtendimentoOption>
                     <div className="admin-chamado-input">
-                      <strong>Prioridade</strong>
-                      <select name="priority" className="admin-chamado">
-                        <option value="">-------</option>
-                        <option value="baixa">Baixa</option>
-                        <option value="media">Média</option>
-                        <option value="alta">Alta</option>
-                        <option value="urgente">Urgente</option>
-                      </select>
+                      <AtendimentoPrioridade />
                       <button type="submit" className="admin-chamado">
                         Atender
                       </button>
@@ -115,12 +148,15 @@ Atendimento #
                 ) : (
                   <div className="admin-chamado-input">
                     <AtendimentoEncaminhar />
+                    <AtendimentoPrioridade />
+                    {/* <p style={{marginTop: 10}}><AtendimentoPrioridade /></p> */}
                     <button type="submit" className="admin-chamado">
                       Encaminhar
                     </button>
                   </div>
                 )}
               </form>
+              {success && <ErrorAlert className="success">{success}</ErrorAlert>}
               {error && <ErrorAlert className="error-atendimento-form">{error}</ErrorAlert>}
             </div>
           );

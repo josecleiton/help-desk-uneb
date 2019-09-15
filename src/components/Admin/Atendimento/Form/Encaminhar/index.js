@@ -1,16 +1,69 @@
-import React from 'react';
+import React, { Component } from 'react';
+import api from '../../../../../services/api';
 
-const AtendimentoEncaminhar = () => (
-  <>
-    <strong>Setor</strong>
-    <select id="encaminha-setor" className="admin-chamado">
-      <option value="">-----</option>
-      <option value="TI">TI</option>
-      <option value="TI">TI</option>
-      <option value="TI">TI</option>
-      <option value="TI">TI</option>
-    </select>
-  </>
-);
+export default class AtendimentoEncaminhar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      setores: null,
+      selected: false,
+      tecnicos: null,
+    };
+  }
 
-export default AtendimentoEncaminhar;
+  componentDidMount() {
+    api.get('/api/setor/read.php').then((res) => {
+      // console.log(res.data);
+      this.setState({ setores: res.data });
+    });
+  }
+
+  handleChange = (e) => {
+    const selected = e.target.value;
+    if (selected) {
+      const formData = {};
+      if (selected === 'Outros') {
+        formData.privilegiados = true;
+      } else {
+        formData.setor = selected;
+      }
+      api.post('/api/tecnico/read.php', formData).then((res) => {
+        // console.log(res.data);
+        this.setState({ selected, tecnicos: res.data });
+      });
+      return;
+    }
+    this.setState({ selected: false });
+  };
+
+  render() {
+    const { setores, selected, tecnicos } = this.state;
+    return (
+      <>
+        <strong>Setor</strong>
+        <select id="encaminha-setor" className="admin-chamado" onChange={this.handleChange}>
+          <option value="">{setores ? '-----' : 'Loading...'}</option>
+          {(setores || []).map(setor => (
+            <option value={setor.nome} key={setor.nome}>
+              {setor.nome}
+            </option>
+          ))}
+          <option value="Outros">Outros</option>
+        </select>
+        {selected && (
+          <>
+            <strong>Técnico</strong>
+            <select id="encaminha-tecnico" className="admin-chamado" >
+              <option value="">{tecnicos ? '-----' : 'Loading...'}</option>
+              {(tecnicos || []).map(tecnico => (
+                <option value={tecnico.login} key={tecnico.login}>
+                  {tecnico.nome}
+                </option>
+              ))}
+            </select>
+          </>
+        )}
+      </>
+    );
+  }
+}

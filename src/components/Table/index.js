@@ -154,7 +154,7 @@ Table.defaultProps = {
   title: '',
   margin: '0 auto',
   dateFields: [],
-  maxRowsPerPage: -1,
+  // maxRowsPerPage: -1,
 };
 
 Table.propTypes = {

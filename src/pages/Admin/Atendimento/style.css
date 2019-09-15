@@ -12,7 +12,7 @@ div.admin-atendimento {
 .admin-atendimento-box-clicked {
   width: 95%;
   margin: 110px auto 50px auto;
-  height: 400px;
+  height: auto;
   padding: 10px;
   transition: 0.2s;
 }

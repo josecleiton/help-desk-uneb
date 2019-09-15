@@ -7,9 +7,11 @@ import TableContext from '../Context';
 class TableRow extends Component {
   constructor(props) {
     super(props);
+    const { elements } = this.props;
     this.state = {
       animate: false,
     };
+    this.payload = elements[elements.length - 1];
   }
 
   componentDidMount() {
@@ -18,7 +20,7 @@ class TableRow extends Component {
     }, 50);
   }
 
-  handleClick = (url, primaryKey = -1, checkInfo = {}, payload = {}) => {
+  handleClick = (url, primaryKey = -1, checkInfo = {}, payload) => {
     const {
       elements,
       history: { push: redirectTo },
@@ -49,25 +51,29 @@ class TableRow extends Component {
     }
   };
 
+  renderElements = () => {
+    const result = [];
+    const { elements } = this.props;
+    for (let i = 0, limit = elements.length - 1; i < limit; i += 1) {
+      result.push(<td key={`cell-${elements[i]}`}>{elements[i]}</td>);
+    }
+    return result;
+  };
+
   render() {
     const { animate } = this.state;
-    const { elements, idxInRow } = this.props;
     return (
       <TableContext.Consumer>
         {(state) => {
-          const {
-            goToUrl, rowsPrimaryKey, checkInfo, payload,
-          } = state;
-          const handleClick = () => this.handleClick(goToUrl, rowsPrimaryKey, checkInfo, payload[idxInRow]);
+          const { goToUrl, rowsPrimaryKey, checkInfo } = state;
+          const handleClick = () => this.handleClick(goToUrl, rowsPrimaryKey, checkInfo, this.payload);
           return (
             <tr
               onClick={goToUrl && handleClick}
               style={{ cursor: goToUrl ? 'pointer' : 'regular', opacity: animate ? 1 : 0 }}
               role="button"
             >
-              {elements.map(e => (
-                <td key={`cell-${e}`}>{e}</td>
-              ))}
+              {this.renderElements()}
             </tr>
           );
         }}
@@ -78,9 +84,9 @@ class TableRow extends Component {
 
 TableRow.propTypes = {
   elements: PropTypes.arrayOf(PropTypes.string).isRequired,
-  idxInRow: PropTypes.number.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   location: PropTypes.objectOf(PropTypes.any).isRequired,
+  // payload: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default withRouter(TableRow);

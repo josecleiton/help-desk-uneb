@@ -202,6 +202,7 @@ export default class AdminMeusChamados extends Component {
                           qtdDias,
                           data,
                           usuarioNome,
+                          el,
                         ];
                       })}
                     />

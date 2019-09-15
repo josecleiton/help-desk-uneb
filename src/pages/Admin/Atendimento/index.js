@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import api from '../../../services/api';
+
 import AdminRightDiv from '../../../components/Admin/RightDiv';
 import AdminPageTitle from '../../../components/Admin/Title';
 import AtendimentoContext from '../../../components/Admin/Atendimento/Context';
 import LargeBox from '../../../components/LargeBox';
 import AtendimentoForm from '../../../components/Admin/Atendimento/Form';
-import Content from './Content';
+// import Content from './Content';
 import Error from '../../../components/Error';
 
 import './style.css';
@@ -25,7 +27,10 @@ export default class Atendimento extends Component {
     const {
       location: { state },
     } = props;
-    this.state = { validAccess: state !== undefined };
+    this.state = {
+      validAccess: state !== undefined,
+      baseURL: api.defaults.baseURL,
+    };
   }
 
   currentPath = () => {
@@ -40,22 +45,72 @@ export default class Atendimento extends Component {
       match: {
         params: { id },
       },
+      location: { state },
     } = this.props;
-    const { validAccess } = this.state;
+    const { validAccess, baseURL } = this.state;
+    let chamado = null;
+    if (validAccess) {
+      chamado = state.payload;
+    }
     return (
       <AdminRightDiv>
         {validAccess ? (
           <AtendimentoContext.Provider value={{ id }}>
             <AdminPageTitle>Atendimento de Chamado</AdminPageTitle>
             <LargeBox className="admin-atendimento-box-clicked">
-              <Content id={id} />
+              <div className="admin-atendimento-content">
+                <h2>
+                  {/* Número do Chamado: # */}
+                  {`Código: ${id}`}
+                </h2>
+                <p>
+                  <strong>Solicitante:</strong>
+                  {` ${chamado.usuario.nome}`}
+                  {/* user@email.com */}
+                </p>
+                <p>
+                  <strong>Situação:</strong>
+                  {` ${chamado.alteracoes[chamado.alteracoes.length - 1].situacao.nome}`}
+                  {/* Aberto */}
+                </p>
+                <p>
+                  <strong>Data de Abertura:</strong>
+                  {` ${chamado.alteracoes[0].data}`}
+                  {/* dd/mm/YYYY */}
+                </p>
+
+                <p>
+                  <strong>Setor:</strong>
+                  {` ${chamado.setor.nome}`}
+                  {/* TI */}
+                </p>
+                {chamado.arquivo && (
+                  <center>
+                    <a
+                      href={`${baseURL}/${chamado.arquivo}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        alt={`Anexo do chamado ${chamado.id}`}
+                        title={`Anexo do chamado ${chamado.id}`}
+                        className="chamado"
+                        src={`${baseURL}/${chamado.arquivo}`}
+                      />
+                    </a>
+                  </center>
+                )}
+
+                {/* <HistoricoMovimentacao>Tabela de modificações vem aqui</HistoricoMovimentacao> */}
+              </div>
             </LargeBox>
-            <AtendimentoForm estado="Em aberto" />
+            <AtendimentoForm
+              estado={chamado.alteracoes[chamado.alteracoes.length - 1].situacao.nome}
+            />
           </AtendimentoContext.Provider>
         ) : (
           <Error icon="far fa-dizzy" title="Acesso não é permitido">
-            O acesso direto a essa página não é permitido, retorne ao início pelo menu ou
-            {' '}
+            {'O acesso direto a essa página não é permitido, retorne ao início pelo menu ou '}
             <Link to="/admin">clicando aqui</Link>
 .
           </Error>

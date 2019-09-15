@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import TextArea from '../../../../TextArea';
+// import TextArea from '../../../../TextArea';
 import Input from '../../../../Input';
 
 import './style.css';
@@ -28,12 +28,12 @@ export default class AtendimentoTombamento extends Component {
     const { animate } = this.state;
     return (
       <div className="atendimento-tombamento" style={{ opacity: animate ? 1 : 0 }}>
-        <Input placeholder="Código do Tombo" style={inputStyle} />
-        <TextArea
+        <Input placeholder="Código do Tombo" style={inputStyle} required />
+        {/* <TextArea
           placeholder="Informações adicionais sobre o tombamento."
           style={{ width: '100%', marginBottom: '10px' }}
           required
-        />
+        /> */}
       </div>
     );
   }

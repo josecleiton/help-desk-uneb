@@ -35,6 +35,9 @@ export default class AdminHome extends Component {
         } else {
           this.setState({ error: res.data.mensagem });
         }
+      })
+      .catch(() => {
+        this.setState({ error: 'Erro no servidor' });
       });
   }
 
@@ -78,15 +81,7 @@ export default class AdminHome extends Component {
                   const { data } = alteracoes[0];
                   const prioridade = alteracoes[alteracoes.length - 1].prioridade.descricao;
                   const qtdDias = Math.floor((new Date() - new Date(data)) / (86400 * 1000));
-                  return [
-                    Number(id),
-                    setorNome,
-                    prioridade,
-                    descricao,
-                    qtdDias,
-                    data,
-                    usuarioNome,
-                  ];
+                  return [Number(id), setorNome, prioridade, descricao, qtdDias, data, usuarioNome, el];
                 })}
                 // rows={[
                 //   [

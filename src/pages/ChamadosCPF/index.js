@@ -8,6 +8,7 @@ import MainHeader from '../../components/Main/Header';
 import TableContext from '../../components/Table/Context';
 import Table from '../../components/Table';
 import Footer from '../../components/Footer';
+import ErrorAlert from '../../components/ErrorAlert';
 
 import './style.css';
 
@@ -32,26 +33,32 @@ export default class ChamadosCPF extends Component {
         params: { cpf },
       },
     } = this.props;
-    api.post('/api/usuario/read.php', { cpf }).then((res) => {
-      const { data } = res;
-      const { chamados, error } = data;
-      // console.log(chamados);
-      if (!error) {
-        const usuario = {
-          cpf: data.cpf,
-          email: data.email,
-          telefone: data.telefone,
-          nome: data.nome,
-        };
-        chamados.forEach((element) => {
-          // eslint-disable-next-line no-param-reassign
-          element.usuario = usuario;
-        });
-        this.setState({ chamados });
-      } else {
-        this.setState({ error });
-      }
-    });
+    api
+      .post('/api/usuario/read.php', { cpf })
+      .then((res) => {
+        const { data } = res;
+        const { chamados, error } = data;
+        // console.log(chamados);
+        // console.log(data);
+        if (!error) {
+          const usuario = {
+            cpf: data.cpf,
+            email: data.email,
+            telefone: data.telefone,
+            nome: data.nome,
+          };
+          chamados.forEach((element) => {
+            // eslint-disable-next-line no-param-reassign
+            element.usuario = usuario;
+          });
+          this.setState({ chamados });
+        } else {
+          this.setState({ error: data.mensagem });
+        }
+      })
+      .catch(() => {
+        this.setState({ error: 'Erro no servidor' });
+      });
   }
 
   makeCPF = (toCPF) => {
@@ -66,30 +73,6 @@ export default class ChamadosCPF extends Component {
       }
     }
     return cpf;
-  };
-
-  chamadosToArray = (chamados) => {
-    if (chamados) {
-      return chamados.map((chamado) => {
-        const {
-          id,
-          descricao,
-          setor: { nome: setorNome },
-          tecnico: { email: tecnicoEmail },
-          data,
-          alteracoes,
-        } = chamado;
-        let situacao = 'Em aberto';
-        let ultimaModificacao = 'Não houve';
-        if (alteracoes) {
-          situacao = alteracoes[alteracoes.length - 1].status;
-          ultimaModificacao = alteracoes[alteracoes.length - 1].descricao;
-        }
-        // console.log(chamado);
-        return [id, '', descricao, setorNome, situacao, tecnicoEmail, data, ultimaModificacao];
-      });
-    }
-    return null;
   };
 
   render() {
@@ -115,7 +98,7 @@ export default class ChamadosCPF extends Component {
                   title={` ${this.cpf}`}
                   head={[
                     '#',
-                    'Equipamento',
+                    'Problema',
                     'Descrição',
                     'Setor',
                     'Status',
@@ -125,23 +108,44 @@ export default class ChamadosCPF extends Component {
                   ]}
                   dateFields={[6, 7]}
                   columnSortKey={6}
-                  rows={this.chamadosToArray(chamados)}
+                  rows={chamados.map((chamado) => {
+                    const {
+                      id,
+                      descricao,
+                      setor: { nome: setorNome },
+                      tecnico,
+                      alteracoes,
+                      problema,
+                    } = chamado;
+                    // console.log(chamado);
+                    const dataUltimaAlteracao = alteracoes[alteracoes.length - 1].data;
+                    const situacao = alteracoes[alteracoes.length - 1].situacao.nome;
+                    const dataCriacao = alteracoes[0].data;
+                    const tecnicoEmail = tecnico ? tecnico.email : 'Não especificado';
+                    return [
+                      id,
+                      problema ? problema.descricao : 'Não especificado',
+                      descricao,
+                      setorNome,
+                      situacao,
+                      tecnicoEmail,
+                      dataCriacao,
+                      dataUltimaAlteracao,
+                      chamado,
+                    ];
+                  })}
                   maxRowsPerPage={10}
                 />
               </TableContext.Provider>
             </>
           ) : (
-              <>
-                <div>Carregando...</div>
-              </>
-            )
-        ) : (
             <>
-              {' '}
-              <div>{`ERROR: ${error}`}</div>
-              {' '}
+              <div>Carregando...</div>
             </>
-          )}
+          )
+        ) : (
+          <ErrorAlert>{error}</ErrorAlert>
+        )}
         <Footer />
       </>
     );
