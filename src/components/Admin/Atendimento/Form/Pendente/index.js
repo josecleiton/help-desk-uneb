@@ -45,7 +45,7 @@ export default class AtendimentoFormPendente extends Component {
             this.setState({ error: res.data.mensagem });
           }
         })
-        .catch((error) => {
+        .catch(() => {
           // console.log(error);
           this.setState({ error: 'Erro no Servidor' });
         });
@@ -60,9 +60,10 @@ export default class AtendimentoFormPendente extends Component {
     return (
       <div className="admin-chamador-wrapper">
         <h1 className="admin-chamado">
-Atendimento #
-          {id}
+          {`Atendimento #${id}`}
         </h1>
+        {success && <ErrorAlert className="success">{success}</ErrorAlert>}
+        {error && <ErrorAlert className="error-atendimento-form">{error}</ErrorAlert>}
         <form onSubmit={this.handleSubmit} className="admin-chamado">
           <AtendimentoOption
             name="pendente"
@@ -75,8 +76,6 @@ Atendimento #
             </button>
           </div>
         </form>
-        {error && <ErrorAlert className="error-atendimento-form">{error}</ErrorAlert>}
-        {success && <ErrorAlert className="success">{success}</ErrorAlert>}
       </div>
     );
   }

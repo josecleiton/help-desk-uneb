@@ -6,7 +6,6 @@ import api from '../../../services/api';
 
 import AdminRightDiv from '../../../components/Admin/RightDiv';
 import AdminPageTitle from '../../../components/Admin/Title';
-import AtendimentoContext from '../../../components/Admin/Atendimento/Context';
 import LargeBox from '../../../components/LargeBox';
 import AtendimentoForm from '../../../components/Admin/Atendimento/Form';
 import Table from '../../../components/Table';
@@ -57,7 +56,7 @@ export default class Atendimento extends Component {
     return (
       <AdminRightDiv>
         {validAccess ? (
-          <AtendimentoContext.Provider value={{ id }}>
+          <>
             <AdminPageTitle>Atendimento de Chamado</AdminPageTitle>
             <LargeBox className="admin-atendimento-box-clicked">
               <div className="admin-atendimento-content">
@@ -102,8 +101,6 @@ export default class Atendimento extends Component {
                     </a>
                   </center>
                 )}
-
-                {/* <HistoricoMovimentacao>Tabela de modificações vem aqui</HistoricoMovimentacao> */}
               </div>
               {chamado.alteracoes ? (
                 <div>
@@ -130,7 +127,7 @@ export default class Atendimento extends Component {
             <AtendimentoForm
               estado={chamado.alteracoes[chamado.alteracoes.length - 1].situacao.nome}
             />
-          </AtendimentoContext.Provider>
+          </>
         ) : (
           <Error icon="far fa-dizzy" title="Acesso não é permitido">
             {'O acesso direto a essa página não é permitido, retorne ao início pelo menu ou '}

@@ -101,9 +101,10 @@ export default class AtendimentoFormEmAtendimento extends Component {
     return (
       <div className="admin-chamador-wrapper">
         <h1 className="admin-chamado">
-Atendimento #
-          {payload.id}
+          {`Atendimento #${payload.id}`}
         </h1>
+        {success && <ErrorAlert className="success">{success}</ErrorAlert>}
+        {error && <ErrorAlert className="error-atendimento-form">{error}</ErrorAlert>}
         <form onSubmit={this.handleSubmit} className="admin-chamado">
           {!pendente && !concluido && (
             <>
@@ -155,8 +156,6 @@ Atendimento #
             </div>
           )}
         </form>
-        {success && <ErrorAlert className="success">{success}</ErrorAlert>}
-        {error && <ErrorAlert className="error-atendimento-form">{error}</ErrorAlert>}
       </div>
     );
   }

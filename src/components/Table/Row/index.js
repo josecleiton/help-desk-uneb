@@ -7,11 +7,11 @@ import TableContext from '../Context';
 class TableRow extends Component {
   constructor(props) {
     super(props);
-    const { elements } = this.props;
+    // const { elements } = this.props;
     this.state = {
       animate: false,
     };
-    this.payload = elements[elements.length - 1];
+    // this.payload = elements.pop();
   }
 
   componentDidMount() {
@@ -62,18 +62,23 @@ class TableRow extends Component {
 
   render() {
     const { animate } = this.state;
+    const { elements } = this.props;
     return (
       <TableContext.Consumer>
         {(state) => {
           const { goToUrl, rowsPrimaryKey, checkInfo } = state;
-          const handleClick = () => this.handleClick(goToUrl, rowsPrimaryKey, checkInfo, this.payload);
+          const { payload } = this.props;
+          const handleClick = () => this.handleClick(goToUrl, rowsPrimaryKey, checkInfo, payload);
           return (
             <tr
               onClick={goToUrl && handleClick}
               style={{ cursor: goToUrl ? 'pointer' : 'regular', opacity: animate ? 1 : 0 }}
               role="button"
             >
-              {this.renderElements()}
+              {/* {this.renderElements()} */}
+              {elements.map(e => (
+                <td key={`cell-${e}`}>{e}</td>
+              ))}
             </tr>
           );
         }}

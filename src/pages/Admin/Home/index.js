@@ -50,26 +50,24 @@ export default class AdminHome extends Component {
         <AdminPageTitle comment="Painel Administrativo">HD7</AdminPageTitle>
         {!error ? (
           loaded ? (
-            <TableContext.Provider
-              value={{ goToUrl: '/admin/atendimento', rowsPrimaryKey: 0, payload: chamados }}
-            >
+            <TableContext.Provider value={{ goToUrl: '/admin/atendimento', rowsPrimaryKey: 0 }}>
               <Table
                 title="Chamados em aberto"
                 margin="1.5% auto"
-                columnSortKey={5}
-                dateFields={[5]}
+                maxRowsPerPage={10}
+                columnSortKey={6}
+                dateFields={[6]}
                 head={[
                   '#',
                   'Setor',
                   'Prioridade',
+                  'Situação',
                   'Problema',
                   'Qtd de dias',
                   'Data de Abertura',
                   'Solicitante',
                 ]}
-                maxRowsPerPage={20}
-                // rows={this.getChamados(chamados)}
-                rows={chamados.map((el) => {
+                rows={(chamados || []).map((el) => {
                   // console.log(el);
                   const {
                     id,
@@ -80,39 +78,74 @@ export default class AdminHome extends Component {
                   } = el;
                   const { data } = alteracoes[0];
                   const prioridade = alteracoes[alteracoes.length - 1].prioridade.descricao;
+                  const situacao = alteracoes[alteracoes.length - 1].situacao.nome;
                   const qtdDias = Math.floor((new Date() - new Date(data)) / (86400 * 1000));
-                  return [Number(id), setorNome, prioridade, descricao, qtdDias, data, usuarioNome, el];
+                  return [
+                    Number(id),
+                    setorNome,
+                    prioridade,
+                    situacao,
+                    descricao,
+                    qtdDias,
+                    data,
+                    usuarioNome,
+                    el,
+                  ];
                 })}
-                // rows={[
-                //   [
-                //     '190001',
-                //     'TI',
-                //     'Em aberto',
-                //     'Java bugou',
-                //     'X',
-                //     '19/10/2018',
-                //     'brancobro@yahoo.com.br',
-                //   ],
-                //   [
-                //     '190002',
-                //     'TI',
-                //     'Em atendimento',
-                //     'Impressora sem papel',
-                //     'X',
-                //     '14/04/2019',
-                //     'rafamoreira@777.com',
-                //   ],
-                // ]}
               />
             </TableContext.Provider>
           ) : (
+            // <TableContext.Provider
+            //   value={{ goToUrl: '/admin/atendimento', rowsPrimaryKey: 0, payload: chamados }}
+            // >
+            //   <Table
+            //     title="Chamados em aberto"
+            //     margin="1.5% auto"
+            //     columnSortKey={5}
+            //     dateFields={[5]}
+            //     head={[
+            //       '#',
+            //       'Setor',
+            //       'Prioridade',
+            //       'Situação',
+            //       'Problema',
+            //       'Qtd de dias',
+            //       'Data de Abertura',
+            //       'Solicitante',
+            //     ]}
+            //     // maxRowsPerPage={20}
+            //     // rows={this.getChamados(chamados)}
+            //     rows={chamados.map((el) => {
+            //       // console.log(el);
+            //       const {
+            //         id,
+            //         setor: { nome: setorNome },
+            //         usuario: { nome: usuarioNome },
+            //         alteracoes,
+            //         descricao,
+            //       } = el;
+            //       const { data } = alteracoes[0];
+            //       const prioridade = alteracoes[alteracoes.length - 1].prioridade.descricao;
+            //       const qtdDias = Math.floor((new Date() - new Date(data)) / (86400 * 1000));
+            //       const situacao = alteracoes[alteracoes.length - 1].situacao.nome;
+            //       return [
+            //         Number(id),
+            //         setorNome,
+            //         prioridade,
+            //         situacao,
+            //         descricao,
+            //         qtdDias,
+            //         data,
+            //         usuarioNome,
+            //         el,
+            //       ];
+            //     })}
+            //   />
+            // </TableContext.Provider>
             <div>Loading</div>
           )
         ) : (
-          <ErrorAlert>
-$
-            {error}
-          </ErrorAlert>
+          <ErrorAlert>{error}</ErrorAlert>
         )}
       </AdminRightDiv>
     );

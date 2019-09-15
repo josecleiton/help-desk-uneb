@@ -67,10 +67,20 @@ export default class Table extends Component {
   makeTableRows = (stringRows) => {
     // const { maxRowsPerPage } = this.props;
     // console.log(maxRowsPerPage);
-    // this.setState({ pages: Math.ceil(stringRows.length / maxRowsPerPage) });
-    const htmlCells = stringRows.map((el, idx) => (
-      <TableRow idxInRow={idx} key={el[0]} elements={el} />
-    ));
+    // this.setState({ pacges: Math.ceil(stringRows.length / maxRowsPerPage) });
+    const { columnSortKey } = this.props;
+    const htmlCells = stringRows.map((el, idx) => {
+      // <TableRow idxInRow={idx} key={`${el[0]}-${Math.random()}`} elements={el} />
+      const elements = [...el];
+      return (
+        <TableRow
+          idxInRow={idx}
+          key={el[columnSortKey]}
+          payload={elements.pop()}
+          elements={elements}
+        />
+      );
+    });
     return htmlCells;
   };
 

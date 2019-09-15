@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 // import {withRouter} from 'react-router-dom';
 import api from '../../../../../services/api';
 
@@ -23,7 +24,11 @@ export default class AtendimentoFormEmAberto extends Component {
 
   handleSubmit = (el) => {
     const { tombamento, encaminhar } = this.state;
-    const formData = { id: this.props.payload.id, situacao: 'Em Aberto' };
+    const {
+      payload: { id },
+      transferido,
+    } = this.props;
+    const formData = { id, situacao: transferido ? 'Transferido' : 'Em Aberto' };
     // const { payload } = this.props;
     el.preventDefault();
     if (!encaminhar) {
@@ -108,13 +113,15 @@ export default class AtendimentoFormEmAberto extends Component {
     const { encaminhar, error, success } = this.state;
     const {
       payload: { id },
+      transferido,
     } = this.props;
     return (
       <div className="admin-chamado-wrapper">
         <h1 className="admin-chamado">
-Atendimento #
-          {id}
+          {`Atendimento #${id}`}
         </h1>
+        {success && <ErrorAlert className="success">{success}</ErrorAlert>}
+        {error && <ErrorAlert className="error-atendimento-form">{error}</ErrorAlert>}
         <form onSubmit={this.handleSubmit} className="admin-chamado">
           {!encaminhar && (
             <div className="admin-chamado-textarea">
@@ -124,7 +131,13 @@ Atendimento #
               />
             </div>
           )}
-          <AtendimentoOption name="encaminhar" title="Encaminhar" handle={this.handleEncaminhar} />
+          {!transferido && (
+            <AtendimentoOption
+              name="encaminhar"
+              title="Encaminhar"
+              handle={this.handleEncaminhar}
+            />
+          )}
 
           {!encaminhar ? (
             <>
@@ -153,9 +166,17 @@ Atendimento #
             </div>
           )}
         </form>
-        {success && <ErrorAlert className="success">{success}</ErrorAlert>}
-        {error && <ErrorAlert className="error-atendimento-form">{error}</ErrorAlert>}
       </div>
     );
   }
 }
+
+AtendimentoFormEmAberto.defaultProps = {
+  transferido: false,
+};
+
+AtendimentoFormEmAberto.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  transferido: PropTypes.bool,
+  payload: PropTypes.objectOf(PropTypes.any).isRequired,
+};
