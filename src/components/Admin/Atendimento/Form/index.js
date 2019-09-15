@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import AtendimentoFormEmAberto from './EmAberto';
 import AtendimentoFormEmAtendimento from './EmAtendimento';
 import AtendimentoFormPendente from './Pendente';
+import AtendimentoFormTransferido from './Transferido';
 
 import './style.css';
 
@@ -16,11 +17,33 @@ import './style.css';
 const AtendimentoForm = (props) => {
   switch (props.estado) {
     case 'Em Aberto':
-      return <AtendimentoFormEmAberto history={props.history} />;
+      return (
+        <AtendimentoFormEmAberto
+          history={props.history}
+          payload={props.history.location.state.payload}
+        />
+      );
     case 'Em Atendimento':
-      return <AtendimentoFormEmAtendimento history={props.history} />;
+      return (
+        <AtendimentoFormEmAtendimento
+          history={props.history}
+          payload={props.history.location.state.payload}
+        />
+      );
     case 'Pendente':
-      return <AtendimentoFormPendente history={props.history} />;
+      return (
+        <AtendimentoFormPendente
+          history={props.history}
+          payload={props.history.location.state.payload}
+        />
+      );
+    case 'Transferido':
+      return (
+        <AtendimentoFormTransferido
+          history={props.history}
+          payload={props.history.location.state.payload}
+        />
+      )
     default:
       return <Redirect to="/admin" />;
   }

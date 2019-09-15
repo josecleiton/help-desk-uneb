@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import api from '../../../../../services/api';
 
 import AtendimentoOption from '../../Option';
 import ErrorAlert from '../../../../ErrorAlert';
 
-export default class AtendimentoFormPendente extends Component {
+export default class AtendimentoFormTransferido extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -81,3 +82,7 @@ Atendimento #
     );
   }
 }
+
+AtendimentoFormTransferido.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+};

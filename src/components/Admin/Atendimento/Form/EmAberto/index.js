@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+// import {withRouter} from 'react-router-dom';
 import api from '../../../../../services/api';
 
-import AtendimentoContext from '../../Context';
 import AtendimentoOption from '../../Option';
 import TextArea from '../../../../TextArea';
 import AtendimentoTombamento from '../Tombamento';
@@ -23,10 +23,12 @@ export default class AtendimentoFormEmAberto extends Component {
 
   handleSubmit = (el) => {
     const { tombamento, encaminhar } = this.state;
-    const formData = { id: this.id, situacao: 'Em Aberto' };
+    const formData = { id: this.props.payload.id, situacao: 'Em Aberto' };
+    // const { payload } = this.props;
     el.preventDefault();
     if (!encaminhar) {
       formData.nova_situacao = 'Em Atendimento';
+      // formData.novo_setor = payload.setor.nome;
       const textAreaEl = document.querySelector('div.admin-chamado-textarea textarea');
       const priorityEl = document.getElementById('prioridade');
       const priorityVal = priorityEl.options[priorityEl.selectedIndex].value;
@@ -72,6 +74,7 @@ export default class AtendimentoFormEmAberto extends Component {
     const jwtToken = localStorage.getItem('HD7-AuthToken');
     api.defaults.headers.common.Authorization = `Bearer ${jwtToken}`;
     // console.log(jwtToken);
+    console.log(formData);
     api
       .post('/api/chamado/update.php', formData)
       .then((res) => {
@@ -103,65 +106,56 @@ export default class AtendimentoFormEmAberto extends Component {
 
   render() {
     const { encaminhar, error, success } = this.state;
+    const {
+      payload: { id },
+    } = this.props;
     return (
-      <AtendimentoContext.Consumer>
-        {(state) => {
-          const { id } = state;
-          this.id = id;
-          return (
-            <div className="admin-chamado-wrapper">
-              <h1 className="admin-chamado">
+      <div className="admin-chamado-wrapper">
+        <h1 className="admin-chamado">
 Atendimento #
-                {id}
-              </h1>
-              <form onSubmit={this.handleSubmit} className="admin-chamado">
-                {!encaminhar && (
-                  <div className="admin-chamado-textarea">
-                    <TextArea
-                      placeholder={`Informações adicionais sobre o chamado #${id}`}
-                      style={{ width: '100%', marginBottom: '10px' }}
-                    />
-                  </div>
-                )}
-                <AtendimentoOption
-                  name="encaminhar"
-                  title="Encaminhar"
-                  handle={this.handleEncaminhar}
-                />
-
-                {!encaminhar ? (
-                  <>
-                    <AtendimentoOption
-                      name="tombamento"
-                      title="Tombamento de Patrimônio"
-                      handle={this.handleTombamento}
-                    >
-                      <AtendimentoTombamento />
-                    </AtendimentoOption>
-                    <div className="admin-chamado-input">
-                      <AtendimentoPrioridade />
-                      <button type="submit" className="admin-chamado">
-                        Atender
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <div className="admin-chamado-input">
-                    <AtendimentoEncaminhar />
-                    <AtendimentoPrioridade />
-                    {/* <p style={{marginTop: 10}}><AtendimentoPrioridade /></p> */}
-                    <button type="submit" className="admin-chamado">
-                      Encaminhar
-                    </button>
-                  </div>
-                )}
-              </form>
-              {success && <ErrorAlert className="success">{success}</ErrorAlert>}
-              {error && <ErrorAlert className="error-atendimento-form">{error}</ErrorAlert>}
+          {id}
+        </h1>
+        <form onSubmit={this.handleSubmit} className="admin-chamado">
+          {!encaminhar && (
+            <div className="admin-chamado-textarea">
+              <TextArea
+                placeholder={`Informações adicionais sobre o chamado #${id}`}
+                style={{ width: '100%', marginBottom: '10px' }}
+              />
             </div>
-          );
-        }}
-      </AtendimentoContext.Consumer>
+          )}
+          <AtendimentoOption name="encaminhar" title="Encaminhar" handle={this.handleEncaminhar} />
+
+          {!encaminhar ? (
+            <>
+              <AtendimentoOption
+                name="tombamento"
+                title="Tombamento de Patrimônio"
+                handle={this.handleTombamento}
+              >
+                <AtendimentoTombamento />
+              </AtendimentoOption>
+              <div className="admin-chamado-input">
+                <AtendimentoPrioridade />
+                <button type="submit" className="admin-chamado">
+                  Atender
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="admin-chamado-input">
+              <AtendimentoEncaminhar />
+              <AtendimentoPrioridade />
+              {/* <p style={{marginTop: 10}}><AtendimentoPrioridade /></p> */}
+              <button type="submit" className="admin-chamado">
+                Encaminhar
+              </button>
+            </div>
+          )}
+        </form>
+        {success && <ErrorAlert className="success">{success}</ErrorAlert>}
+        {error && <ErrorAlert className="error-atendimento-form">{error}</ErrorAlert>}
+      </div>
     );
   }
 }

@@ -73,7 +73,7 @@ export default class AdminMeusChamados extends Component {
 
   render() {
     const { loaded, error, chamados } = this.state;
-    const { location } = this.props;
+    // const { location } = this.props;
     // console.log(chamados);
     console.log('KKKK');
     return (
@@ -141,7 +141,7 @@ export default class AdminMeusChamados extends Component {
 
         {!error ? (
           loaded ? (
-            <AdminContext.Consumer key={location.pathname}>
+            <AdminContext.Consumer>
               {(state) => {
                 let {
                   user: { nome },
@@ -223,5 +223,5 @@ export default class AdminMeusChamados extends Component {
 
 AdminMeusChamados.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
-  location: PropTypes.objectOf(PropTypes.any).isRequired,
+  // location: PropTypes.objectOf(PropTypes.any).isRequired,
 };

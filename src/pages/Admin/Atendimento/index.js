@@ -9,6 +9,8 @@ import AdminPageTitle from '../../../components/Admin/Title';
 import AtendimentoContext from '../../../components/Admin/Atendimento/Context';
 import LargeBox from '../../../components/LargeBox';
 import AtendimentoForm from '../../../components/Admin/Atendimento/Form';
+import Table from '../../../components/Table';
+import TableContext from '../../../components/Table/Context';
 // import Content from './Content';
 import Error from '../../../components/Error';
 
@@ -103,6 +105,27 @@ export default class Atendimento extends Component {
 
                 {/* <HistoricoMovimentacao>Tabela de modificações vem aqui</HistoricoMovimentacao> */}
               </div>
+              {chamado.alteracoes ? (
+                <div>
+                  <br />
+                  <TableContext.Provider value={{}}>
+                    <Table
+                      title="Histórico de Movimentações"
+                      head={['Situação', 'Descrição', 'Data']}
+                      columnSortKey={2}
+                      dateFields={[2]}
+                      rows={chamado.alteracoes.map((ele) => {
+                        const {
+                          situacao: { nome: situacaoNome },
+                          descricao,
+                          data,
+                        } = ele;
+                        return [situacaoNome, descricao, data, {}];
+                      })}
+                    />
+                  </TableContext.Provider>
+                </div>
+              ) : null}
             </LargeBox>
             <AtendimentoForm
               estado={chamado.alteracoes[chamado.alteracoes.length - 1].situacao.nome}

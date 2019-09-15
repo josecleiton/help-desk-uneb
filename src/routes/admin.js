@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
@@ -13,7 +14,17 @@ import NotFound from '../pages/NotFound';
 const AdminRoutes = () => (
   <Switch>
     <Route exact path="/admin" component={AdminHomePage} />
-    <Route path="/admin/meus-chamados/:selection?" component={AdminMeusChamados} />
+    {/* <Route path="/admin/meus-chamados/:selection?" component={AdminMeusChamados} /> */}
+    <Route
+      path="/admin/meus-chamados/:selection?"
+      render={props => (
+        <AdminMeusChamados
+          {...props}
+          keyProp={props.match.params.selection}
+          key={props.match.params.selection}
+        />
+      )}
+    />
     <PrivateRouteAdmin cargo="G" path="/admin/gerenciamento/" component={Gerenciamento} />
     <Route path="/admin/atendimento/:id" component={Atendimento} />
     <Route path="/admin/sair" component={AdminSair} />
