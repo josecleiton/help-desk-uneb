@@ -8,6 +8,7 @@ import TableContext from '../../../components/Table/Context';
 import AdminPageTitle from '../../../components/Admin/Title';
 import AdminRightDiv from '../../../components/Admin/RightDiv';
 import ErrorAlert from '../../../components/ErrorAlert';
+import Loading from '../../../components/Loading';
 // import AdminGerenciamentoForm from '../../../components/Admin/Gerenciamento/Form';
 
 export default class AdminHome extends Component {
@@ -48,6 +49,7 @@ export default class AdminHome extends Component {
     return (
       <AdminRightDiv>
         <AdminPageTitle comment="Painel Administrativo">HD7</AdminPageTitle>
+
         {!error ? (
           loaded ? (
             <TableContext.Provider value={{ goToUrl: '/admin/atendimento', rowsPrimaryKey: 0 }}>
@@ -95,54 +97,7 @@ export default class AdminHome extends Component {
               />
             </TableContext.Provider>
           ) : (
-            // <TableContext.Provider
-            //   value={{ goToUrl: '/admin/atendimento', rowsPrimaryKey: 0, payload: chamados }}
-            // >
-            //   <Table
-            //     title="Chamados em aberto"
-            //     margin="1.5% auto"
-            //     columnSortKey={5}
-            //     dateFields={[5]}
-            //     head={[
-            //       '#',
-            //       'Setor',
-            //       'Prioridade',
-            //       'Situação',
-            //       'Problema',
-            //       'Qtd de dias',
-            //       'Data de Abertura',
-            //       'Solicitante',
-            //     ]}
-            //     // maxRowsPerPage={20}
-            //     // rows={this.getChamados(chamados)}
-            //     rows={chamados.map((el) => {
-            //       // console.log(el);
-            //       const {
-            //         id,
-            //         setor: { nome: setorNome },
-            //         usuario: { nome: usuarioNome },
-            //         alteracoes,
-            //         descricao,
-            //       } = el;
-            //       const { data } = alteracoes[0];
-            //       const prioridade = alteracoes[alteracoes.length - 1].prioridade.descricao;
-            //       const qtdDias = Math.floor((new Date() - new Date(data)) / (86400 * 1000));
-            //       const situacao = alteracoes[alteracoes.length - 1].situacao.nome;
-            //       return [
-            //         Number(id),
-            //         setorNome,
-            //         prioridade,
-            //         situacao,
-            //         descricao,
-            //         qtdDias,
-            //         data,
-            //         usuarioNome,
-            //         el,
-            //       ];
-            //     })}
-            //   />
-            // </TableContext.Provider>
-            <div>Loading</div>
+            <Loading />
           )
         ) : (
           <ErrorAlert>{error}</ErrorAlert>
