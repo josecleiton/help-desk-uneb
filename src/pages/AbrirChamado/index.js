@@ -26,7 +26,7 @@ export default class AbrirChamado extends Component {
       },
     } = this.props;
 
-    console.log(setor);
+    // console.log(setor);
     api
       .post('/api/problema/read.php', { setor })
       .then((res) => {

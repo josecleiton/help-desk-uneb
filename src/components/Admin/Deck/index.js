@@ -76,8 +76,10 @@ Deck.propTypes = {
     }).isRequired,
   ).isRequired,
   maxCardsPerPage: PropTypes.number,
+  exact: PropTypes.bool,
 };
 
 Deck.defaultProps = {
   maxCardsPerPage: 4,
+  exact: false,
 };

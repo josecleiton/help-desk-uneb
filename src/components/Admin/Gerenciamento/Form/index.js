@@ -46,6 +46,7 @@ export default class AdminGerenciamentoForm extends Component {
                     type={inputs.tipo}
                     placeholder={inputs.placeholder}
                     style={inputStyle}
+                    required={inputs.required}
                   />
                 </div>
               ))

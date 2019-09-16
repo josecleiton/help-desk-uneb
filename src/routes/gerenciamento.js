@@ -9,7 +9,7 @@ import GerenciamentoProblemas from '../pages/Admin/Gerenciamento/Problema';
 import GerenciamentoSetores from '../pages/Admin/Gerenciamento/Setores';
 import GerenciamentoHome from '../pages/Admin/Gerenciamento/Home';
 import GerenciamentoSetor from '../pages/Admin/Gerenciamento/Setores/Setor';
-import GerenciamentoEditProblema from '../pages/Admin/Gerenciamento/Problema/Edit'
+import GerenciamentoEditProblema from '../pages/Admin/Gerenciamento/Problema/Edit';
 
 const GerenciamentoRoutes = () => (
   <Switch>

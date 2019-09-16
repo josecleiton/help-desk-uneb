@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import api from '../../../../services/api';
 
@@ -16,6 +17,8 @@ export default class GerenciamentoSetores extends Component {
     this.state = {
       setores: null,
       error: null,
+      success: '',
+      errorForm: '',
     };
   }
 
@@ -39,11 +42,48 @@ export default class GerenciamentoSetores extends Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target); // ???
+
+    const inputsEl = document.querySelectorAll('form[class="admin"] input');
+    const nomeReg = /^.*[0-9].*$/;
+    const telReg = /^[0-9]*$/;
+    if (nomeReg.test(inputsEl[0].value)) {
+      this.setState({ errorForm: 'Nome mal formado' });
+      return;
+    }
+    const tel = inputsEl[1].value;
+    if ((tel.length !== 10 && tel.length !== 11) || !telReg.test(tel)) {
+      this.setState({ errorForm: 'Telefone mal formado' });
+      return;
+    }
+    this.setState({ errorForm: '' });
+    const formData = {
+      nome: inputsEl[0].value,
+      telefone: inputsEl[1].value,
+      email: inputsEl[2].value,
+    };
+
+    // console.log(formData);
+    api.post('/api/setor/create.php', formData).then((res) => {
+      if (!res.data.error) {
+        this.setState({ success: 'Setor criado com sucesso' });
+        const {
+          history,
+          location: { pathname },
+        } = this.props;
+        setTimeout(() => {
+          history.push({ pathname: '/empty' });
+          history.replace({ pathname });
+        }, 1300);
+      } else {
+        this.setState({ error: res.data.mensagem });
+      }
+    });
   };
 
   render() {
-    const { setores, error } = this.state;
+    const {
+      setores, error, errorForm, success,
+    } = this.state;
     return (
       <AdminRightDiv>
         <AdminPageTitle comment="comentário">Setores</AdminPageTitle>
@@ -62,68 +102,29 @@ export default class GerenciamentoSetores extends Component {
           inputForm={[
             {
               label: 'Nome do setor',
-              id: 'nome',
+              id: 'setor-nome',
               tipo: 'text',
               placeholder: 'insira o nome do setor',
+              required: true,
             },
             {
               label: 'Telefone',
-              id: 'tele',
-              tipo: 'number',
+              id: 'setor-telefone',
+              tipo: 'text',
               placeholder: 'Insira o telefone principal do setor',
+              required: true,
             },
             {
               label: 'Email',
-              id: 'email',
+              id: 'setor-email',
               tipo: 'email',
               placeholder: 'Insira o email do setor',
+              required: true,
             },
           ]}
         />
-
-        <AdminGerenciamentoForm
-          handleSubmit={this.handleFormSubmit}
-          buttonChildren={[
-            <>
-              Editar Setor
-              <i className="fas fa-plus" />
-            </>,
-            <>
-              Porque não editar diretamente no setor escolhido?
-              <i className="fas fa-arrow-down" />
-            </>,
-          ]}
-          inputForm={[
-            {
-              label: 'Nome do setor',
-              id: 'nome',
-              tipo: 'text',
-              placeholder: 'insira o nome do setor',
-            },
-          ]}
-        />
-
-        <AdminGerenciamentoForm
-          handleSubmit={this.handleFormSubmit}
-          buttonChildren={[
-            <>
-              Remover Setor
-              <i className="fas fa-plus" />
-            </>,
-            <>
-              Insira o nome do Setor
-              <i className="fas fa-arrow-down" />
-            </>,
-          ]}
-          inputForm={[
-            {
-              label: 'Nome do setor',
-              id: 'nome',
-              tipo: 'text',
-              placeholder: 'insira o nome do setor',
-            },
-          ]}
-        />
+        {success && <ErrorAlert className="success">{success}</ErrorAlert>}
+        {errorForm && <ErrorAlert>{errorForm}</ErrorAlert>}
 
         {!error ? (
           setores ? (
@@ -133,6 +134,7 @@ export default class GerenciamentoSetores extends Component {
                 url: '/admin/gerenciamento/setor',
                 payload: setor,
               }))}
+              maxCardsPerPage={8}
             />
           ) : (
             <div>Loading...</div>
@@ -144,3 +146,8 @@ export default class GerenciamentoSetores extends Component {
     );
   }
 }
+
+GerenciamentoSetores.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  location: PropTypes.objectOf(PropTypes.any).isRequired,
+};

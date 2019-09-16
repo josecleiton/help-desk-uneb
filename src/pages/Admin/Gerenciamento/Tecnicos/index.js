@@ -167,6 +167,7 @@ export default class GerenciamentoTecnicos extends Component {
               <Table
                 title="Técnicos"
                 head={['Login', 'Nome', 'Email', 'Cargo', 'Telefone', 'Setor']}
+                columnSortKey={0}
                 rows={tecnicos.map((tecnico) => {
                   const {
                     login, nome, email, cargo, telefone, setor,

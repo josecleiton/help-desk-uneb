@@ -9,6 +9,7 @@ import AdminPageTitle from '../../../../../components/Admin/Title';
 import LargeBox from '../../../../../components/LargeBox';
 import ErrorAlert from '../../../../../components/ErrorAlert';
 import Deck from '../../../../../components/Admin/Deck';
+import GerenciamentoSetorForm from '../../../../../components/Admin/Gerenciamento/Setor';
 import './style.css';
 // import GerenciamentoSetores from '..';
 
@@ -35,10 +36,10 @@ export default class GerenciamentoSetor extends Component {
         state: { payload: setor },
       } = location;
       this.setState({ setor });
-      console.log(setor);
+      // console.log(setor);
     } else {
       api.post('/api/setor/read.php', { nome }).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (!res.data.error) {
           this.setState({ setor: res.data });
         } else {
@@ -50,6 +51,7 @@ export default class GerenciamentoSetor extends Component {
 
   render() {
     const { nome, setor, error } = this.state;
+    const { history } = this.props;
     return (
       <AdminRightDiv>
         <AdminPageTitle comment="setor">{nome}</AdminPageTitle>
@@ -95,6 +97,7 @@ export default class GerenciamentoSetor extends Component {
             />
           </>
         ) : null}
+        {setor && <GerenciamentoSetorForm setor={setor} history={history} />}
       </AdminRightDiv>
     );
   }
