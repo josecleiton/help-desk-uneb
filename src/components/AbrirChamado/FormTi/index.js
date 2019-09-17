@@ -21,8 +21,8 @@ const FormTi = () => (
       </small>
       <select>
         <option value="">Informe o laboratório</option>
-        <option value="">LAMI I</option>
-        <option value="">LAMI II</option>
+        <option value="1">LAMI I</option>
+        <option value="2">LAMI II</option>
       </select>
     </div>
     <div>

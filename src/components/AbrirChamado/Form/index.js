@@ -27,7 +27,8 @@ export default class AbrirChamadoForm extends React.Component {
   }
 
   handleChange = (event) => {
-    this.setState({ modInstall: event.target.value });
+    console.log(event.target.selectedIndex);
+    this.setState({ modInstall: event.target.options[event.target.selectedIndex].innerHTML });
   };
 
   handleFileUpload = (e) => {
@@ -41,6 +42,7 @@ export default class AbrirChamadoForm extends React.Component {
     let validateCursor = 0;
     // const requestBody = {};
     let accepted = true;
+    let ti = false;
     // console.log('SUBMITADO!');
     // console.log(e);
     const inputEl = document.querySelectorAll('input');
@@ -70,15 +72,49 @@ export default class AbrirChamadoForm extends React.Component {
       accepted = false;
     }
     if (textArea.value.length > 1024) {
-      error[5] = 'Mais do que 1000 caracteres na descrição do chamado';
+      error[30] = 'Mais do que 1000 caracteres na descrição do chamado';
       accepted = false;
     }
-    const selectEl = document.querySelector('select');
+    const selectEl = document.querySelectorAll('select');
     // console.log(selectEl);
-    const problema = selectEl.options[selectEl.selectedIndex];
+    const problema = selectEl[0].options[selectEl[0].selectedIndex];
+    if (inputEl.length > 5) {
+      validateCursor = 5;
+      const software = inputEl[validateCursor].value;
+      if (!software) {
+        error[validateCursor] = 'Software não inserido';
+        accepted = false;
+      }
+      validateCursor = 6;
+      const data = inputEl[validateCursor].value;
+      if (!data) {
+        error[validateCursor] = 'Data não fornecida';
+        accepted = false;
+      }
+      validateCursor = 7;
+      const link = inputEl[validateCursor].value;
+      if (!link) {
+        error[validateCursor] = 'Link não fornecido';
+        accepted = false;
+      }
+      validateCursor = 8;
+      const plugins = inputEl[validateCursor].value;
+      if (!plugins) {
+        error[validateCursor] = 'Plugins não fornecidos';
+        accepted = false;
+      }
+      const sala = selectEl[1].options[selectEl[1].selectedIndex].value;
+      if (!sala) {
+        error[validateCursor] = 'Sala não fornecida';
+        accepted = false;
+      }
+      ti = true;
+    }
+
+    console.log(setor);
+    // return;
     // const problema = selectEl.option[selectEl.selectedIndex];
 
-    console.log(problema);
     if (accepted) {
       const fd = new FormData();
       const { file } = this.state;
@@ -94,6 +130,14 @@ export default class AbrirChamadoForm extends React.Component {
       if (problema.value >= 0) {
         fd.append('problema', problema.innerHTML);
       }
+      if (ti) {
+        fd.append('ti', '1');
+        fd.append('software', inputEl[5].value);
+        fd.append('data_utilizacao', inputEl[6].value);
+        fd.append('link', inputEl[7].value);
+        fd.append('plugins', inputEl[8].value);
+        fd.append('sala', selectEl[1].options[selectEl[1].selectedIndex].value);
+      }
 
       // requestBody.nome = inputEl[0].value;
       // requestBody.cpf = inputEl[1].value;
@@ -104,6 +148,10 @@ export default class AbrirChamadoForm extends React.Component {
       // console.log(file);
       // requestBody.arquivo = file;
       // this.setState({ error });
+      // for (const pair of fd.entries()) {
+      //   console.log(`${pair[0]}, ${pair[1]}`);
+      // }
+      // return;
       api
         .post('/api/chamado/create.php', fd, {
           onUploadProgress: (progressEvent) => {
@@ -129,14 +177,13 @@ export default class AbrirChamadoForm extends React.Component {
         .catch(() => {
           this.setState({ error: { mensagem: 'Deu ruim no server' } });
         });
-    } else {
-      this.setState({ error });
     }
+    this.setState({ error });
   };
 
   ModuleInstall = () => {
     const { modInstall } = this.state;
-    if (modInstall === 'modulo') {
+    if (modInstall === 'Módulo de Instalação') {
       return <FormTi />;
     }
     return null;
@@ -197,7 +244,7 @@ export default class AbrirChamadoForm extends React.Component {
                     {p.descricao}
                   </option>
                 ))}
-                {setor === 'TI' ? <option value="modulo"> Modulo de instalação </option> : null}
+                {/* {setor === 'TI' ? <option value="modulo"> Modulo de instalação </option> : null} */}
               </select>
               <small>
                 <i className="fas fa-images" />

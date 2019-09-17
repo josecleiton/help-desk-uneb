@@ -9,7 +9,7 @@ import AdminRightDiv from '../../../../../components/Admin/RightDiv';
 import AdminPageTitle from '../../../../../components/Admin/Title';
 import LargeBox from '../../../../../components/LargeBox';
 import ErrorAlert from '../../../../../components/ErrorAlert';
-import Deck from '../../../../../components/Admin/Deck';
+// import Deck from '../../../../../components/Admin/Deck';
 import GerenciamentoSetorForm from '../../../../../components/Admin/Gerenciamento/Setor';
 import Loading from '../../../../../components/Loading';
 import Button from '../../../../../components/Button';

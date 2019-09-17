@@ -37,7 +37,8 @@ export default class GerenciamentoProblemas extends Component {
       api
         .post('/api/setor/read.php')
         .then((res) => {
-          // console.log(res.data);
+          console.log(res.data);
+          console.log("LOLA");
           if (!res.data.error) {
             this.setState({ setor: res.data });
           } else {
@@ -68,8 +69,9 @@ export default class GerenciamentoProblemas extends Component {
               location: { pathname },
             } = this.props;
             setTimeout(() => {
-              history.push({ pathname: '/empty' });
-              history.replace({ pathname });
+              // history.push({ pathname: '/empty' });
+              // history.replace({ pathname });
+              history.goBack();
             }, 1000);
           });
         } else {
@@ -125,7 +127,7 @@ export default class GerenciamentoProblemas extends Component {
                   margin="1.5% auto"
                   columnSortKey={0}
                   head={['#', 'Descrição']}
-                  rows={setor.problemas.map(problema => [
+                  rows={(setor.problemas || []).map(problema => [
                     problema.id,
                     problema.descricao,
                     problema,
