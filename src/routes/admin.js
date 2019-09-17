@@ -9,6 +9,7 @@ import AdminMeusChamados from '../pages/Admin/MeusChamados';
 import Atendimento from '../pages/Admin/Atendimento';
 import Gerenciamento from '../pages/Admin/Gerenciamento';
 import AdminSair from '../components/Admin/Auth/Sair';
+// import AdminProblema from '../components/Admin/Problema';
 import NotFound from '../pages/NotFound';
 
 const AdminRoutes = () => (

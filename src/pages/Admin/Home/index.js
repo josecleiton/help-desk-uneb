@@ -56,7 +56,6 @@ export default class AdminHome extends Component {
               <Table
                 title="Chamados em aberto"
                 margin="1.5% auto"
-                maxRowsPerPage={10}
                 columnSortKey={6}
                 dateFields={[6]}
                 head={[

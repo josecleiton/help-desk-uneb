@@ -91,7 +91,7 @@ export default class ChamadosCPF extends Component {
                   goToUrl: '/chamado',
                   rowsPrimaryKey: 0,
                   payload: chamados,
-                  checkInfo: { 4: ['Em aberto', '/edit-chamado'] },
+                  checkInfo: { 4: ['Em Aberto', '/edit-chamado'] },
                 }}
               >
                 <Table

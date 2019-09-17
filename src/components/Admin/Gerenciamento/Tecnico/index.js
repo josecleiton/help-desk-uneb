@@ -6,6 +6,7 @@ import api from '../../../../services/api';
 import ErrorAlert from '../../../ErrorAlert';
 import AtendimentoOption from '../../Atendimento/Option';
 import Input from '../../../Input';
+import AtendimentoEncaminhar from '../../Atendimento/Form/Encaminhar';
 
 import '../../Atendimento/Form/style.css';
 // import './style.css'
@@ -16,7 +17,7 @@ const inputStyle = {
   fontSize: '14px',
 };
 
-export default class GerenciamentoSetorForm extends Component {
+export default class GerenciamentoTecnicoForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,10 +35,10 @@ export default class GerenciamentoSetorForm extends Component {
     e.preventDefault();
     const { remove } = this.state;
     const {
-      setor: { cod, nome: nomeAntigo },
+      tecnico: { login },
     } = this.props;
-    const formData = { cod, nome_antigo: nomeAntigo };
-    let endpoint = '/api/setor/';
+    const formData = { login };
+    let endpoint = '/api/tecnico/';
     // console.log('submit', remove);
     if (!remove) {
       endpoint += 'update.php';
@@ -45,7 +46,14 @@ export default class GerenciamentoSetorForm extends Component {
       const nome = inputEl[1].value;
       const telefone = inputEl[2].value;
       const email = inputEl[3].value;
-      if (!nome && !telefone && !email) {
+      const setoresEl = document.getElementById('encaminha-setor');
+      let setor = false;
+      if (setoresEl) {
+        const setorNome = setoresEl.options[setoresEl.selectedIndex].value;
+        formData.setor = setorNome;
+        setor = true;
+      }
+      if (!nome && !telefone && !email && !setor) {
         this.setState({ error: 'Ao menos um campo deve ser preenchido' });
         return;
       }
@@ -68,8 +76,9 @@ export default class GerenciamentoSetorForm extends Component {
       formData.email = email;
     } else {
       endpoint += 'delete.php';
-      formData.nome = nomeAntigo;
+      // console.log(formData);
     }
+    // console.log(formData);
     api
       .post(endpoint, formData)
       .then((res) => {
@@ -77,7 +86,7 @@ export default class GerenciamentoSetorForm extends Component {
           this.setState({ error: '', success: res.data.mensagem });
           const { history } = this.props;
           setTimeout(() => {
-            history.push('/admin/gerenciamento/setores');
+            history.push('/admin/gerenciamento/tecnicos');
           }, 1000);
         } else {
           this.setState({ error: res.data.mensagem });
@@ -97,13 +106,16 @@ export default class GerenciamentoSetorForm extends Component {
   };
 
   render() {
-    const { setor } = this.props;
+    const { tecnico } = this.props;
     const {
       remove, update, success, error,
     } = this.state;
     return (
       <div className="admin-chamado-wrapper">
-        <h1 className="admin-chamado">{`Editar Setor ${setor.nome}`}</h1>
+        <h1 className="admin-chamado">
+          {'Editar '}
+          <strong>{tecnico.nome}</strong>
+        </h1>
         {success && <ErrorAlert className="success">{success}</ErrorAlert>}
         {error && <ErrorAlert className="error-atendimento-form">{error}</ErrorAlert>}
         <form onSubmit={this.handleSubmit} className="admin-chamado">
@@ -116,14 +128,19 @@ export default class GerenciamentoSetorForm extends Component {
           {update && (
             <>
               <div className="admin-chamado-input">
-                <Input placeholder="Nome do setor" style={inputStyle} />
+                <Input placeholder="Nome do tecnico" style={inputStyle} />
               </div>
               <div className="admin-chamado-input">
-                <Input placeholder="Telefone do setor" style={inputStyle} />
+                <Input placeholder="Telefone do tecnico" style={inputStyle} />
               </div>
               <div className="admin-chamado-input">
-                <Input type="email" placeholder="Email do setor" style={inputStyle} />
+                <Input type="email" placeholder="Email do tecnico" style={inputStyle} />
               </div>
+              {tecnico.cargo !== 'A' && (
+                <div className="admin-chamado-input">
+                  <AtendimentoEncaminhar select={false} />
+                </div>
+              )}
             </>
           )}
           {(remove || update) && (
@@ -137,7 +154,7 @@ export default class GerenciamentoSetorForm extends Component {
   }
 }
 
-GerenciamentoSetorForm.propTypes = {
-  setor: PropTypes.objectOf(PropTypes.any).isRequired,
+GerenciamentoTecnicoForm.propTypes = {
+  tecnico: PropTypes.objectOf(PropTypes.any).isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
 };

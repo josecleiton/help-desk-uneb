@@ -8,6 +8,7 @@ import AdminRoutes from '../../routes/admin';
 import AdminContext from '../../components/Admin/Context';
 
 import AdminMenu from '../../components/Admin/Menu';
+import Loading from '../../components/Loading';
 
 export default class Admin extends Component {
   constructor(props) {
@@ -52,7 +53,7 @@ export default class Admin extends Component {
           <AdminRoutes />
         </AdminContext.Provider>
       ) : (
-        <div>Loading...</div>
+        <Loading />
       )
     ) : (
       <div>{error}</div>

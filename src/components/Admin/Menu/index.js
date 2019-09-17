@@ -57,8 +57,9 @@ export default class AdminMenu extends Component {
   // };
   makeGerenciamento = (cargo, matches) => {
     if (cargo) {
-      const submenu = [{ chamados: 'Chamados' }, { tecnicos: 'Técnicos' }];
+      const submenu = [{ tecnicos: 'Técnicos' }];
       if (cargo === 'A') submenu.push({ setores: 'Setores' });
+      else submenu.push({ problemas: 'Problemas' });
 
       return (
         <AdminMenuItem

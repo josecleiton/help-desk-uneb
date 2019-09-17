@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import api from '../../../../../services/api';
+import Loading from '../../../../Loading';
 
 export default class AtendimentoEncaminhar extends Component {
   constructor(props) {
@@ -20,7 +22,8 @@ export default class AtendimentoEncaminhar extends Component {
 
   handleChange = (e) => {
     const selected = e.target.value;
-    if (selected) {
+    const { select } = this.props;
+    if (selected && select) {
       const formData = {};
       if (selected === 'Outros') {
         formData.privilegiados = true;
@@ -38,7 +41,7 @@ export default class AtendimentoEncaminhar extends Component {
 
   render() {
     const { setores, selected, tecnicos } = this.state;
-    return (
+    return setores ? (
       <>
         <strong>Setor</strong>
         <select id="encaminha-setor" className="admin-chamado" onChange={this.handleChange}>
@@ -53,7 +56,7 @@ export default class AtendimentoEncaminhar extends Component {
         {selected && (
           <>
             <strong>Técnico</strong>
-            <select id="encaminha-tecnico" className="admin-chamado" >
+            <select id="encaminha-tecnico" className="admin-chamado">
               <option value="">{tecnicos ? '-----' : 'Loading...'}</option>
               {(tecnicos || []).map(tecnico => (
                 <option value={tecnico.login} key={tecnico.login}>
@@ -64,6 +67,15 @@ export default class AtendimentoEncaminhar extends Component {
           </>
         )}
       </>
+    ) : (
+      <Loading size="5%" />
     );
   }
 }
+
+AtendimentoEncaminhar.propTypes = {
+  select: PropTypes.bool,
+};
+AtendimentoEncaminhar.defaultProps = {
+  select: true,
+};

@@ -26,7 +26,7 @@ export default class AdminGerenciamentoForm extends Component {
 
   render() {
     const {
-      buttonChildren, handleSubmit, inputForm, selectForm,
+      buttonChildren, handleSubmit, inputForm, selectForm, children,
     } = this.props;
     const { novaArea } = this.state;
     return (
@@ -38,7 +38,8 @@ export default class AdminGerenciamentoForm extends Component {
         {novaArea ? (
           <AdminForm handleSubmit={handleSubmit}>
             {inputForm
-              ? inputForm.map(inputs => (
+              ? inputForm.map(
+                inputs => inputs.tipo !== 'hidden' && (
                 <div>
                   <strong>{inputs.label}</strong>
                   <Input
@@ -49,7 +50,8 @@ export default class AdminGerenciamentoForm extends Component {
                     required={inputs.required}
                   />
                 </div>
-              ))
+                ),
+              )
               : null}
             {selectForm
               ? selectForm.map(select => (
@@ -63,6 +65,7 @@ export default class AdminGerenciamentoForm extends Component {
                 </div>
               ))
               : null}
+            {children}
 
             <button type="submit" id="submit">
               Enviar

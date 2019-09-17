@@ -62,8 +62,7 @@ export default class UserInfo extends Component {
                 {expand && (
                   <ul>
                     <li>
-                      Bem-vindo:
-                      {' '}
+                      {'Bem-vindo: '}
                       <strong>{nome}</strong>
                     </li>
                     <li>Online há: X minutos</li>
@@ -74,13 +73,13 @@ export default class UserInfo extends Component {
                 <>
                   <hr />
                   <ul className="user-info-clicked">
-                    <NavLink
+                    {/* <NavLink
                       to="/admin/meus-dados"
                       className="user-info-link"
                       activeStyle={{ fontWeight: 'bolder' }}
                     >
                       <li>Meus dados</li>
-                    </NavLink>
+                    </NavLink> */}
                     <NavLink
                       to="/admin/sair"
                       className="user-info-link"

@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import api from '../../../../../services/api';
@@ -10,6 +11,8 @@ import LargeBox from '../../../../../components/LargeBox';
 import ErrorAlert from '../../../../../components/ErrorAlert';
 import Deck from '../../../../../components/Admin/Deck';
 import GerenciamentoSetorForm from '../../../../../components/Admin/Gerenciamento/Setor';
+import Loading from '../../../../../components/Loading';
+import Button from '../../../../../components/Button';
 import './style.css';
 // import GerenciamentoSetores from '..';
 
@@ -51,7 +54,7 @@ export default class GerenciamentoSetor extends Component {
 
   render() {
     const { nome, setor, error } = this.state;
-    const { history } = this.props;
+    const { history, location } = this.props;
     return (
       <AdminRightDiv>
         <AdminPageTitle comment="setor">{nome}</AdminPageTitle>
@@ -81,10 +84,10 @@ export default class GerenciamentoSetor extends Component {
               </p>
             </>
           ) : (
-            'Loading...'
+            <Loading />
           )}
         </LargeBox>
-        {setor && setor.problemas.length ? (
+        {/* {setor && setor.problemas.length ? (
           <>
             <h2 className="admin-setores-setor">Problemas</h2>
             <Deck
@@ -96,8 +99,18 @@ export default class GerenciamentoSetor extends Component {
               exact
             />
           </>
-        ) : null}
+        ) : null} */}
         {setor && <GerenciamentoSetorForm setor={setor} history={history} />}
+        <center>
+          <NavLink
+            to={{
+              pathname: `/admin/gerenciamento/problemas/${nome}`,
+              state: { from: location, setor },
+            }}
+          >
+            <Button>Problemas</Button>
+          </NavLink>
+        </center>
       </AdminRightDiv>
     );
   }
