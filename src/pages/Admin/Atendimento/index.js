@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -14,6 +15,7 @@ import TableContext from '../../../components/Table/Context';
 import Error from '../../../components/Error';
 
 import './style.css';
+import Loading from '../../../components/Loading';
 
 /**
  * Página incompleta.
@@ -34,6 +36,21 @@ export default class Atendimento extends Component {
     };
   }
 
+  componentDidMount() {
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
+
+    api.post('/api/chamado/read.php', { id }).then((res) => {
+      // console.log(res.data);
+      if (!res.data.error) {
+        this.setState({ chamado: res.data });
+      }
+    });
+  }
+
   currentPath = () => {
     const {
       match: { path },
@@ -46,94 +63,119 @@ export default class Atendimento extends Component {
       match: {
         params: { id },
       },
-      location: { state },
+      // location: { state },
     } = this.props;
-    const { validAccess, baseURL } = this.state;
-    let chamado = null;
-    if (validAccess) {
-      chamado = state.payload;
-    }
+    const { validAccess, baseURL, chamado } = this.state;
     return (
       <AdminRightDiv>
         {validAccess ? (
-          <>
-            <AdminPageTitle>Atendimento de Chamado</AdminPageTitle>
-            <LargeBox className="admin-atendimento-box-clicked">
-              <div className="admin-atendimento-content">
-                <h2>
-                  {/* Número do Chamado: # */}
-                  {`Código: ${id}`}
-                </h2>
-                <p>
-                  <strong>Solicitante:</strong>
-                  {` ${chamado.usuario.nome}`}
-                  {/* user@email.com */}
-                </p>
-                <p>
-                  <strong>Situação:</strong>
-                  {` ${chamado.alteracoes[chamado.alteracoes.length - 1].situacao.nome}`}
-                  {/* Aberto */}
-                </p>
-                <p>
-                  <strong>Data de Abertura:</strong>
-                  {` ${chamado.alteracoes[0].data}`}
-                  {/* dd/mm/YYYY */}
-                </p>
+          chamado ? (
+            <>
+              <AdminPageTitle>Atendimento de Chamado</AdminPageTitle>
+              <LargeBox className="admin-atendimento-box-clicked">
+                <div className="admin-atendimento-content">
+                  <h2>
+                    {/* Número do Chamado: # */}
+                    {`Código: ${id}`}
+                  </h2>
+                  <p>
+                    <strong>Solicitante:</strong>
+                    {` ${chamado.usuario.nome}`}
+                    {/* user@email.com */}
+                  </p>
+                  <p>
+                    <strong>Situação:</strong>
+                    {` ${chamado.alteracoes[chamado.alteracoes.length - 1].situacao.nome}`}
+                    {/* Aberto */}
+                  </p>
+                  <p>
+                    <strong>Data de Abertura:</strong>
+                    {` ${chamado.alteracoes[0].data}`}
+                    {/* dd/mm/YYYY */}
+                  </p>
 
-                <p>
-                  <strong>Setor:</strong>
-                  {` ${chamado.setor.nome}`}
-                  {/* TI */}
-                </p>
-                {chamado.arquivo && (
-                  <center>
-                    <a
-                      href={`${baseURL}/${chamado.arquivo}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        alt={`Anexo do chamado ${chamado.id}`}
-                        title={`Anexo do chamado ${chamado.id}`}
-                        className="chamado"
-                        src={`${baseURL}/${chamado.arquivo}`}
-                      />
-                    </a>
-                  </center>
-                )}
-              </div>
-              {chamado.alteracoes ? (
-                <div>
-                  <br />
-                  <TableContext.Provider value={{}}>
-                    <Table
-                      title="Histórico de Movimentações"
-                      head={['Situação', 'Descrição', 'Data']}
-                      columnSortKey={2}
-                      dateFields={[2]}
-                      rows={chamado.alteracoes.map((ele) => {
-                        const {
-                          situacao: { nome: situacaoNome },
-                          descricao,
-                          data,
-                        } = ele;
-                        return [situacaoNome, descricao, data, {}];
-                      })}
-                    />
-                  </TableContext.Provider>
+                  <p>
+                    <strong>Setor:</strong>
+                    {` ${chamado.setor.nome}`}
+                    {/* TI */}
+                  </p>
+                  {chamado.software && (
+                    <div>
+                      <p>
+                        <strong>Software:</strong>
+                        {` ${chamado.software}`}
+                      </p>
+                      <p>
+                        <strong>Data Utilização:</strong>
+                        {` ${chamado.data_utilizacao}`}
+                      </p>
+                      <p>
+                        <a href={chamado.link} target="_blank">
+                          <strong>Link</strong>
+                        </a>
+                      </p>
+                      <p>
+                        <strong>Sala:</strong>
+                        {chamado.sala === '1' ? ' LAMI1' : ' LAMI2'}
+                      </p>
+                      <p>
+                        <strong>Plugins:</strong>
+                        {` ${chamado.plugins}`}
+                      </p>
+                    </div>
+                  )}
+                  {chamado.arquivo && (
+                    <center>
+                      <a
+                        href={`${baseURL}/${chamado.arquivo}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          alt={`Anexo do chamado ${chamado.id}`}
+                          title={`Anexo do chamado ${chamado.id}`}
+                          className="chamado"
+                          src={`${baseURL}/${chamado.arquivo}`}
+                        />
+                      </a>
+                    </center>
+                  )}
                 </div>
-              ) : null}
-            </LargeBox>
-            <AtendimentoForm
-              estado={chamado.alteracoes[chamado.alteracoes.length - 1].situacao.nome}
-            />
-          </>
-        ) : (
-          <Error icon="far fa-dizzy" title="Acesso não é permitido">
-            {'O acesso direto a essa página não é permitido, retorne ao início pelo menu ou '}
-            <Link to="/admin">clicando aqui</Link>
+                {chamado.alteracoes ? (
+                  <div>
+                    <br />
+                    <TableContext.Provider value={{}}>
+                      <Table
+                        title="Histórico de Movimentações"
+                        head={['Situação', 'Descrição', 'Data']}
+                        columnSortKey={2}
+                        dateFields={[2]}
+                        rows={chamado.alteracoes.map((ele) => {
+                          const {
+                            situacao: { nome: situacaoNome },
+                            descricao,
+                            data,
+                          } = ele;
+                          return [situacaoNome, descricao, data, {}];
+                        })}
+                      />
+                    </TableContext.Provider>
+                  </div>
+                ) : null}
+              </LargeBox>
+              <AtendimentoForm
+                estado={chamado.alteracoes[chamado.alteracoes.length - 1].situacao.nome}
+              />
+            </>
+          ) : (
+            <Error icon="far fa-dizzy" title="Acesso não é permitido">
+              {'O acesso direto a essa página não é permitido, retorne ao início pelo menu ou '}
+              <Link to="/admin">clicando aqui</Link>
 .
-          </Error>
+            </Error>
+          )
+        ) : (
+          <Loading />
         )}
       </AdminRightDiv>
     );
