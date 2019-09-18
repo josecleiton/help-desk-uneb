@@ -10,6 +10,7 @@ import Deck from '../../../../components/Admin/Deck';
 import AdminGerenciamentoForm from '../../../../components/Admin/Gerenciamento/Form';
 import ErrorAlert from '../../../../components/ErrorAlert';
 import './style.css';
+import Loading from '../../../../components/Loading';
 
 export default class GerenciamentoSetores extends Component {
   constructor(props) {
@@ -137,7 +138,7 @@ export default class GerenciamentoSetores extends Component {
               maxCardsPerPage={8}
             />
           ) : (
-            <div>Loading...</div>
+            <Loading />
           )
         ) : (
           <ErrorAlert>{error}</ErrorAlert>

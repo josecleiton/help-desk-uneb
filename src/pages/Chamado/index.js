@@ -14,6 +14,7 @@ import ErrorAlert from '../../components/ErrorAlert';
 // import HistoricoMovimentacao from '../../components/HistoricoChamado';
 
 import './style.css';
+import Loading from '../../components/Loading';
 
 export default class VisualizarChamado extends Component {
   constructor(props) {
@@ -145,7 +146,7 @@ export default class VisualizarChamado extends Component {
               </LargeBox>
             </>
           ) : (
-            <div>Loading...</div>
+            <Loading />
           )}
         </div>
         <Footer />

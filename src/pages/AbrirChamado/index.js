@@ -9,6 +9,7 @@ import AbrirChamadoForm from '../../components/AbrirChamado/Form';
 import MainHeader from '../../components/Main/Header';
 import Footer from '../../components/Footer';
 import ErrorAlert from '../../components/ErrorAlert';
+import Loading from '../../components/Loading';
 
 export default class AbrirChamado extends Component {
   constructor(props) {
@@ -58,7 +59,7 @@ export default class AbrirChamado extends Component {
           problemas ? (
             <AbrirChamadoForm history={history} setor={setor} problemas={problemas} />
           ) : (
-            <div>Loading...</div>
+            <Loading />
           )
         ) : (
           <ErrorAlert>{error}</ErrorAlert>

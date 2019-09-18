@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import api from '../../../services/api';
 
 import ErrorAlert from '../../ErrorAlert';
+import Loading from '../../Loading';
 
 import './style.css';
 
@@ -65,9 +66,7 @@ class AreaAtendimento extends Component {
       animate, error, loading, setores,
     } = this.state;
     return loading ? (
-      <>
-        <div>Loading...</div>
-      </>
+      <Loading />
     ) : (
       <>
         <div className="setor-chamado" style={{ opacity: animate ? 1 : 0 }}>
