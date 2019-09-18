@@ -54,7 +54,7 @@ class LoginBox extends Component {
     const inputs = document.querySelectorAll('div#login-content input');
     const usuario = inputs[0].value;
     const senha = inputs[1].value;
-    api.post('/api/auth/login.php', { usuario, senha }).then((res) => {
+    api.post('/auth/login.php', { usuario, senha }).then((res) => {
       const { data } = res;
       if (!data.error) {
         localStorage.setItem('HD7-AuthToken', data.token);

@@ -36,7 +36,7 @@ export default class AdminProblema extends Component {
     const jwtToken = localStorage.getItem('HD7-AuthToken');
     api.defaults.headers.common.Authorization = `Bearer ${jwtToken}`;
     api
-      .post('/api/problema/delete.php', { id })
+      .post('/problema/delete.php', { id })
       .then((res) => {
         if (!res.data.error) {
           this.setState({ error: '', success: 'Excluído com sucesso' }, () => {

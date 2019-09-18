@@ -31,7 +31,7 @@ export default class AtendimentoFormPendente extends Component {
       this.setState({ error: 'Verifique o campo "Recursos chegaram"' });
     } else {
       api
-        .post('/api/chamado/update.php', formData)
+        .post('/chamado/update.php', formData)
         .then((res) => {
           // console.log(res);
           if (!res.data.error) {

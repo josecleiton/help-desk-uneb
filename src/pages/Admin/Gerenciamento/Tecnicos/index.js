@@ -30,7 +30,7 @@ export default class GerenciamentoTecnicos extends Component {
     const jwtToken = localStorage.getItem('HD7-AuthToken');
     api.defaults.headers.common.Authorization = `Bearer ${jwtToken}`;
     api
-      .post('/api/tecnico/read.php')
+      .post('/tecnico/read.php')
       .then((res) => {
         // console.log(res.data);
         if (!res.data.error) {
@@ -84,16 +84,16 @@ export default class GerenciamentoTecnicos extends Component {
     let endpoint = '';
     switch (cargo) {
       case 'A':
-        endpoint = '/api/admin/create.php';
+        endpoint = '/admin/create.php';
 
         break;
 
       case 'G':
-        endpoint = '/api/gerente/create.php';
+        endpoint = '/gerente/create.php';
         break;
 
       default:
-        endpoint = '/api/tecnico/create.php';
+        endpoint = '/tecnico/create.php';
         break;
     }
     console.log(endpoint);

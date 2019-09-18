@@ -10,7 +10,7 @@ export default class AtendimentoPrioridade extends Component {
   }
 
   componentDidMount() {
-    api.get('/api/prioridade/read.php').then((res) => {
+    api.get('/prioridade/read.php').then((res) => {
       // console.log(res.data);
       this.setState({ prioridades: res.data });
     });

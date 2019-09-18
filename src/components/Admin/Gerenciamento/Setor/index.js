@@ -37,7 +37,7 @@ export default class GerenciamentoSetorForm extends Component {
       setor: { cod, nome: nomeAntigo },
     } = this.props;
     const formData = { cod, nome_antigo: nomeAntigo };
-    let endpoint = '/api/setor/';
+    let endpoint = '/setor/';
     // console.log('submit', remove);
     if (!remove) {
       endpoint += 'update.php';

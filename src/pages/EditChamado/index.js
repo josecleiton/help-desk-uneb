@@ -61,7 +61,7 @@ export default class EditChamado extends Component {
     } = this.props;
     clearInterval(this.timer);
     // console.log({ id });
-    api.post('/api/chamado/delete.php', { id }).then((res) => {
+    api.post('/chamado/delete.php', { id }).then((res) => {
       const {
         data: { mensagem },
       } = res;

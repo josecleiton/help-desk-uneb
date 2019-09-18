@@ -73,7 +73,7 @@ export default class AtendimentoFormEmAtendimento extends Component {
     // console.log(jwtToken);
     console.log(formData);
     api
-      .post('/api/chamado/update.php', formData)
+      .post('/chamado/update.php', formData)
       .then((res) => {
         console.log(res);
         if (!res.data.error) {

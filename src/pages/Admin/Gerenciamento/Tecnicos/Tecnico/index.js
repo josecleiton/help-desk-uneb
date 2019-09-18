@@ -40,7 +40,7 @@ export default class GerenciamentoTecnico extends Component {
     } else {
       const jwtToken = localStorage.getItem('HD7-AuthToken');
       api.defaults.headers.common.Authorization = `Bearer ${jwtToken}`;
-      api.post('/api/tecnico/read.php', { login }).then((res) => {
+      api.post('/tecnico/read.php', { login }).then((res) => {
         // console.log(res.data);
         if (!res.data.error) {
           this.setState({ tecnico: res.data });

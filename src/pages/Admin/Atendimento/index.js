@@ -43,7 +43,7 @@ export default class Atendimento extends Component {
       },
     } = this.props;
 
-    api.post('/api/chamado/read.php', { id }).then((res) => {
+    api.post('/chamado/read.php', { id }).then((res) => {
       // console.log(res.data);
       if (!res.data.error) {
         this.setState({ chamado: res.data });
@@ -110,7 +110,7 @@ export default class Atendimento extends Component {
                         {` ${chamado.data_utilizacao}`}
                       </p>
                       <p>
-                        <a href={chamado.link} target="_blank">
+                        <a href={chamado.link} target="_blank" rel="noopener noreferrer">
                           <strong>Link</strong>
                         </a>
                       </p>

@@ -34,7 +34,7 @@ export default class ChamadosCPF extends Component {
       },
     } = this.props;
     api
-      .post('/api/usuario/read.php', { cpf })
+      .post('/usuario/read.php', { cpf })
       .then((res) => {
         const { data } = res;
         const { chamados, error } = data;

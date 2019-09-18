@@ -153,7 +153,7 @@ export default class AbrirChamadoForm extends React.Component {
       // }
       // return;
       api
-        .post('/api/chamado/create.php', fd, {
+        .post('/chamado/create.php', fd, {
           onUploadProgress: (progressEvent) => {
             this.setState({
               uploadStatus: `${Math.round((progressEvent.loaded / progressEvent.total) * 100)}%`,

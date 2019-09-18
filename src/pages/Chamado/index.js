@@ -42,7 +42,7 @@ export default class VisualizarChamado extends Component {
       this.setState({ payload });
     } else {
       api
-        .post('/api/chamado/read.php', { id })
+        .post('/chamado/read.php', { id })
         .then((res) => {
           const { data } = res;
           // console.log(data);

@@ -26,7 +26,7 @@ export default class GerenciamentoSetores extends Component {
     const jwtToken = localStorage.getItem('HD7-AuthToken');
     api.defaults.headers.common.Authorization = `Bearer ${jwtToken}`;
     api
-      .post('/api/setor/read.php')
+      .post('/setor/read.php')
       .then((res) => {
         // console.log(res.data);
         if (!res.data.error) {
@@ -63,7 +63,7 @@ export default class GerenciamentoSetores extends Component {
     };
 
     // console.log(formData);
-    api.post('/api/setor/create.php', formData).then((res) => {
+    api.post('/setor/create.php', formData).then((res) => {
       if (!res.data.error) {
         this.setState({ success: 'Setor criado com sucesso' });
         const {

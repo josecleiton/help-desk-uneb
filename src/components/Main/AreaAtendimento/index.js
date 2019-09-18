@@ -23,7 +23,7 @@ class AreaAtendimento extends Component {
     setTimeout(() => {
       this.setState({ animate: true });
     }, 50);
-    api.post('/api/setor/read.php').then((res) => {
+    api.post('/setor/read.php').then((res) => {
       const { data: setores } = res;
       this.setState({ loading: false, setores });
       console.log(setores);

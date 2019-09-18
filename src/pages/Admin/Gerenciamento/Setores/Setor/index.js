@@ -41,7 +41,7 @@ export default class GerenciamentoSetor extends Component {
       this.setState({ setor });
       // console.log(setor);
     } else {
-      api.post('/api/setor/read.php', { nome }).then((res) => {
+      api.post('/setor/read.php', { nome }).then((res) => {
         // console.log(res.data);
         if (!res.data.error) {
           this.setState({ setor: res.data });

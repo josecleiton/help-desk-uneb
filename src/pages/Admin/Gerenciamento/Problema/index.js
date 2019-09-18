@@ -35,10 +35,10 @@ export default class GerenciamentoProblemas extends Component {
       this.setState({ setor: state.setor });
     } else {
       api
-        .post('/api/setor/read.php')
+        .post('/setor/read.php')
         .then((res) => {
-          console.log(res.data);
-          console.log("LOLA");
+          // console.log(res.data);
+          // console.log("LOLA");
           if (!res.data.error) {
             this.setState({ setor: res.data });
           } else {
@@ -60,13 +60,12 @@ export default class GerenciamentoProblemas extends Component {
     }
     const { setor } = this.state;
     api
-      .post('/api/problema/create.php', { descricao, setor: this.admin ? setor.cod : '' })
+      .post('/problema/create.php', { descricao, setor: this.admin ? setor.cod : '' })
       .then((res) => {
         if (!res.data.error) {
           this.setState({ errorForm: '', success: 'Problema criado no setor' }, () => {
             const {
               history,
-              location: { pathname },
             } = this.props;
             setTimeout(() => {
               // history.push({ pathname: '/empty' });
@@ -151,4 +150,5 @@ export default class GerenciamentoProblemas extends Component {
 
 GerenciamentoProblemas.propTypes = {
   location: PropTypes.objectOf(PropTypes.any).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };

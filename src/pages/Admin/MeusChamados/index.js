@@ -55,7 +55,7 @@ export default class AdminMeusChamados extends Component {
     api.defaults.headers.common.Authorization = `Bearer ${jwtToken}`;
     // console.log(api);
     api
-      .post('/api/chamado/read.php', requestBody)
+      .post('/chamado/read.php', requestBody)
       .then((res) => {
         if (!res.data.error) {
           this.setState({ chamados: res.data, loaded: true, error: '' }, () => {

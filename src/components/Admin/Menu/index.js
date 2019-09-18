@@ -21,7 +21,7 @@ export default class AdminMenu extends Component {
 
   componentDidMount() {
     const estados = [{ Todos: 'Todos' }];
-    api.get('/api/situacao/read.php').then((res) => {
+    api.get('/situacao/read.php').then((res) => {
       const { data } = res;
       data.forEach((element) => {
         if (element.nome !== 'Em Aberto') estados.push({ [element.nome]: element.nome });

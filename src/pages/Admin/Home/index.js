@@ -25,7 +25,7 @@ export default class AdminHome extends Component {
     const jwtToken = localStorage.getItem('HD7-AuthToken');
     api.defaults.headers.common.Authorization = `Bearer ${jwtToken}`;
     api
-      .post('/api/chamado/read.php', { tecnico: true, situacao: 'Em Aberto', setor: true })
+      .post('/chamado/read.php', { tecnico: true, situacao: 'Em Aberto', setor: true })
       .then((res) => {
         // console.log(res);
         // this.setState({chamados: res.data});

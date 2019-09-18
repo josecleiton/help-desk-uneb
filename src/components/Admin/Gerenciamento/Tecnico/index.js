@@ -38,7 +38,7 @@ export default class GerenciamentoTecnicoForm extends Component {
       tecnico: { login },
     } = this.props;
     const formData = { login };
-    let endpoint = '/api/tecnico/';
+    let endpoint = '/tecnico/';
     // console.log('submit', remove);
     if (!remove) {
       endpoint += 'update.php';

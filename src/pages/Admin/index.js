@@ -30,7 +30,7 @@ export default class Admin extends Component {
     // console.log(jwtToken);
     const jwtToken = localStorage.getItem('HD7-AuthToken');
     api.defaults.headers.common.Authorization = `Bearer ${jwtToken}`;
-    api.post('/api/auth/info.php').then((res) => {
+    api.post('/auth/info.php').then((res) => {
       const { data } = res;
       // console.log(data);
       if (!data.error) {

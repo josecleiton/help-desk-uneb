@@ -14,7 +14,7 @@ export default class AtendimentoEncaminhar extends Component {
   }
 
   componentDidMount() {
-    api.get('/api/setor/read.php').then((res) => {
+    api.get('/setor/read.php').then((res) => {
       // console.log(res.data);
       if (!res.data.error) {
         this.setState({ setores: res.data });
@@ -34,7 +34,7 @@ export default class AtendimentoEncaminhar extends Component {
       } else {
         formData.setor = selected;
       }
-      api.post('/api/tecnico/read.php', formData).then((res) => {
+      api.post('/tecnico/read.php', formData).then((res) => {
         if (!res.data.error) {
           this.setState({ selected, tecnicos: res.data });
         }
