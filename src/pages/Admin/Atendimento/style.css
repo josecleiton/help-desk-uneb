@@ -10,9 +10,9 @@ div.admin-atendimento {
 }
 
 .admin-atendimento-box-clicked {
-  width: 95%;
+  width: 100%;
+  height: auto;
   margin: 110px auto 50px auto;
-  height: 400px;
   padding: 10px;
 }
 
@@ -40,6 +40,11 @@ div.admin-atendimento {
   width: 90%;
   float: left;
   justify-items: center;
+}
+.admin-atendimento-content {
+  width: auto;
+  background-color: #fff;
+  height: auto;
 }
 .admin-atendimento-content p {
   margin: 10px 0;

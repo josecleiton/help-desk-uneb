@@ -47,10 +47,10 @@ export default class Atendimento extends Component {
         {validAccess ? (
           <AtendimentoContext.Provider value={{ id }}>
             <AdminPageTitle>Atendimento de Chamado</AdminPageTitle>
+            <AtendimentoForm estado="Em aberto" />
             <LargeBox className="admin-atendimento-box-clicked">
               <Content id={id} />
             </LargeBox>
-            <AtendimentoForm estado="Em aberto" />
           </AtendimentoContext.Provider>
         ) : (
           <Error icon="far fa-dizzy" title="Acesso não é permitido">

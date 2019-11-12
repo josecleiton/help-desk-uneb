@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Formik, Field, Form, ErrorMessage,
-} from 'formik';
+import { Formik, Field, Form } from 'formik';
 import propTypes from 'prop-types';
 import Button from '../../../Button';
 import api from '../../../../services/api';
@@ -29,15 +27,26 @@ export default class AdminGerenciamentoForm extends Component {
 
   render() {
     const {
-      buttonChildren, inputForm, handleClick, selectForm, ButtonText, url,
+      buttonChildren,
+      inputForm,
+      handleClick,
+      selectForm,
+      valueURl,
+      widthButton,
+      ButtonText,
+      url,
     } = this.props;
     const { novaArea } = this.state;
 
     return (
       <Formik
+        initialValues={{
+          id_chamado: valueURl,
+        }}
         onSubmit={(fields) => {
+          console.log(fields);
           api
-            .post(`/api/${url}`, fields)
+            .post(`/api/${url}`, fields, {})
             .then((res) => {
               handleClick(res.data);
               // this.setState({ chamado: res.data });
@@ -52,6 +61,7 @@ export default class AdminGerenciamentoForm extends Component {
             <button type="button" onClick={this.handleNovaArea}>
               {buttonChildren[novaArea]}
             </button>
+
             {novaArea ? (
               <Form>
                 {inputForm
@@ -59,6 +69,7 @@ export default class AdminGerenciamentoForm extends Component {
                     <div>
                       <strong>{inputs.label}</strong>
                       <Field
+                        required
                         key={inputs.id}
                         type={inputs.tipo}
                         name={inputs.nome}
@@ -77,23 +88,11 @@ export default class AdminGerenciamentoForm extends Component {
                           <option value={options.value}>{options.nome}</option>
                         ))}
                       </Field>
-                      <ErrorMessage
-                        name="options"
-                        component="small"
-                        style={{
-                          display: 'flex',
-                          alignContent: 'center',
-                          justifyContent: 'center',
-                          width: '100%',
-                          backgroundColor: 'red',
-                          color: 'white',
-                        }}
-                      />
                     </div>
                   ))
                   : null}
-                <div>
-                  <Button type="submit" background="blue" width="100%">
+                <div style={{ display: 'flex' }}>
+                  <Button type="submit" background="blue" width={widthButton}>
                     <i className="fas fa-file-alt" />
                     {ButtonText}
                   </Button>
@@ -106,7 +105,10 @@ export default class AdminGerenciamentoForm extends Component {
     );
   }
 }
-
+AdminGerenciamentoForm.defaultProps = {
+  widthButton: '100%',
+  valueURl: null,
+};
 AdminGerenciamentoForm.propTypes = {
   handleClick: propTypes.func.isRequired,
   url: propTypes.string.isRequired,

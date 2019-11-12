@@ -10,7 +10,7 @@ export default class AdminHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chamado: null,
+      chamado: [],
       result: null,
     };
   }
@@ -32,6 +32,7 @@ export default class AdminHome extends Component {
     const { chamado } = this.state;
 
     if (called) {
+      alert('Chamado atribuído com sucesso !');
       this.setState({ result: null });
       this.setState({ result: called });
     } else {
@@ -41,7 +42,9 @@ export default class AdminHome extends Component {
   };
 
   render() {
-    const { result } = this.state;
+    const { result, chamado } = this.state;
+    const OpenedCalled = chamado.filter(called => called.tecnico.length === 0);
+    console.log(chamado);
 
     return (
       <AdminRightDiv>
@@ -49,70 +52,51 @@ export default class AdminHome extends Component {
         <TableContext.Provider value={{ goToUrl: '/admin/atendimento', rowsPrimaryKey: 0 }}>
           <AdminGerenciamentoForm
             handleClick={called => this.searchCalled(called)}
-            url="ChamadoPersonalizado"
-            ButtonText="Buscar"
+            url="atenderChamado"
+            ButtonText="Atender Chamado"
             buttonChildren={[
               <>
-                Buscar chamado
+                Atender Chamado Aberto
                 {' '}
                 <i className="fas fa-plus" />
               </>,
               <>
-                Preencha a busca
+                Preencha os campos
                 {' '}
                 <i className="fas fa-arrow-down" />
               </>,
             ]}
-            /* selectForm={[
-              {
-                label: 'Buscar por:',
-                id: 'setor',
-                nome: 'select',
-                option: [
-                  {
-                    nome: '',
-                    value: '',
-                  },
-                  {
-                    nome: 'Área',
-                    value: 'area',
-                  },
-                  {
-                    nome: 'Situação',
-                    value: 'situacao',
-                  },
-                  {
-                    nome: 'problema',
-                    value: 'problema',
-                  },
-                  {
-                    nome: 'Qtd de dias',
-                    value: 'qtd_de_dia',
-                  },
-                  {
-                    nome: 'data de abertura',
-                    value: 'data_abertura',
-                  },
-                  {
-                    nome: 'Solicitante',
-                    value: 'solicitante',
-                  },
-                ],
-              },
-            ]} */
             inputForm={[
               {
-                label: 'Número do Chamado',
-                id: 'chamado',
-                nome: 'id',
+                label: 'Login',
+                id: 'login',
+                nome: 'login',
                 tipo: 'text',
-                placeholder: 'Informe o dado do chamado',
+                placeholder: 'Informe seu login',
+              },
+              {
+                label: 'Senha',
+                id: 'senha',
+                nome: 'senha',
+                tipo: 'password',
+                placeholder: 'Informe sua senha',
+              },
+            ]}
+            selectForm={[
+              {
+                label: 'Atender Chamado:',
+                id: 'id_chamado',
+                nome: 'id_chamado',
+                option: OpenedCalled.map(called => ({
+                  nome: `CHAMADO: ${called.id} - PROBLEMA: ${called.descricao}`,
+                  value: called.id,
+                })),
               },
             ]}
           />
           {result && (
             <Table
-              title="Chamados"
+              title="Chamados Abertos"
               margin="1.5% auto"
               columnSortKey={5}
               dateFields={[6]}
@@ -126,7 +110,7 @@ export default class AdminHome extends Component {
                 'Solicitante',
               ]}
               maxRowsPerPage={10}
-              rows={result.map(value => [
+              rows={OpenedCalled.map(value => [
                 value.id,
                 value.setor.map(nomeSetor => nomeSetor.nome),
                 value.situacao,

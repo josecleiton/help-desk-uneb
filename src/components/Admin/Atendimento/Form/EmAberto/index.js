@@ -6,7 +6,9 @@ import TextArea from '../../../../TextArea';
 import AtendimentoTombamento from '../Tombamento';
 import AtendimentoEncaminhar from '../Encaminhar';
 import ErrorAlert from '../../../../ErrorAlert';
+import api from '../../../../../services/api';
 
+import AdminGerenciamentoForm from '../../../Gerenciamento/Form';
 /*
   CLASS NÃO FINALIZADA PORQUE FALTA BACKEND,
   TRATAR: FAZER LOCK NO CHAMADO ASSIM QUE ALGUÉM CLICAR NELE NA TABELA DE
@@ -20,50 +22,36 @@ export default class AtendimentoFormEmAberto extends Component {
       tombamento: false,
       encaminhar: false,
       error: '',
+      setor: [],
     };
   }
 
-  handleSubmit = (el) => {
-    const { tombamento, encaminhar } = this.state;
-    const formData = {};
-    el.preventDefault();
-    if (!encaminhar) {
-      const textAreaEl = document.querySelector('div.admin-chamado-textarea textarea');
-      const priorityEl = document.querySelector('select.admin-chamado');
-      const priorityVal = priorityEl.options[priorityEl.selectedIndex].value;
-      if (!priorityVal) {
-        this.setState({ error: 'Você deve selecionar uma prioridade para este chamado!' });
-        return;
-      }
-      formData.info = textAreaEl.value;
-      formData.priority = priorityVal;
-      if (tombamento) {
-        const textAreaTombamento = document.querySelector('div.atendimento-tombamento textarea')
-          .value;
-        formData.tombamento = textAreaTombamento;
-      }
+  componentDidMount() {
+    api
+      .get('api/setor/read')
+      .then((res) => {
+        // console.log(res.data);
+        this.setState({ setor: res.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  searchCalled = (called) => {
+    console.log(called);
+    const { chamado } = this.state;
+
+    if (called) {
+      setTimeout(alert('Operação realizada com sucesso'), 2000);
+      window.location.reload();
     } else {
-      const encaminharSetorEl = document.querySelector('select.admin-chamado');
-      const encaminhaSetorVal = encaminharSetorEl.options[encaminharSetorEl.selectedIndex].value;
-      if (!encaminhaSetorVal) {
-        this.setState({ error: 'Você deve selecionar um setor para encaminhar este chamado!' });
-        return;
-      }
-      formData.encaminhar = encaminhaSetorVal;
+      setTimeout(alert('Falha na operação'), 2000);
     }
-    console.log('Dados do formulário: ', formData);
-  };
-
-  handleTombamento = (checked) => {
-    this.setState({ tombamento: checked });
-  };
-
-  handleEncaminhar = (checked) => {
-    this.setState({ encaminhar: checked });
   };
 
   render() {
-    const { encaminhar, error } = this.state;
+    const { setor } = this.state;
     return (
       <AtendimentoContext.Consumer>
         {(state) => {
@@ -74,54 +62,135 @@ export default class AtendimentoFormEmAberto extends Component {
 Atendimento #
                 {chamadoId}
               </h1>
-              <form onSubmit={this.handleSubmit} className="admin-chamado">
-                {!encaminhar && (
-                  <div className="admin-chamado-textarea">
-                    <TextArea
-                      placeholder={`Informações adicionais sobre o chamado #${chamadoId}`}
-                      style={{ width: '100%', marginBottom: '10px' }}
-                    />
-                  </div>
-                )}
-                <AtendimentoOption
-                  name="encaminhar"
-                  title="Encaminhar"
-                  handle={this.handleEncaminhar}
-                />
-
-                {!encaminhar ? (
+              <AdminGerenciamentoForm
+                handleClick={called => this.searchCalled(called)}
+                url="encaminharChamado"
+                widthButton="20%"
+                valueURl={chamadoId}
+                ButtonText="alterar"
+                buttonChildren={[
                   <>
-                    <AtendimentoOption
-                      name="tombamento"
-                      title="Tombamento de Patrimônio"
-                      handle={this.handleTombamento}
-                    >
-                      <AtendimentoTombamento />
-                    </AtendimentoOption>
-                    <div className="admin-chamado-input">
-                      <strong>Prioridade</strong>
-                      <select name="priority" className="admin-chamado">
-                        <option value="">-------</option>
-                        <option value="baixa">Baixa</option>
-                        <option value="media">Média</option>
-                        <option value="alta">Alta</option>
-                        <option value="urgente">Urgente</option>
-                      </select>
-                      <button type="submit" className="admin-chamado">
-                        Atender
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <div className="admin-chamado-input">
-                    <AtendimentoEncaminhar />
-                    <button type="submit" className="admin-chamado">
-                      Encaminhar
-                    </button>
-                  </div>
-                )}
-              </form>
-              {error && <ErrorAlert className="error-atendimento-form">{error}</ErrorAlert>}
+                    Encaminhar chamado?
+                    {' '}
+                    <i className="fas fa-plus" />
+                  </>,
+                  <>
+                    Preencha os campos
+                    {' '}
+                    <i className="fas fa-arrow-down" />
+                  </>,
+                ]}
+                selectForm={[
+                  {
+                    label: 'TRANSFERIR PARA: ',
+                    id: 'transferir',
+                    nome: 'setor',
+                    option: setor.map(called => ({
+                      nome: called.nome,
+                    })),
+                  },
+                ]}
+              />
+              <AdminGerenciamentoForm
+                handleClick={called => this.searchCalled(called)}
+                url="definirTombo"
+                widthButton="20%"
+                valueURl={chamadoId}
+                ButtonText="Salvar"
+                buttonChildren={[
+                  <>
+                    Tombamento de Patrimônio
+                    {' '}
+                    <i className="fas fa-plus" />
+                  </>,
+                  <>
+                    Preencha os campos
+                    {' '}
+                    <i className="fas fa-arrow-down" />
+                  </>,
+                ]}
+                inputForm={[
+                  {
+                    label: 'TOMBO DO EQUIPAMENTO',
+                    id: 'tombo',
+                    nome: 'tombo',
+                    tipo: 'number',
+                    placeholder: 'Informe Número do tombo do equipamento',
+                  },
+                ]}
+              />
+              <AdminGerenciamentoForm
+                handleClick={called => this.searchCalled(called)}
+                url="alterarSituacao"
+                widthButton="20%"
+                valueURl={chamadoId}
+                ButtonText="Salvar"
+                buttonChildren={[
+                  <>
+                    Prioridade do chamado
+                    {' '}
+                    <i className="fas fa-plus" />
+                  </>,
+                  <>
+                    Preencha os campos
+                    {' '}
+                    <i className="fas fa-arrow-down" />
+                  </>,
+                ]}
+                selectForm={[
+                  {
+                    label: 'PRIORIDADE: ',
+                    id: 'prioridade',
+                    nome: 'prioridade',
+                    option: [
+                      {
+                        nome: '',
+                        value: '',
+                      },
+                      {
+                        nome: 'alta',
+                        value: 3,
+                      },
+                      {
+                        nome: 'baixa',
+                        value: 1,
+                      },
+                      {
+                        nome: 'media',
+                        value: 2,
+                      },
+                    ],
+                  },
+                ]}
+              />
+              <AdminGerenciamentoForm
+                handleClick={called => this.searchCalled(called)}
+                url="informacaoChamado"
+                widthButton="20%"
+                valueURl={chamadoId}
+                ButtonText="Salvar"
+                buttonChildren={[
+                  <>
+                    Informações adicionais
+                    {' '}
+                    <i className="fas fa-plus" />
+                  </>,
+                  <>
+                    Preencha os campos
+                    {' '}
+                    <i className="fas fa-arrow-down" />
+                  </>,
+                ]}
+                inputForm={[
+                  {
+                    label: 'Informações adicionais',
+                    id: 'alteracoes',
+                    nome: 'alteracoes',
+                    tipo: 'text',
+                    placeholder: 'Informações adicionais do chamado',
+                  },
+                ]}
+              />
             </div>
           );
         }}
