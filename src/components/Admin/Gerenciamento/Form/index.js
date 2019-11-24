@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import propTypes from 'prop-types';
-import AdminForm from '../../Form';
-import Input from '../../../Input';
-import './style.css';
+import React, { Component } from "react";
+import propTypes from "prop-types";
+import AdminForm from "../../Form";
+import Input from "../../../Input";
+import "./style.css";
 
 const inputStyle = {
-  padding: '5px',
-  border: '1px solid rgba(0,0,0,0.3)',
-  display: 'block',
-  margin: '10px auto',
-  width: '95%',
+  padding: "5px",
+  border: "1px solid rgba(0,0,0,0.3)",
+  display: "block",
+  margin: "10px auto",
+  width: "95%"
 };
 export default class AdminGerenciamentoForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      novaArea: 0,
+      novaArea: 0
     };
   }
 
@@ -26,7 +26,11 @@ export default class AdminGerenciamentoForm extends Component {
 
   render() {
     const {
-      buttonChildren, handleSubmit, inputForm, selectForm, children,
+      buttonChildren,
+      handleSubmit,
+      inputForm,
+      selectForm,
+      children
     } = this.props;
     const { novaArea } = this.state;
     return (
@@ -39,31 +43,32 @@ export default class AdminGerenciamentoForm extends Component {
           <AdminForm handleSubmit={handleSubmit}>
             {inputForm
               ? inputForm.map(
-                inputs => inputs.tipo !== 'hidden' && (
-                <div>
-                  <strong>{inputs.label}</strong>
-                  <Input
-                    key={inputs.id}
-                    type={inputs.tipo}
-                    placeholder={inputs.placeholder}
-                    style={inputStyle}
-                    required={inputs.required}
-                  />
-                </div>
-                ),
-              )
+                  inputs =>
+                    inputs.tipo !== "hidden" && (
+                      <div>
+                        <strong>{inputs.label}</strong>
+                        <Input
+                          key={inputs.id}
+                          type={inputs.tipo}
+                          placeholder={inputs.placeholder}
+                          style={inputStyle}
+                          required={inputs.required}
+                        />
+                      </div>
+                    )
+                )
               : null}
             {selectForm
               ? selectForm.map(select => (
-                <div>
-                  <strong>{select.label}</strong>
-                  <select key={select.id}>
-                    {select.option.map(options => (
-                      <option value={options.value}>{options.nome}</option>
-                    ))}
-                  </select>
-                </div>
-              ))
+                  <div>
+                    <strong>{select.label}</strong>
+                    <select key={select.id}>
+                      {select.option.map(options => (
+                        <option value={options.value}>{options.nome}</option>
+                      ))}
+                    </select>
+                  </div>
+                ))
               : null}
             {children}
 
@@ -81,5 +86,5 @@ AdminGerenciamentoForm.propTypes = {
   handleSubmit: propTypes.func.isRequired,
   buttonChildren: propTypes.arrayOf(propTypes.any).isRequired,
   inputForm: propTypes.arrayOf(propTypes.any).isRequired,
-  selectForm: propTypes.arrayOf(propTypes.any).isRequired,
+  selectForm: propTypes.arrayOf(propTypes.any).isRequired
 };
